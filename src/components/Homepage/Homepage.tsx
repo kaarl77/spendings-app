@@ -6,6 +6,7 @@ import {TimePeriod, TimePeriodSelector} from "../../common-components/TimePeriod
 import {TotalSpent} from "../../common-components/TotalSpent/TotalSpent";
 import {useEffect, useState} from "react";
 import {Spacer} from "../../vanguard/Spacer";
+import {ReportSummary} from "../ReportSummary/ReportSummary";
 
 
 
@@ -23,24 +24,7 @@ export function Homepage() {
 
     return (
         <Screen>
-            {/*
-            Buttons for Week or Month selection
-            */}
-            <Spacer height={16}/>
-            <TimePeriodSelector
-                timePeriod={timePeriod}
-                onTimePeriodChange={onPeriodChange}
-                />
-
-            {/*
-            Total money spent
-            */}
-
-            <Spacer height={24}/>
-            <TotalSpent
-                timePeriod={timePeriod}
-                totalSpent={totalSpent}
-            />
+            <ReportSummary timePeriod={timePeriod} onPeriodChange={()=> {{onPeriodChange(timePeriod)}}} totalSpent={totalSpent}/>
         </Screen>
     )
 }
