@@ -1,5 +1,5 @@
 import {View} from "react-native";
-import {FontSize, Text} from "../../vanguard/Text";
+import {FontSize, Text} from "../../vanguard/Text/Text";
 import {TimePeriod} from "../TimePeriod/TimePeriodSelector";
 
 interface Props {

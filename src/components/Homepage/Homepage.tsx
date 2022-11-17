@@ -1,11 +1,12 @@
 import {Screen} from "../../common-components/Screen/Screen";
-import {FontSize, Text} from "../../vanguard/Text";
-import {Button, ButtonType} from "../../vanguard/Button";
+import {FontSize, Text} from "../../vanguard/Text/Text";
+import {Button, ButtonType} from "../../vanguard/Button/Button";
 import {SafeAreaView, StyleSheet, View} from "react-native";
 import {TimePeriod, TimePeriodSelector} from "../../common-components/TimePeriod/TimePeriodSelector";
 import {TotalSpent} from "../../common-components/TotalSpent/TotalSpent";
 import {useEffect, useState} from "react";
-import {Spacer} from "../../vanguard/Spacer";
+import {Spacer} from "../../vanguard/Spacer/Spacer";
+import {ReportSummary} from "../ReportSummary/ReportSummary";
 
 
 
@@ -23,22 +24,9 @@ export function Homepage() {
 
     return (
         <Screen>
-            {/*
-            Buttons for Week or Month selection
-            */}
-            <Spacer height={16}/>
-            <TimePeriodSelector
+            <ReportSummary
                 timePeriod={timePeriod}
-                onTimePeriodChange={onPeriodChange}
-                />
-
-            {/*
-            Total money spent
-            */}
-
-            <Spacer height={24}/>
-            <TotalSpent
-                timePeriod={timePeriod}
+                onPeriodChange={onPeriodChange}
                 totalSpent={totalSpent}
             />
         </Screen>

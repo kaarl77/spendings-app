@@ -1,5 +1,5 @@
 import {StyleSheet, View} from "react-native";
-import {Button, ButtonType} from "../../vanguard/Button";
+import {Button, ButtonType} from "../../vanguard/Button/Button";
 
 // export type TimePeriodSelector = {
 //
@@ -45,9 +45,7 @@ export function TimePeriodSelector(props: Props) {
 
 const styles = StyleSheet.create({
     TimeButtons: {
-        //flex: 1,
         flexDirection: 'row',
-        //alignItems: 'flex-start',
         justifyContent: 'center'
     }
 })
