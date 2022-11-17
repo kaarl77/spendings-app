@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
         //backgroundColor: "violet",
     },
     content: {
-        flex: 1,
         paddingHorizontal: 24,
         //backgroundColor: 'violet'
     }

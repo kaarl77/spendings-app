@@ -7,10 +7,10 @@ interface Props {
     totalSpent: number
 }
 
-export function TotalSpent(props:Props) {
+export function TotalSpent(props: Props) {
     const {timePeriod, totalSpent} = props;
 
-    return(
+    return (
         <View>
             <Text fontSize={FontSize.large}>{totalSpent}</Text>
             <Text>Total spent this {getTimePeriodToString(timePeriod)}</Text>
@@ -18,7 +18,7 @@ export function TotalSpent(props:Props) {
     )
 }
 
-function getTimePeriodToString(timePeriod: TimePeriod):String {
-    return timePeriod===TimePeriod.week ? "week" : "month";
+function getTimePeriodToString(timePeriod: TimePeriod): String {
+    return timePeriod === TimePeriod.week ? "week" : "month";
 }
 

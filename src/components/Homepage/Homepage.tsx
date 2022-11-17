@@ -63,9 +63,9 @@ export function Homepage() {
 
     const categories: Category[] = [
         {
-            id: 3,
-            name: "useless stuff",
-            icon: "icon",
+            id: 0,
+            name: "rent/subscriptions",
+            icon: "rent",
         },
         {
             id: 1,
@@ -78,11 +78,12 @@ export function Homepage() {
             icon: "transport",
         },
         {
-            id: 0,
-            name: "rent/subscriptions",
-            icon: "rent",
+            id: 3,
+            name: "useless stuff",
+            icon: "icon",
         },
-    ]
+    ];
+    const nrOfCategories = categories.length;
     const onPeriodChange = (timePeriod: TimePeriod) => {
         setTimePeriod(timePeriod);
     }
@@ -97,6 +98,9 @@ export function Homepage() {
                 timePeriod={timePeriod}
                 onPeriodChange={onPeriodChange}
                 transactions={transactions}
+                styleProp={styles.reportSummary}
+                nrOfCategories={nrOfCategories}
+                categories={categories}
             />
         </Screen>
     )
@@ -104,7 +108,6 @@ export function Homepage() {
 
 const styles = StyleSheet.create({
     reportSummary: {
-        flex: 1,
         backgroundColor: "#EEEEEE",
     },
 })

@@ -7,53 +7,49 @@ import {useEffect, useState} from "react";
 import {Text} from "../../vanguard/Text/Text";
 import {DateToString, StringToDate} from "../../utils/date-utils";
 import {Transactions} from "../Transactions/Transactions";
+import {Homepage} from "../Homepage/Homepage";
+import {View, ViewStyle} from "react-native";
+import {Category} from "../../custom-types/Category";
+
 
 interface Props {
     timePeriod: TimePeriod;
     onPeriodChange: (newPeriodTime: TimePeriod) => void;
     transactions: Transaction[];
+    styleProp?: ViewStyle;
+    nrOfCategories: number;
+    categories: Category[];
 }
 
 export function ReportSummary(props: Props) {
-    const {timePeriod, onPeriodChange, transactions} = props;
+    const {timePeriod, onPeriodChange, transactions, styleProp,nrOfCategories, categories} = props;
 
-    const emptyTransaction:Transaction[] = [];
+    const style = {
+        ...styleProp,
+    }
 
-
-    const [filteredTransactions, setFilteredTransactions] = useState(emptyTransaction)
-    const copyOfTransactions: Transaction[] = transactions;
+    const [filteredTransactions, setFilteredTransactions] = useState(transactions)
     const [totalSpent, setTotalSpent] = useState(0);
 
     const totalOnPeriodChange = (resetValue: number) => {
         setTotalSpent(resetValue);
     }
-
     useEffect(() => {
-            totalOnPeriodChange(0);
-            setFilteredTransactions(copyOfTransactions);
-            const currentDate = new Date();
-            const filterByTimePeriod = (transaction: Transaction) => {
-                if (timePeriod === TimePeriod.week) {
-                    const timeDifference = currentDate.getTime() - StringToDate(transaction.date).getTime();
-                    return ((timeDifference / (1000 * 60 * 60 * 24)) <= 7)
-                } else {
-                    return ((currentDate.getMonth() === StringToDate(transaction.date).getMonth()));
-                }
+        totalOnPeriodChange(0);
+        const currentDate = new Date();
+        const filterByTimePeriod = (transaction: Transaction) => {
+            if (timePeriod === TimePeriod.week) {
+                const timeDifference = currentDate.getTime() - StringToDate(transaction.date).getTime();
+                return ((timeDifference / (1000 * 60 * 60 * 24)) <= 7)
+            } else {
+                return ((currentDate.getMonth() === StringToDate(transaction.date).getMonth()));
             }
-
-            //const filteredTransactions:Transaction[]= transactions.filter(filterByTimePeriod);
-            setFilteredTransactions(transactions.filter(filterByTimePeriod));
-
-
-            let x = 0;
-             for (let i = 0; i < filteredTransactions.length; i++) {
-                 x += filteredTransactions[i].value;
-             }
-
-            totalOnPeriodChange(Number.parseFloat(Number.parseFloat(x.toString()).toFixed(2)));
         }
-        , [timePeriod])
-    return <>
+        setFilteredTransactions(transactions.filter(filterByTimePeriod));
+
+    }, [timePeriod])
+
+    return <View style={style}>
         <Spacer height={16}/>
         <TimePeriodSelector
             timePeriod={timePeriod}
@@ -72,6 +68,8 @@ export function ReportSummary(props: Props) {
             transactions={filteredTransactions}
             totalSpent={totalSpent}
             totalOnPeriodChange={totalOnPeriodChange}
+            nrOfCategories={nrOfCategories}
+            categories={categories}
         />
-    </>
+    </View>
 }
