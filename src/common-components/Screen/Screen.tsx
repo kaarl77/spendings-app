@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         paddingHorizontal: 24,
-        backgroundColor: 'violet'
+        //backgroundColor: 'violet'
     }
 })

@@ -1,20 +1,89 @@
 import {Screen} from "../../common-components/Screen/Screen";
-import {FontSize, Text} from "../../vanguard/Text/Text";
-import {Button, ButtonType} from "../../vanguard/Button/Button";
-import {SafeAreaView, StyleSheet, View} from "react-native";
-import {TimePeriod, TimePeriodSelector} from "../../common-components/TimePeriod/TimePeriodSelector";
-import {TotalSpent} from "../../common-components/TotalSpent/TotalSpent";
-import {useEffect, useState} from "react";
-import {Spacer} from "../../vanguard/Spacer/Spacer";
+import {TimePeriod} from "../../common-components/TimePeriod/TimePeriodSelector";
+import {useState} from "react";
 import {ReportSummary} from "../ReportSummary/ReportSummary";
-
-
+import {Transaction} from "../../custom-types/Transaction";
+import {Category} from "../../custom-types/Category";
+import {StyleSheet} from "react-native";
 
 export function Homepage() {
     const [timePeriod, setTimePeriod] = useState(TimePeriod.week);
-    const [totalSpent, setTotalSpent] = useState(0);
 
-    const onPeriodChange = (timePeriod:TimePeriod) =>{
+    const transactions: Transaction[] = [
+        {
+            id: 0,
+            value: 125.15,
+            date: "17-11-2022",
+            categoryId: 3,
+            note: "Bought Gucci from piata",
+        },
+        {
+            id: 1,
+            value: 30.20,
+            date: "16-11-2022",
+            categoryId: 1,
+            note: "Ate pasta at the mall",
+        },
+        {
+            id: 2,
+            value: 599.99,
+            date: "17-11-2022",
+            categoryId: 3,
+            note: "bought wide camera lens for mom",
+        },
+        {
+            id: 3,
+            value: 1722.5,
+            date: "01-11-2022",
+            categoryId: 0,
+            note: "Paid rent",
+        },
+        {
+            id: 4,
+            value: 10.78,
+            date: "14-11-2022",
+            categoryId: 2,
+            note: "Uber to uni",
+        },
+        {
+            id: 5,
+            value: 159.9,
+            date: "01-10-2022",
+            categoryId: 0,
+            note: "gym membership",
+        },
+        {
+            id: 6,
+            value: 170.0,
+            date: "24-10-2022",
+            categoryId: 0,
+            note: "Paid utilities",
+        },
+    ];
+
+    const categories: Category[] = [
+        {
+            id: 3,
+            name: "useless stuff",
+            icon: "icon",
+        },
+        {
+            id: 1,
+            name: "restaurant",
+            icon: "restaurant",
+        },
+        {
+            id: 2,
+            name: "transport",
+            icon: "transport",
+        },
+        {
+            id: 0,
+            name: "rent/subscriptions",
+            icon: "rent",
+        },
+    ]
+    const onPeriodChange = (timePeriod: TimePeriod) => {
         setTimePeriod(timePeriod);
     }
 
@@ -27,10 +96,16 @@ export function Homepage() {
             <ReportSummary
                 timePeriod={timePeriod}
                 onPeriodChange={onPeriodChange}
-                totalSpent={totalSpent}
+                transactions={transactions}
             />
         </Screen>
     )
 }
 
+const styles = StyleSheet.create({
+    reportSummary: {
+        flex: 1,
+        backgroundColor: "#EEEEEE",
+    },
+})
 
