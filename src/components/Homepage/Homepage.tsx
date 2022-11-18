@@ -5,8 +5,13 @@ import {ReportSummary} from "../ReportSummary/ReportSummary";
 import {Transaction} from "../../custom-types/Transaction";
 import {Category} from "../../custom-types/Category";
 import {StyleSheet} from "react-native";
+import {Text} from "../../vanguard/Text/Text";
+import {Spacer} from "../../vanguard/Spacer/Spacer";
+import {HeadingText} from "../../common-components/HeadingText/HeadingText";
+import {TransactionList} from "../../common-components/TransactionList/TransactionList";
+import {useNavigation} from "@react-navigation/native";
 
-export function Homepage() {
+export function Homepage({navigation}) {
     const [timePeriod, setTimePeriod] = useState(TimePeriod.week);
 
     const transactions: Transaction[] = [
@@ -94,21 +99,24 @@ export function Homepage() {
 
     return (
         <Screen>
+            <Text bold={true}>Reports summary</Text>
+            <Spacer height={8}/>
+
             <ReportSummary
                 timePeriod={timePeriod}
                 onPeriodChange={onPeriodChange}
                 transactions={transactions}
-                styleProp={styles.reportSummary}
-                nrOfCategories={nrOfCategories}
                 categories={categories}
             />
+            <Spacer height={32}/>
+
+            <HeadingText
+                text={"Recent transactions"}
+                onPress={() => navigation.navigate("Transactions")}
+            />
+
+
         </Screen>
     )
 }
-
-const styles = StyleSheet.create({
-    reportSummary: {
-        backgroundColor: "#EEEEEE",
-    },
-})
 

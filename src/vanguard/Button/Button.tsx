@@ -12,12 +12,18 @@ interface Props {
     title: string;
     onPress?: () => void;
     buttonType?: ButtonType,
+    styleProp?: ViewStyle,
 }
 
 export function Button(props: Props) {
-    const {title, onPress, buttonType = ButtonType.Default} = props;
+    const {title, onPress, buttonType = ButtonType.Default, styleProp} = props;
 
     const primaryColor = "blue";
+
+    const style = {
+        ...styles.container,
+        ...styleProp,
+    }
 
     // const buttonStyles:Record<ButtonType, ViewStyle>={
     //     ButtonTypePrimary: {
@@ -47,20 +53,17 @@ export function Button(props: Props) {
         },
     }
 
-    const primaryProps = buttonProps[ButtonType.Primary];
-
     return <ButtonBase
         onPress={onPress}
         {...buttonProps[buttonType]}
-        style={styles.container}
+        style={style}
     >{title}
     </ButtonBase>
 }
 
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 5,
-        marginHorizontal:10,
-        width:180,
+        borderRadius: 4,
+
     },
 })

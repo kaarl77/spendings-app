@@ -6,8 +6,19 @@
  *
  * using moment lib
  */
+import moment, {Moment} from "moment";
 
-export function DateToString(date: Date) {
+const DATE_FORMAT: string = "DD-MM-YYYY";
+
+export function StringToDate(string: string, dateFormat: string = DATE_FORMAT){
+    return moment(string, dateFormat);
+}
+
+export function DateToString(date: Moment, dateFormat: string = DATE_FORMAT){
+    return date.format(dateFormat);
+}
+
+function DateToString_deprecated(date: Date) {
     let day: string, month: string;
 
     if (date.getDate() <= 9) {
@@ -25,6 +36,6 @@ export function DateToString(date: Date) {
     return `${day}-${month}-${date.getFullYear()}`
 }
 
-export function StringToDate(text: string) {
+function StringToDate_deprecated(text: string) {
     return (new Date(parseInt(text[6]+text[7]+text[8]+text[9]), parseInt(text[3]+text[4])-1, parseInt(text[0]+text[1])));
 }
