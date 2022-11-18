@@ -10,9 +10,12 @@ import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {HeadingText} from "../../common-components/HeadingText/HeadingText";
 import {TransactionList} from "../../common-components/TransactionList/TransactionList";
 import {useNavigation} from "@react-navigation/native";
+import {ProfileScreenNavigationProp, TabStackParamList} from "../../navigation/NavigationTypes";
 
 export function Homepage({navigation}) {
     const [timePeriod, setTimePeriod] = useState(TimePeriod.week);
+
+    //const navigation = useNavigation();
 
     const transactions: Transaction[] = [
         {
@@ -112,10 +115,8 @@ export function Homepage({navigation}) {
 
             <HeadingText
                 text={"Recent transactions"}
-                onPress={() => navigation.navigate("Transactions")}
+                onPress={() => {navigation.navigate("Transactions")}}
             />
-
-
         </Screen>
     )
 }
