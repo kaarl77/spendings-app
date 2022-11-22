@@ -6,4 +6,4 @@ export type TabStackParamList = {
     AddEditTransaction: undefined;
 };
 
-export type ProfileScreenNavigationProp = NativeStackNavigationProp<TabStackParamList, 'Homepage'>;
+export type TabScreensNavigationProp<Screen extends keyof TabStackParamList> = NativeStackNavigationProp<TabStackParamList, Screen>;
