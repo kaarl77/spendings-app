@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         flexDirection: "row",
         padding: 8,
+        alignItems: "center",
     },
     logoPlaceholder: {
         width: 40,

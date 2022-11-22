@@ -3,9 +3,9 @@ import {Text} from "../../vanguard/Text/Text";
 import {Transaction} from "../../custom-types/Transaction";
 import {RecentTransaction} from "../RecentTransaction/RecentTransaction";
 import React from "react";
-import {RecentTransactions} from "../../components/RecentTransactions/RecentTransactions";
 import {Category} from "../../custom-types/Category";
 import {StringToDate} from "../../utils/date-utils";
+import {Spacer} from "../../vanguard/Spacer/Spacer";
 
 interface Props {
     styleProp?: ViewStyle;
@@ -24,12 +24,13 @@ export function RecentTransactionList(props: Props) {
     return (
         <View style={style}>
             {
-                transactions.map((transaction) => {
+                transactions.map((transaction, index) => {
                     return <React.Fragment key = {transaction.id}>
                         <RecentTransaction
                             date={StringToDate(transaction.date).format('dddd, D MMMM YYYY')}
                             value={transaction.value}
                             categoryName={ categories[transaction.categoryId].name }/>
+                        {index !== transactions.length - 1 && <Spacer height={16}/>}
                     </React.Fragment>
                 })
             }

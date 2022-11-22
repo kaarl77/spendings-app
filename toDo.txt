@@ -1,1 +1,1 @@
-component for transaction(trebuie sa arate cateva date: category_name, value, %of filtered transactions)
+1. create empty state component ( a view w/ a text: "No transactions" )

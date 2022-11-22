@@ -1,9 +1,6 @@
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
-
-export type TabStackParamList = {
-    Homepage: undefined;
-    Transactions: undefined;
-    AddEditTransaction: undefined;
-};
+import {TabStackParamList} from "./TabNavigator";
+import {RouteProp} from "@react-navigation/native";
 
 export type TabScreensNavigationProp<Screen extends keyof TabStackParamList> = NativeStackNavigationProp<TabStackParamList, Screen>;
+export type TabScreensRouteProp<Screen extends  keyof TabStackParamList> = RouteProp<TabStackParamList, Screen>;
