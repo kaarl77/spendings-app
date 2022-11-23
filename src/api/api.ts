@@ -57,6 +57,27 @@ export async function getTransactions(): Promise<Transaction[]> {
             categoryId: 0,
             note: "Paid utilities",
         },
+        {
+            id: 7,
+            value: 420.69,
+            date: "23-11-2022",
+            note: "happy :)",
+            categoryId: 3,
+        },
+        {
+            id: 8,
+            value: 123.45,
+            date: "23-11-2022",
+            note: "shoes",
+            categoryId: 3,
+        },
+        {
+            id: 9,
+            value: 50,
+            date: "22-11-2022",
+            note: "park ticket",
+            categoryId: 2,
+        },
     ];
     console.log("Fetching transactions...");
     return new Promise((resolve, reject) => {

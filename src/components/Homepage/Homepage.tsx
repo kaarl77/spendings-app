@@ -4,7 +4,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {ReportSummary} from "../ReportSummary/ReportSummary";
 import {Transaction} from "../../custom-types/Transaction";
 import {Category} from "../../custom-types/Category";
-import {ScrollView, StyleSheet} from "react-native";
+import {ScrollView, StyleSheet, View} from "react-native";
 import {Text} from "../../vanguard/Text/Text";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {HeadingText} from "../../common-components/HeadingText/HeadingText";
@@ -30,12 +30,21 @@ export function Homepage() {
         getBoth()
             .then((value) => {
                 setTransactions(value.transactions);
-                setCategories(value.categories)
+                setCategories(value.categories);
             })
     }, [])
 
     const {transactions, categories, setTransactions, setCategories} = useContext(GlobalContext);
-    
+
+    if(transactions.length === 0 || categories.length === 0)
+        return(
+            <Screen>
+                <Text bold={true}>
+                    Transactions and categories loading...
+                </Text>
+            </Screen>
+        )
+
     return (
         <Screen>
             <ScrollView>
