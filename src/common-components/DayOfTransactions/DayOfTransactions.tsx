@@ -1,13 +1,11 @@
 import {Transaction} from "../../custom-types/Transaction";
 import {StyleSheet, View} from "react-native";
 import {DayHeader} from "../DayHeader/DayHeader";
-import {StringToDate} from "../../utils/date-utils";
 import {ListOfTransactionsByDay} from "../../components/ListOfTransactionsByDay/ListOfTransactionsByDay";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 
 interface Props {
     transactions: Transaction[];
-
 }
 
 export function DayOfTransactions(props: Props) {
@@ -27,7 +25,6 @@ export function DayOfTransactions(props: Props) {
 
     function getValueByDate(date: string) {
         const filteredTransactionsByDate = transactions.filter((transaction) => transaction.date === date);
-        //console.log(filteredTransactionsByDate);
         return filteredTransactionsByDate.reduce(
             (acc, cur) => acc + cur.value,
             0

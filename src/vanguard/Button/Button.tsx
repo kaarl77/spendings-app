@@ -18,25 +18,12 @@ interface Props {
 export function Button(props: Props) {
     const {title, onPress, buttonType = ButtonType.Default, styleProp} = props;
 
-    const primaryColor = "blue";
+    const primaryColor = "#4940CB";
 
     const style = {
         ...styles.container,
         ...styleProp,
     }
-
-    // const buttonStyles:Record<ButtonType, ViewStyle>={
-    //     ButtonTypePrimary: {
-    //         backgroundColor: primaryColor,
-    //
-    //     },
-    //     ButtonTypeSecondary: {
-    //
-    //     },
-    //     ButtonTypeDefault: {
-    //
-    //     },
-    //}
 
     const buttonProps: Record<ButtonType,Omit<React.ComponentProps<typeof ButtonBase>, 'children'>> = {
         ButtonTypePrimary: {
@@ -64,6 +51,5 @@ export function Button(props: Props) {
 const styles = StyleSheet.create({
     container: {
         borderRadius: 4,
-
     },
 })

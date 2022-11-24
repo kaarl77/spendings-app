@@ -52,12 +52,9 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         alignItems: "center",
-        //padding: 16,
-
         flex: 1,
     },
     date: {
-        //lineHeight: 32,
     },
     headerDate: {
         flexDirection: "row",

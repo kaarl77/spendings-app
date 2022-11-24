@@ -1,19 +1,24 @@
 import {StyleSheet, View} from "react-native";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {FontSize, Text} from "../../vanguard/Text/Text";
+import {Image} from "../../vanguard/Image/Image";
 
 interface Props {
     categoryName: string;
+    categoryID: number;
     date: string;
     value: number;
 }
 
-export function RecentTransaction(props: Props){
-    const {categoryName, date, value}= props;
+export function RecentTransaction(props: Props) {
+    const {categoryID,categoryName, date, value} = props;
 
-    return(
+    return (
         <View style={styles.container}>
-            <View style={styles.logoPlaceholder}/>
+            <Image
+                index={categoryID}
+                width={40}
+                height={40}/>
             <Spacer width={8}/>
 
             <View style={styles.textContainer}>
@@ -34,11 +39,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         padding: 8,
         alignItems: "center",
-    },
-    logoPlaceholder: {
-        width: 40,
-        height: 40,
-        backgroundColor: "grey",
     },
     textContainer: {
         flex: 1,

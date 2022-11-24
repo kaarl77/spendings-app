@@ -1,13 +1,10 @@
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {TimePeriod, TimePeriodSelector} from "../../common-components/TimePeriod/TimePeriodSelector";
 import {TotalSpent} from "../../common-components/TotalSpent/TotalSpent";
-import {TransactionCategory} from "../TransactionCategory/TransactionCategory";
 import {Transaction} from "../../custom-types/Transaction";
 import {useEffect, useState} from "react";
 import {Text} from "../../vanguard/Text/Text";
-import {DateToString, StringToDate} from "../../utils/date-utils";
-import {Transactions} from "../Transactions/Transactions";
-import {Homepage} from "../Homepage/Homepage";
+import {StringToDate} from "../../utils/date-utils";
 import {StyleSheet, View, ViewStyle} from "react-native";
 import {Category} from "../../custom-types/Category";
 import moment from "moment";
@@ -89,7 +86,6 @@ export function ReportSummary(props: Props) {
         const copyOfFilteredTransactions: Transaction[] = [...filteredTransactions];
         return copyOfFilteredTransactions.sort((a, b) => a.value < b.value ? 1 : -1).slice(0, 3);
     }
-
 }
 
 const styles = StyleSheet.create({

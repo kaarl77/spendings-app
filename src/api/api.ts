@@ -79,10 +79,8 @@ export async function getTransactions(): Promise<Transaction[]> {
             categoryId: 2,
         },
     ];
-    console.log("Fetching transactions...");
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            console.log("fetched transactions");
             resolve(transactions);
         }, 200);
     });
@@ -93,28 +91,26 @@ export async function getCategories(): Promise<Category[]> {
         {
             id: 0,
             name: "rent/subscriptions",
-            icon: "rent",
+            icon: "subscription.png",
         },
         {
             id: 1,
             name: "restaurant",
-            icon: "restaurant",
+            icon: "restaurant.png",
         },
         {
             id: 2,
             name: "transport",
-            icon: "transport",
+            icon: "transport.png",
         },
         {
             id: 3,
-            name: "useless stuff",
-            icon: "icon",
+            name: "personal",
+            icon: "personal.png",
         },
     ];
-    console.log("Fetching categories...");
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            console.log("fetched categories");
             resolve(categories);
         }, 200);
     })

@@ -1,19 +1,24 @@
 import {StyleSheet, View} from "react-native";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {FontSize, Text} from "../../vanguard/Text/Text";
+import {Image} from "../../vanguard/Image/Image";
 
 interface Props {
     categoryName: string;
+    categoryID: number;
     note: string;
     value: number;
 }
 
 export function TransactionForDay(props: Props) {
-    const {categoryName, note, value} = props;
+    const {categoryID,categoryName, note, value} = props;
     return (
         <View style={styles.container}>
-
-            <View style={styles.logoPlaceholder}/>
+            {/*<View style={styles.logoPlaceholder}/>*/}
+            <Image
+                index={categoryID}
+                width={40}
+                height={40}/>
             <Spacer width={8}/>
 
             <View style={{flex: 1, borderRadius: 4}}>

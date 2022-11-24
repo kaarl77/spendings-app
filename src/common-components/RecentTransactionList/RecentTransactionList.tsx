@@ -29,7 +29,9 @@ export function RecentTransactionList(props: Props) {
                         <RecentTransaction
                             date={StringToDate(transaction.date).format('dddd, D MMMM YYYY')}
                             value={transaction.value}
-                            categoryName={ categories[transaction.categoryId].name }/>
+                            categoryName={ categories[transaction.categoryId].name }
+                            categoryID={transaction.categoryId}
+                        />
                         {index !== transactions.length - 1 && <Spacer height={16}/>}
                     </React.Fragment>
                 })

@@ -1,18 +1,26 @@
 import {StyleSheet, View} from "react-native";
 import {Text} from "../../vanguard/Text/Text";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
+import {Image, ImageSource} from "../../vanguard/Image/Image";
+import {useContext} from "react";
+import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 
 interface Props {
     categoryName: string;
+    categoryID: number;
     value: number;
     percentage: number;
 }
 
 export function TopSpending(props: Props) {
-    const {categoryName, value, percentage = 22} = props;
+    const {categoryName, value, percentage, categoryID} = props;
     return (
         <View style={styles.container}>
-            <View style={styles.logoPlaceholder}/>
+            {/*<View style={styles.logoPlaceholder}/>*/}
+            <Image
+                index={categoryID}
+                width={40}
+                height={40}/>
             <Spacer width={16}/>
 
             <View style={{flex:1, flexDirection: "row"}}>
@@ -41,11 +49,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         padding: 8,
         gap: 16,
-    },
-    logoPlaceholder: {
-        width: 40,
-        height: 40,
-        backgroundColor: "grey",
     },
     textContainer: {
         flex: 1,
