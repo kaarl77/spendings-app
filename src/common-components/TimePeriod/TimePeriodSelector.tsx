@@ -1,7 +1,7 @@
 import {StyleSheet, View} from "react-native";
 import {Button, ButtonType} from "../../vanguard/Button/Button";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
-import { useState} from "react";
+import {useState} from "react";
 
 export enum TimePeriod {
     week = "timePeriodWeek",
@@ -28,25 +28,28 @@ export function TimePeriodSelector(props: Props) {
             onLayout={(event) => {
                 let {width} = event.nativeEvent.layout;
                 setButtonWidth(Math.floor((width - 16) / 2));
-            }}
-        >
-            <Button
-                title={"Week"}
-                onPress={() => {
-                    onTimePeriodChange(TimePeriod.week)
-                }}
-                buttonType={getWeekButtonType()}
-                styleProp={{width: buttonWidth}}
-            />
+            }}>
+            <View style={{flex: 1}}>
+                <Button
+                    title={"Week"}
+                    onPress={() => {
+                        onTimePeriodChange(TimePeriod.week)
+                    }}
+                    buttonType={getWeekButtonType()}
+                />
+            </View>
+
             <Spacer width={16}/>
-            <Button
-                title={"Month"}
-                onPress={() => {
-                    onTimePeriodChange(TimePeriod.month)
-                }}
-                buttonType={getMonthButtonType()}
-                styleProp={{width: buttonWidth}}
-            />
+
+            <View style={{flex: 1}}>
+                <Button
+                    title={"Month"}
+                    onPress={() => {
+                        onTimePeriodChange(TimePeriod.month)
+                    }}
+                    buttonType={getMonthButtonType()}
+                />
+            </View>
         </View>
     )
 

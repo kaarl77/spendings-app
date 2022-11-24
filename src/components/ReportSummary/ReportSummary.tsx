@@ -10,22 +10,18 @@ import {Category} from "../../custom-types/Category";
 import moment from "moment";
 import {TransactionList} from "../../common-components/TransactionList/TransactionList";
 
+const DEFAULT_NO_OF_SPENDINGS_TO_SHOW = 3
+
 interface Props {
-    timePeriod: TimePeriod;
-    onPeriodChange: (newPeriodTime: TimePeriod) => void;
     transactions: Transaction[];
     styleProp?: ViewStyle;
     categories: Category[];
 }
 
 export function ReportSummary(props: Props) {
-    const {timePeriod, onPeriodChange, transactions, styleProp, categories} = props;
+    const {transactions, styleProp, categories} = props;
 
-    const style = {
-        ...styles.container,
-        ...styleProp,
-    }
-
+    const [timePeriod, setTimePeriod] = useState(TimePeriod.week);
     const [filteredTransactions, setFilteredTransactions] = useState(transactions)
     const [totalSpent, setTotalSpent] = useState(0);
 
@@ -37,11 +33,15 @@ export function ReportSummary(props: Props) {
         setTotalSpent(getTotalValueForTimePeriod());
     }, [filteredTransactions])
 
+    const style = {
+        ...styles.container,
+        ...styleProp,
+    }
+
     return <View style={style}>
-        <Spacer height={16}/>
         <TimePeriodSelector
             timePeriod={timePeriod}
-            onTimePeriodChange={onPeriodChange}/>
+            onTimePeriodChange={setTimePeriod}/>
 
         <Spacer height={24}/>
         <TotalSpent
@@ -51,27 +51,32 @@ export function ReportSummary(props: Props) {
 
         <Spacer height={24}/>
 
+        {/* Extract this to a component called TopSpendings */}
         <Text bold={true}>Top spendings</Text>
         <Spacer height={16}/>
 
         <TransactionList
-            transactions={getFirst3TransactionsByValue()}
+            transactions={getFirstNTransactionsByValue(DEFAULT_NO_OF_SPENDINGS_TO_SHOW)}
             categories={categories}
             totalSpent={totalSpent}/>
     </View>
 
 
     function getTransactionsFilteredByTimePeriod() {
-        const currentDate = moment();
-
-        const filterByTimePeriod = (transaction: Transaction) => {
-            if (timePeriod === TimePeriod.week) {
-                return currentDate.week() === StringToDate(transaction.date).week();
-            } else {
-                return currentDate.month() === StringToDate(transaction.date).month();
-            }
+        switch (timePeriod) {
+            case TimePeriod.month:
+                return getTransactionsForThisMonth()
+            case TimePeriod.week:
+                return getTransactionsForThisWeek()
         }
-        return transactions.filter(filterByTimePeriod);
+    }
+
+    function getTransactionsForThisMonth() {
+        return transactions.filter((transaction) => moment().month() === StringToDate(transaction.date).month())
+    }
+
+    function getTransactionsForThisWeek() {
+        return transactions.filter((transaction) => moment().week() === StringToDate(transaction.date).week())
     }
 
     function getTotalValueForTimePeriod() {
@@ -82,9 +87,9 @@ export function ReportSummary(props: Props) {
         return Number.parseFloat(Number.parseFloat(x.toString()).toFixed(2));
     }
 
-    function getFirst3TransactionsByValue() {
+    function getFirstNTransactionsByValue(n: number) {
         const copyOfFilteredTransactions: Transaction[] = [...filteredTransactions];
-        return copyOfFilteredTransactions.sort((a, b) => a.value < b.value ? 1 : -1).slice(0, 3);
+        return copyOfFilteredTransactions.sort((a, b) => a.value < b.value ? 1 : -1).slice(0, n);
     }
 }
 

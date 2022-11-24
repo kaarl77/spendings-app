@@ -7,7 +7,6 @@ type GlobalContextType = {
     setTransactions: (transactions: Transaction[]) => void;
     categories: Category[];
     setCategories: (categories: Category[]) => void;
-
 }
 
 const globalContextInitialState: GlobalContextType = {

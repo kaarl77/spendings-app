@@ -17,7 +17,7 @@ export function Transactions() {
             <FlatList
                 data={Array.from(transactionDatesSet)}
                 renderItem={({item: date}) =>
-                    <View >
+                    <View>
                         <DayOfTransactions
                             transactions={getFilteredTransactionsByDate(date)}/>
                         <Spacer height={24}/>
@@ -28,7 +28,7 @@ export function Transactions() {
         </Screen>
     )
 
-    function getFilteredTransactionsByDate(date: string){
+    function getFilteredTransactionsByDate(date: string) {
         return transactions.filter((transaction) => transaction.date === date);
     }
 }

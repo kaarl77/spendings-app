@@ -1,9 +1,9 @@
-import {FlatList, StyleSheet, View} from "react-native";
+import {FlatList, View} from "react-native";
 import {Transaction} from "../../custom-types/Transaction";
 import React, {useContext} from "react";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
-import { TransactionForDay } from "../TransactionForDay/TransactionForDay";
+import {TransactionForDay} from "../TransactionForDay/TransactionForDay";
 
 interface Props {
     transactions: Transaction[];
@@ -25,7 +25,7 @@ export function ListOfTransactionsByDay(props: Props) {
                             categoryID={item.categoryId}
                         />
                         <View>
-                            {index !== transactions.length -1 && <Spacer height={16}/>}
+                            {index !== transactions.length - 1 && <Spacer height={16}/>}
                         </View>
 
                     </>

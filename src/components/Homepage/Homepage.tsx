@@ -1,5 +1,4 @@
 import {Screen} from "../../common-components/Screen/Screen";
-import {TimePeriod} from "../../common-components/TimePeriod/TimePeriodSelector";
 import React, {useContext, useEffect, useState} from "react";
 import {ReportSummary} from "../ReportSummary/ReportSummary";
 import {ScrollView,} from "react-native";
@@ -11,8 +10,6 @@ import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider"
 import {FAB} from "../../common-components/FAB/FAB";
 
 export function Homepage() {
-    const [timePeriod, setTimePeriod] = useState(TimePeriod.week);
-
     useEffect(() => {
         getBoth()
             .then((value) => {
@@ -23,8 +20,8 @@ export function Homepage() {
 
     const {transactions, categories, setTransactions, setCategories} = useContext(GlobalContext);
 
-    if(transactions.length === 0 || categories.length === 0)
-        return(
+    if (transactions.length === 0 || categories.length === 0)
+        return (//<EmptyStateComponent/>
             <Screen>
                 <Text bold={true}>
                     Transactions and categories loading...
@@ -35,24 +32,21 @@ export function Homepage() {
     return (
         <Screen>
             <ScrollView>
+                <Spacer height={32}/>
+
                 <Text bold={true}>Reports summary</Text>
                 <Spacer height={8}/>
 
                 <ReportSummary
-                    timePeriod={timePeriod}
-                    onPeriodChange={onPeriodChange}
                     transactions={transactions}
                     categories={categories}
                 />
-                <Spacer height={32}/>
+                <Spacer height={24}/>
 
                 <RecentTransactions transactions={transactions} categories={categories}/>
             </ScrollView>
             <FAB title={"+"}/>
         </Screen>
     )
-    function onPeriodChange(timePeriod: TimePeriod) {
-        setTimePeriod(timePeriod);
-    }
 }
 
