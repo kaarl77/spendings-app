@@ -1,9 +1,10 @@
 import {FlatList, StyleSheet, View} from "react-native";
 import {Transaction} from "../../custom-types/Transaction";
 import {FontSize, Text} from "../../vanguard/Text/Text";
-import {useContext} from "react";
+import React, {useContext} from "react";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
+import { TransactionForDay } from "../TransactionForDay/TransactionForDay";
 
 interface Props {
     transactions: Transaction[];
@@ -18,23 +19,14 @@ export function ListOfTransactionsByDay(props: Props) {
             renderItem={
                 ({item, index}) =>
                     <>
-                        <View style={styles.container}>
-
-                            <View style={styles.logoPlaceholder}/>
-                            <Spacer width={8}/>
-
-                            <View style={{flex: 1, borderRadius: 4}}>
-                                <Text bold={true} color={"#2E2880"}>{categories[item.categoryId].name}</Text>
-                                <Text fontSize={FontSize.small}>{item.note}</Text>
-                            </View>
-
-                            <View style={{height: "100%"}}>
-                                <Text color={"#201C5A"}>{item.value}</Text>
-                            </View>
-                        </View>
+                        <TransactionForDay
+                            categoryName={categories[item.categoryId].name}
+                            value={item.value}
+                            note={item.note}/>
                         <View>
                             {index !== transactions.length -1 && <Spacer height={16}/>}
                         </View>
+
                     </>
             }/>
     )

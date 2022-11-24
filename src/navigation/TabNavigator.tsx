@@ -7,6 +7,7 @@ import {Transaction} from "../custom-types/Transaction";
 import {Category} from "../custom-types/Category";
 import React from "react";
 
+
 export type TabStackParamList = {
     Homepage: undefined;
     Transactions: { transactions: Transaction[] };
@@ -18,15 +19,40 @@ export function TabNavigator() {
     return (
         <NavigationContainer>
             <Tab.Navigator
-                screenOptions={{
-                    tabBarActiveTintColor: "#4940CB",
-                    tabBarInactiveTintColor: "#6A6A6A"
-                }}>
+                screenOptions={({route}) => ({
+                    tabBarIcon: ({focused}) => {
+                        if (route.name === "Homepage") {
+                            if (focused) {
+                                return <Image
+                                    style={{height: 20, width: 20}}
+                                    source={require('../../assets/homepageHighlighted.png')}/>
+                            } else {
+                                return <Image
+                                    style={{height: 20, width: 20}}
+                                    source={require('../../assets/homepage.png')}/>
+                            }
+                        } else {
+                            if (focused) {
+                                return <Image
+                                    style={{height: 21, width: 20}}
+                                    source={require('../../assets/transactionsHighlighted.png')}/>
+                            } else {
+                                return <Image
+                                    style={{height: 21, width: 20}}
+                                    source={require('../../assets/transactions.png')}/>
+                            }
+                        }
+                    },
+                    tabBarActiveTintColor: '#4940CB',
+                    tabBarInactiveTintColor: '#6A6A6A',
+                })}>
+
                 <Tab.Screen
                     name="Homepage"
                     component={Homepage}
-                    options={{headerShown: false}}
-                    />
+                    options={{headerShown: false,}}
+
+                />
                 <Tab.Screen
                     name="Transactions"
                     component={Transactions}
