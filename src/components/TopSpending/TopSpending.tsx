@@ -1,9 +1,8 @@
 import {StyleSheet, View} from "react-native";
 import {Text} from "../../vanguard/Text/Text";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
-import {Image, ImageSource} from "../../vanguard/Image/Image";
-import {useContext} from "react";
-import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
+import {Image} from "../../vanguard/Image/Image";
+import {useVanguardTheme} from "../../colors/useVanguardTheme";
 
 interface Props {
     categoryName: string;
@@ -14,16 +13,22 @@ interface Props {
 
 export function TopSpending(props: Props) {
     const {categoryName, value, percentage, categoryID} = props;
+
+    const {PaletteNeutral} = useVanguardTheme();
+    const containerStyle = {
+        backgroundColor: PaletteNeutral["100"],
+        ...styles.container
+    };
+
     return (
-        <View style={styles.container}>
-            {/*<View style={styles.logoPlaceholder}/>*/}
+        <View style={containerStyle}>
             <Image
                 index={categoryID}
                 width={40}
                 height={40}/>
             <Spacer width={16}/>
 
-            <View style={{flex:1, flexDirection: "row"}}>
+            <View style={{flex: 1, flexDirection: "row"}}>
                 <View style={styles.textContainer}>
                     <Text bold={true}>
                         {categoryName}
@@ -44,7 +49,6 @@ export function TopSpending(props: Props) {
 const styles = StyleSheet.create({
 
     container: {
-        backgroundColor: "white",
         alignItems: "center",
         flexDirection: "row",
         padding: 8,

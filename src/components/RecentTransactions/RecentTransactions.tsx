@@ -6,15 +6,16 @@ import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {RecentTransactionList} from "../../common-components/RecentTransactionList/RecentTransactionList";
 import {Transaction} from "../../custom-types/Transaction";
 import {StringToDate} from "../../utils/date-utils";
-import {Category} from "../../custom-types/Category";
+import {useContext} from "react";
+import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 
 interface Props {
     transactions: Transaction[];
-    categories: Category[];
 }
 
 export function RecentTransactions(props: Props) {
-    const {transactions, categories} = props;
+    const {transactions} = props;
+    const {categories} = useContext(GlobalContext)
 
     const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
 
@@ -30,9 +31,10 @@ export function RecentTransactions(props: Props) {
             />
             <Spacer height={8}/>
 
-            <RecentTransactionList transactions={Latest5Transactions} categories={categories}/>
+            <RecentTransactionList transactions={Latest5Transactions}/>
 
-        </View>);
+        </View>
+    );
 
     function get5LatestTransactions() {
         return (transactions.sort((a, b) => StringToDate(a.date).valueOf() < StringToDate(b.date).valueOf() ? 1 : -1).slice(0,5));

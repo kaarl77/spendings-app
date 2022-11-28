@@ -2,6 +2,7 @@ import {StyleSheet, View} from "react-native";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {FontSize, Text} from "../../vanguard/Text/Text";
 import {Image} from "../../vanguard/Image/Image";
+import {useVanguardTheme} from "../../colors/useVanguardTheme";
 
 interface Props {
     categoryName: string;
@@ -13,8 +14,15 @@ interface Props {
 export function RecentTransaction(props: Props) {
     const {categoryID,categoryName, date, value} = props;
 
+    const {PaletteNeutral} = useVanguardTheme();
+
+    const containerStyle = {
+        backgroundColor: PaletteNeutral["100"],
+        ...styles.container
+    };
+
     return (
-        <View style={styles.container}>
+        <View style={containerStyle}>
             <Image
                 index={categoryID}
                 width={40}
@@ -35,7 +43,6 @@ export function RecentTransaction(props: Props) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#FFFFFF",
         flexDirection: "row",
         padding: 8,
         alignItems: "center",

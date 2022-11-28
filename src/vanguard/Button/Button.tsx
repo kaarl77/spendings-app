@@ -1,6 +1,7 @@
 import {Button as ButtonBase} from "react-native-paper";
 import {StyleSheet, ViewStyle} from "react-native";
 import React from "react";
+import {useVanguardTheme} from "../../colors/useVanguardTheme";
 
 export enum ButtonType {
     Primary = "ButtonTypePrimary",
@@ -17,8 +18,9 @@ interface Props {
 
 export function Button(props: Props) {
     const {title, onPress, buttonType = ButtonType.Default, styleProp} = props;
+    const {PalettePrimary,PaletteNeutral} = useVanguardTheme();
 
-    const primaryColor = "#4940CB";
+    const primaryColor = PalettePrimary["600"];
 
     const style = {
         ...styles.container,
@@ -28,11 +30,11 @@ export function Button(props: Props) {
     const buttonProps: Record<ButtonType,Omit<React.ComponentProps<typeof ButtonBase>, 'children'>> = {
         ButtonTypePrimary: {
             buttonColor: primaryColor,
-            textColor: "white",
+            textColor: PaletteNeutral["100"],
         },
         ButtonTypeSecondary: {
-            buttonColor: "white",
-            textColor: "black",
+            buttonColor: PaletteNeutral["100"],
+            textColor: PaletteNeutral["1000"],
         },
         ButtonTypeDefault: {
             buttonColor: "transparent",

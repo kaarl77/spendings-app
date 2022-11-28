@@ -1,10 +1,11 @@
-import {NavigationContainer} from '@react-navigation/native';
+import {DarkTheme, DefaultTheme, NavigationContainer, useTheme} from '@react-navigation/native';
 import {Homepage} from "../components/Homepage/Homepage";
 import {Transactions} from "../components/Transactions/Transactions";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {Image} from "react-native";
+import {Image, useColorScheme} from "react-native";
 import {Transaction} from "../custom-types/Transaction";
 import React from "react";
+import {useVanguardTheme} from "../colors/useVanguardTheme";
 
 export type TabStackParamList = {
     Homepage: undefined;
@@ -14,6 +15,8 @@ export type TabStackParamList = {
 
 export function TabNavigator() {
     const Tab = createBottomTabNavigator<TabStackParamList>();
+    const {PalettePrimary,PaletteNeutral} = useVanguardTheme();
+
     return (
         <NavigationContainer>
             <Tab.Navigator
@@ -41,8 +44,8 @@ export function TabNavigator() {
                             }
                         }
                     },
-                    tabBarActiveTintColor: '#4940CB',
-                    tabBarInactiveTintColor: '#6A6A6A',
+                    tabBarActiveTintColor: PalettePrimary["600"],
+                    tabBarInactiveTintColor: PaletteNeutral["600"],
                     headerShown: false,
 
                 })}>

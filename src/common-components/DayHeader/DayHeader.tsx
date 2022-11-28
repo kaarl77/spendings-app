@@ -3,6 +3,7 @@ import {FontSize, Text} from "../../vanguard/Text/Text";
 import {Moment} from "moment/moment";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {StringToDate} from "../../utils/date-utils";
+import {useVanguardTheme} from "../../colors/useVanguardTheme";
 
 interface Props {
     dateString: string;
@@ -11,8 +12,10 @@ interface Props {
 
 export function DayHeader(props: Props) {
     const {dateString, value} = props;
-
     const date = StringToDate(dateString);
+
+    const {PaletteNeutral,PalettePrimary} = useVanguardTheme();
+
     return (
         <View style={styles.container}>
             <View style={styles.headerDate}>
@@ -25,12 +28,12 @@ export function DayHeader(props: Props) {
                         {getDateAsString(date)}
                     </Text>
 
-                    <Text fontSize={FontSize.small} color="#525252" lineHeight={16}>{date.format("MMMM YYYY")}</Text>
+                    <Text fontSize={FontSize.small} color={PaletteNeutral["800"]} lineHeight={16}>{date.format("MMMM YYYY")}</Text>
                 </View>
             </View>
 
             <View>
-                <Text color={"#201C5A"} lineHeight={24}>{value}</Text>
+                <Text color={PalettePrimary["1000"]} lineHeight={24}>{value}</Text>
             </View>
         </View>
     )

@@ -1,5 +1,6 @@
 import {Pressable, StyleSheet} from "react-native";
 import {FontSize, Text} from "../../vanguard/Text/Text";
+import {useVanguardTheme} from "../../colors/useVanguardTheme";
 
 interface Props {
     onPress?: () => void;
@@ -8,12 +9,17 @@ interface Props {
 
 export function FAB(props: Props){
     const {title, onPress} = props;
+    const {PalettePrimary} = useVanguardTheme();
+    const containerStyle = {
+        backgroundColor: PalettePrimary["600"],
+        ...styles.container
+    };
 
     return (
         <Pressable
-            style={styles.container}
+            style={containerStyle}
             onPress={onPress}>
-            <Text color={"white"} fontSize={FontSize.large}>{title}</Text>
+            <Text color={PalettePrimary["100"]} fontSize={FontSize.large}>{title}</Text>
         </Pressable>
     )
 }
@@ -26,7 +32,6 @@ const styles= StyleSheet.create({
         position: "absolute",
         bottom: 24,
         right: 24,
-        backgroundColor: "#4940CB",
         height: 60,
         width: 60,
     },

@@ -1,5 +1,5 @@
 import {Screen} from "../../common-components/Screen/Screen";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import {ReportSummary} from "../ReportSummary/ReportSummary";
 import {ScrollView,} from "react-native";
 import {Text} from "../../vanguard/Text/Text";
@@ -8,6 +8,8 @@ import {RecentTransactions} from "../RecentTransactions/RecentTransactions";
 import {getBoth} from "../../api/api";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {FAB} from "../../common-components/FAB/FAB";
+import {EmptyState} from "../EmptyState/EmptyState";
+import {useVanguardTheme} from "../../colors/useVanguardTheme";
 
 export function Homepage() {
     useEffect(() => {
@@ -20,14 +22,13 @@ export function Homepage() {
 
     const {transactions, categories, setTransactions, setCategories} = useContext(GlobalContext);
 
-    if (transactions.length === 0 || categories.length === 0)
-        return (//<EmptyStateComponent/>
-            <Screen>
-                <Text bold={true}>
-                    Transactions and categories loading...
-                </Text>
-            </Screen>
-        )
+    useVanguardTheme();
+
+    if (transactions.length === 0 || categories.length === 0){
+        return <EmptyState/>
+    }
+
+
 
     return (
         <Screen>
@@ -39,11 +40,11 @@ export function Homepage() {
 
                 <ReportSummary
                     transactions={transactions}
-                    categories={categories}
                 />
                 <Spacer height={24}/>
 
-                <RecentTransactions transactions={transactions} categories={categories}/>
+                <RecentTransactions
+                    transactions={transactions}/>
             </ScrollView>
             <FAB title={"+"}/>
         </Screen>

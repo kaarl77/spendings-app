@@ -1,5 +1,6 @@
 import React from 'react'
-import {SafeAreaView, ViewStyle, StyleSheet, View} from "react-native";
+import {SafeAreaView, StyleSheet, View, ViewStyle} from "react-native";
+import {useVanguardTheme} from "../../colors/useVanguardTheme";
 
 interface Props {
     styleProp?: ViewStyle;
@@ -11,14 +12,19 @@ export function Screen(props: Props) {
     /**
      * Styles
      */
+    const {PaletteNeutral} = useVanguardTheme()
 
-    const style = {
-        ...styles.content,
-        ...styleProp,
+    const contentStyle = {
+            ...styles.content,
+            ...styleProp,
+    }
+    const containerStyle = {
+        backgroundColor: PaletteNeutral["100"],
+        ...styles.container,
     }
 
-    return <SafeAreaView style={styles.container}>
-        <View style={style}>
+    return <SafeAreaView style={containerStyle}>
+        <View style={contentStyle}>
             {children}
         </View>
     </SafeAreaView>
@@ -27,11 +33,9 @@ export function Screen(props: Props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white",
     },
     content: {
         flex: 1,
         paddingHorizontal: 24,
-        //backgroundColor: 'white',
     }
 })

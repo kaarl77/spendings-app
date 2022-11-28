@@ -1,3 +1,15 @@
-1. create empty state component ( a view w/ a text: "No transactions" )
-2. ReportSummary.tsx <line 52>
-3. Get categories from GlobalContext where they are needed
+1. Make colors type:
+{
+    light: {
+        primary: {
+            100: HEX
+            200
+            ...
+        },
+        neutral: {
+        }
+    },
+    dark: {
+        ...
+    }
+}
