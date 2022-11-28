@@ -1,16 +1,17 @@
 import {DarkTheme, DefaultTheme, NavigationContainer, useTheme} from '@react-navigation/native';
 import {Homepage} from "../components/Homepage/Homepage";
 import {Transactions} from "../components/Transactions/Transactions";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {BottomTabBar, createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Image, useColorScheme} from "react-native";
-import {Transaction} from "../custom-types/Transaction";
 import React from "react";
 import {useVanguardTheme} from "../colors/useVanguardTheme";
+import {Transaction} from "../custom-types/Transaction";
+import {AddEditTransaction} from "../components/AddEditTransaction/AddEditTransaction";
 
 export type TabStackParamList = {
     Homepage: undefined;
-    Transactions: { transactions: Transaction[] };
-    AddEditTransaction: undefined;
+    Transactions: undefined;
+    AddEditTransaction: {transaction:Transaction} | undefined;
 };
 
 export function TabNavigator() {
@@ -48,7 +49,9 @@ export function TabNavigator() {
                     tabBarInactiveTintColor: PaletteNeutral["600"],
                     headerShown: false,
 
-                })}>
+                })}
+                >
+
 
                 <Tab.Screen
                     name="Homepage"
@@ -57,6 +60,11 @@ export function TabNavigator() {
                 <Tab.Screen
                     name="Transactions"
                     component={Transactions}
+                />
+                <Tab.Screen
+                    name={"AddEditTransaction"}
+                    component={AddEditTransaction}
+                    options={{tabBarButton: (props) => null}}   //dumbest shit ever
                 />
             </Tab.Navigator>
         </NavigationContainer>)

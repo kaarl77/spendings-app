@@ -1,18 +1,21 @@
-import {StyleSheet, View} from "react-native";
+import {Pressable, StyleSheet, View} from "react-native";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {FontSize, Text} from "../../vanguard/Text/Text";
 import {Image} from "../../vanguard/Image/Image";
 import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {useNavigation} from "@react-navigation/native";
+import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 
 interface Props {
     categoryName: string;
     categoryID: number;
     date: string;
     value: number;
+    onPress: ()=>void;
 }
 
 export function RecentTransaction(props: Props) {
-    const {categoryID,categoryName, date, value} = props;
+    const {categoryID, categoryName, date, value,onPress} = props;
 
     const {PaletteNeutral} = useVanguardTheme();
 
@@ -22,22 +25,24 @@ export function RecentTransaction(props: Props) {
     };
 
     return (
-        <View style={containerStyle}>
-            <Image
-                index={categoryID}
-                width={40}
-                height={40}/>
-            <Spacer width={8}/>
+        <Pressable onPress={onPress}>
+            <View style={containerStyle}>
+                <Image
+                    index={categoryID}
+                    width={40}
+                    height={40}/>
+                <Spacer width={8}/>
 
-            <View style={styles.textContainer}>
-                <Text bold={true}>{categoryName}</Text>
-                <Text fontSize={FontSize.small}>{date}</Text>
+                <View style={styles.textContainer}>
+                    <Text bold={true}>{categoryName}</Text>
+                    <Text fontSize={FontSize.small}>{date}</Text>
+                </View>
+                <Spacer width={8}/>
+
+                <Text styleProp={styles.price}>{value}</Text>
+
             </View>
-            <Spacer width={8}/>
-
-            <Text styleProp={styles.price}>{value}</Text>
-
-        </View>
+        </Pressable>
     )
 }
 

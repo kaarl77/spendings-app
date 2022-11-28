@@ -1,15 +1,1 @@
-1. Make colors type:
-{
-    light: {
-        primary: {
-            100: HEX
-            200
-            ...
-        },
-        neutral: {
-        }
-    },
-    dark: {
-        ...
-    }
-}
+Add/Edit: sa primeasca prin Route un Transaction

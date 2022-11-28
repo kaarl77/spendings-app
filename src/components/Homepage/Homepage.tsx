@@ -8,8 +8,8 @@ import {RecentTransactions} from "../RecentTransactions/RecentTransactions";
 import {getBoth} from "../../api/api";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {FAB} from "../../common-components/FAB/FAB";
-import {EmptyState} from "../EmptyState/EmptyState";
 import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {EmptyState} from "../EmptyState/EmptyState";
 
 export function Homepage() {
     useEffect(() => {

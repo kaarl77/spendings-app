@@ -1,11 +1,11 @@
 import {FlatList, View} from "react-native";
 import {Screen} from "../../common-components/Screen/Screen";
 import React, {useContext} from "react";
-import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {StringToDate} from "../../utils/date-utils";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {DayOfTransactions} from "../../common-components/DayOfTransactions/DayOfTransactions";
 import {FAB} from "../../common-components/FAB/FAB";
+import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 
 export function Transactions() {
     const {transactions, categories} = useContext(GlobalContext);

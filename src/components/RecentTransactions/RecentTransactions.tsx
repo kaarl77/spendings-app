@@ -26,7 +26,7 @@ export function RecentTransactions(props: Props) {
             <HeadingText
                 text={"Recent transactions"}
                 onPress={() => {
-                    navigation.navigate("Transactions", {transactions})
+                    navigation.navigate("Transactions")
                 }}
             />
             <Spacer height={8}/>

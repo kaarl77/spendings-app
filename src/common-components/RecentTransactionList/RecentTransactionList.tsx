@@ -6,6 +6,8 @@ import {StringToDate} from "../../utils/date-utils";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {useNavigation} from "@react-navigation/native";
+import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 
 interface Props {
     styleProp?: ViewStyle;
@@ -23,6 +25,9 @@ export function RecentTransactionList(props: Props) {
         ...styleProp,
     }
 
+    const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
+
+
     return (
         <View style={style}>
             {
@@ -33,6 +38,7 @@ export function RecentTransactionList(props: Props) {
                             value={transaction.value}
                             categoryName={categories[transaction.categoryId].name}
                             categoryID={transaction.categoryId}
+                            onPress={() => navigation.navigate("AddEditTransaction")}
                         />
                         {index !== transactions.length - 1 && <Spacer height={16}/>}
                     </React.Fragment>
