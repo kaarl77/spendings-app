@@ -63,6 +63,7 @@ export function AddEditTransaction() {
           }}
           buttonTextAfterSelection={(category) => (category as Category).name}
           rowTextForSelection={(category) => (category as Category).name}
+          defaultValue={categories[categoryId].name}
         />
 
         <TextInput
