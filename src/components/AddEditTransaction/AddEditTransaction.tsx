@@ -6,6 +6,10 @@ import {TextInput} from "react-native-paper";
 import {useContext, useState} from "react";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {Button} from "../../vanguard/Button/Button";
+import {ScrollView} from "react-native";
+import SelectDropdown from 'react-native-select-dropdown'
+import {Category} from "../../custom-types/Category";
+import {Transaction} from "../../custom-types/Transaction";
 import {parse} from "react-native-svg";
 
 type Props = BottomTabScreenProps<TabStackParamList, "AddEditTransaction">
@@ -18,75 +22,79 @@ type routeProp = Props['route']
 
 export function AddEditTransaction() {
 
-    const {params} = useRoute<routeProp>();
-    const {categories, transactions} = useContext(GlobalContext);
+  const {params} = useRoute<routeProp>();
+  const {categories, transactions, addTransaction, editTransaction} = useContext(GlobalContext);
 
-    const transaction = params?.transaction;
+  const transaction = params?.transaction;
 
-    const [value, setValue] = useState("");
-    const [note, setNote] = useState("");
-    const [category, setCategory] = useState("");
-    const [date, setDate] = useState("");
+  const [value, setValue] = useState(transaction?.value.toString() ?? "");
+  const [note, setNote] = useState(transaction?.note ?? "");
+  const [categoryId, setCategoryId] = useState(transaction?.categoryId ?? 0);
+  const [date, setDate] = useState(transaction?.date ?? "");
+  const [expanded, setExpanded] = useState(false);
+  const handlePress = () => setExpanded(!expanded);
 
-    // if (transaction == undefined){
-    //     setCategory("");
-    //     setNote("");
-    //     setDate("");
-    //     setValue("");
-    // }
-    // else{
-    //     setCategory(categories[transaction.categoryId].name);
-    //     setNote(transaction.note);
-    //     setValue(transaction.value.toString());
-    //     setDate(transaction.date);
-    // }
+  const categoriesAsString = categories.map((category) => category.name);
 
 
-    return (
-        <Screen>
-            <TextInput
-                mode={"outlined"}
-                label={"Note"}
-                value={note}
-                onChangeText={(note) => setNote(note)}
-            />
-            <TextInput
-                mode={"outlined"}
-                label={"Value"}
-                value={value?.toString()}
-                onChangeText={(value) => setValue(value)}
-            />
-            <TextInput
-                mode={"outlined"}
-                label={"Category"}
-                value={category}
-                onChangeText={(category) => setCategory(category)}
-            />
-            <TextInput
-                mode={"outlined"}
-                label={"Date"}
-                value={date}
-                onChangeText={(date) => setDate(date)}
-            />
-            <Button
-                title={"Submit changes"}
-                onPress={
-                    addOrEditTransaction
-                }/>
+  return (
+    <Screen>
+      <ScrollView
+                  keyboardShouldPersistTaps={'handled'}
+                  automaticallyAdjustKeyboardInsets={true}
+      >
+        <TextInput
+          mode={"outlined"}
+          label={"Note"}
+          value={note}
+          onChangeText={(note) => setNote(note)}
+        />
+        <TextInput
+          mode={"outlined"}
+          keyboardType={'numeric'}
+          label={"Value"}
+          value={value?.toString()}
+          onChangeText={(value) => setValue(value)}
+        />
+        <SelectDropdown
+          data={categories}
+          onSelect={(category) => {
+            setCategoryId((category as Category).id)
+          }}
+          buttonTextAfterSelection={(category) => (category as Category).name}
+          rowTextForSelection={(category) => (category as Category).name}
+        />
 
-        </Screen>
-    )
+        <TextInput
+          mode={"outlined"}
+          label={"Date"}
+          value={date}
+          onChangeText={(date) => setDate(date)}
+        />
+        <Button
+          title={"Submit changes"}
+          onPress={
+            addOrEditTransaction
+          }/>
+      </ScrollView>
+    </Screen>
+  )
 
-    function addOrEditTransaction(){
-        if (transaction == undefined){
-            transactions.push({
-                id: transactions.length,
-                note: note,
-                date: date,
-                value: parseFloat(value),
-                categoryId: 1,
-            })
-        }
+
+
+  function addOrEditTransaction() {
+    if (transaction == undefined) {
+      addTransaction({note, date, categoryId, value: parseFloat(value)})
     }
+  }
+
+
+  function initialCategoryState() {
+    if (transaction != undefined)
+      return categories[transaction.categoryId].name;
+    return "";
+  }
 
 }
+
+

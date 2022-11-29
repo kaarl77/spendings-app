@@ -1,1 +1,17 @@
-Add/Edit: sa primeasca prin Route un Transaction
+Fix tab navigator options
+Set correct theme
+
+
+Activate Header:
+    1. Back Button text should be "close"
+
+A: EDITING
+    1. Pre-selected category for editing a transaction
+    2. Disable SUBMIT until changes are made
+    3. Lock editing w/ a button(header)
+
+
+Go back after "Submit changes"
+Show toast after "Submit changes"(Transaction edited/Transaction saved)
+
+***=Re-render Report Summary (why it doesnt work)

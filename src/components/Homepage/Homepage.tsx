@@ -8,46 +8,50 @@ import {RecentTransactions} from "../RecentTransactions/RecentTransactions";
 import {getBoth} from "../../api/api";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {FAB} from "../../common-components/FAB/FAB";
-import {useVanguardTheme} from "../../colors/useVanguardTheme";
 import {EmptyState} from "../EmptyState/EmptyState";
+import {useNavigation} from "@react-navigation/native";
+import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 
 export function Homepage() {
-    useEffect(() => {
-        getBoth()
-            .then((value) => {
-                setTransactions(value.transactions);
-                setCategories(value.categories);
-            })
-    }, [])
+  const {transactions, categories, setTransactions, setCategories} = useContext(GlobalContext);
 
-    const {transactions, categories, setTransactions, setCategories} = useContext(GlobalContext);
+  const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
 
-    useVanguardTheme();
-
-    if (transactions.length === 0 || categories.length === 0){
-        return <EmptyState/>
-    }
+  useEffect(() =>{
+    console.log("HEY")}, [transactions])
 
 
+  useEffect(() => {
+    getBoth()
+      .then((value) => {
+        setTransactions(value.transactions);
+        setCategories(value.categories);
+      })
+  }, [])
 
-    return (
-        <Screen>
-            <ScrollView>
-                <Spacer height={32}/>
 
-                <Text bold={true}>Reports summary</Text>
-                <Spacer height={8}/>
+  if (transactions.length === 0 || categories.length === 0) {
+    return <EmptyState/>
+  }
 
-                <ReportSummary
-                    transactions={transactions}
-                />
-                <Spacer height={24}/>
+  return (
+    <Screen>
+      <ScrollView>
+        <Spacer height={32}/>
 
-                <RecentTransactions
-                    transactions={transactions}/>
-            </ScrollView>
-            <FAB title={"+"}/>
-        </Screen>
-    )
+        <Text bold={true}>Reports summary</Text>
+        <Spacer height={8}/>
+
+        <ReportSummary
+          transactions={transactions}
+        />
+        <Spacer height={24}/>
+
+        <RecentTransactions
+          transactions={transactions}/>
+      </ScrollView>
+      <FAB title={"+"} onPress={() => navigation.navigate("AddEditTransaction")}/>
+    </Screen>
+  )
 }
 

@@ -38,7 +38,7 @@ export function RecentTransactionList(props: Props) {
                             value={transaction.value}
                             categoryName={categories[transaction.categoryId].name}
                             categoryID={transaction.categoryId}
-                            onPress={() => navigation.navigate("AddEditTransaction")}
+                            onPress={() => navigation.navigate("AddEditTransaction", {transaction})}
                         />
                         {index !== transactions.length - 1 && <Spacer height={16}/>}
                     </React.Fragment>

@@ -8,6 +8,7 @@ import {StyleSheet, View, ViewStyle} from "react-native";
 import moment from "moment";
 import {TopSpendings} from "../TopSpendings/TopSpendings";
 import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {useRoute} from "@react-navigation/native";
 
 const DEFAULT_NO_OF_SPENDINGS_TO_SHOW = 3
 
@@ -31,6 +32,9 @@ export function ReportSummary(props: Props) {
     useEffect(() => {
         setTotalSpent(getTotalValueForTimePeriod());
     }, [filteredTransactions])
+
+    useEffect(()=>{
+        console.log("alt hey")},[transactions])
 
     const style = {
         backgroundColor: PaletteNeutral["200"],
