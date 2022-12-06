@@ -9,6 +9,7 @@ import moment from "moment";
 import {TopSpendings} from "../TopSpendings/TopSpendings";
 import {useVanguardTheme} from "../../colors/useVanguardTheme";
 import {useRoute} from "@react-navigation/native";
+import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 
 const DEFAULT_NO_OF_SPENDINGS_TO_SHOW = 3
 
@@ -19,6 +20,7 @@ interface Props {
 
 export function ReportSummary(props: Props) {
     const {transactions, styleProp} = props;
+    const {transactions: globalTransactions} = useContext(GlobalContext);
 
     const [timePeriod, setTimePeriod] = useState(TimePeriod.week);
     const [filteredTransactions, setFilteredTransactions] = useState(transactions)
@@ -27,7 +29,7 @@ export function ReportSummary(props: Props) {
 
     useEffect(() => {
         setFilteredTransactions(getTransactionsFilteredByTimePeriod());
-    }, [timePeriod])
+    }, [timePeriod, globalTransactions])
 
     useEffect(() => {
         setTotalSpent(getTotalValueForTimePeriod());

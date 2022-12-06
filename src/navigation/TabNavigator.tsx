@@ -56,14 +56,14 @@ export function TabNavigator() {
         name="Transactions"
         component={Transactions}
       />
-      <Tab.Screen
-        name={"AddEditTransaction"}
-        component={AddEditTransaction}
-        options={{
-          tabBarButton: (props) => null, //TODO find alternative (stacked navigators)
-          headerShown: true,
-        }}
-      />
+      {/*<Tab.Screen*/}
+      {/*  name={"AddEditTransaction"}*/}
+      {/*  component={AddEditTransaction}*/}
+      {/*  options={{*/}
+      {/*    tabBarButton: (props) => null, //TODO find alternative (stacked navigators)*/}
+      {/*    headerShown: true,*/}
+      {/*  }}*/}
+      {/*/>*/}
     </Tab.Navigator>)
 
 }

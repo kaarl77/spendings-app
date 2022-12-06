@@ -1,7 +1,6 @@
 Fix tab navigator options
 Set correct theme
 
-
 Activate Header:
     1. Back Button text should be "close"
 
@@ -13,5 +12,3 @@ A: EDITING
 
 Go back after "Submit changes"
 Show toast after "Submit changes"(Transaction edited/Transaction saved)
-
-***=Re-render Report Summary (why it doesnt work)

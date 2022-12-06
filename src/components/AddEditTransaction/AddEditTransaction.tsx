@@ -87,6 +87,7 @@ export function AddEditTransaction() {
     if (transaction == undefined) {
       addTransaction({note, date, categoryId, value: parseFloat(value)})
     }
+    
   }
 
 
