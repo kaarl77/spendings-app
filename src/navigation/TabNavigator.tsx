@@ -18,45 +18,49 @@ export function TabNavigator() {
 
   return (
     <Tab.Navigator
-      screenOptions= {{
-      tabBarActiveTintColor: PalettePrimary["600"],
-      tabBarInactiveTintColor: PaletteNeutral["600"],
-      headerShown: false
-    }}
+      screenOptions={{
+        tabBarActiveTintColor: PalettePrimary["600"],
+        tabBarInactiveTintColor: PaletteNeutral["600"],
+        headerShown: false
+      }}
     >
       <Tab.Screen
         name="Homepage"
         component={Homepage}
         options={() => ({
-          tabBarIcon: ({focused}) => {
-            if (focused) {
-              return <Image
-                style={{height: 20, width: 20}}
-                source={require('../../assets/homepageHighlighted.png')}/>
-            } else {
-              return <Image
-                style={{height: 20, width: 20}}
-                source={require('../../assets/homepage.png')}/>
-            }
-          }
+          tabBarIcon: ({focused}) => getHomepageIcon(focused)
         })}
       />
       <Tab.Screen
         name="Transactions"
         component={Transactions}
         options={() => ({
-          tabBarIcon: ({focused}) => {
-            if (focused) {
-              return <Image
-                style={{height: 20, width: 20}}
-                source={require('../../assets/transactionsHighlighted.png')}/>
-            } else {
-              return <Image
-                style={{height: 20, width: 20}}
-                source={require('../../assets/transactions.png')}/>
-            }
-          }
+          tabBarIcon: ({focused}) => getTransactionsIcon(focused)
         })}
       />
     </Tab.Navigator>)
+}
+
+function getHomepageIcon(focused: boolean) {
+  if (focused) {
+    return <Image
+      style={{height: 20, width: 20}}
+      source={require('../../assets/homepageHighlighted.png')}/>
+  } else {
+    return <Image
+      style={{height: 20, width: 20}}
+      source={require('../../assets/homepage.png')}/>
+  }
+}
+
+function getTransactionsIcon(focused: boolean) {
+  if (focused) {
+    return <Image
+      style={{height: 20, width: 20}}
+      source={require('../../assets/transactionsHighlighted.png')}/>
+  } else {
+    return <Image
+      style={{height: 20, width: 20}}
+      source={require('../../assets/transactions.png')}/>
+  }
 }

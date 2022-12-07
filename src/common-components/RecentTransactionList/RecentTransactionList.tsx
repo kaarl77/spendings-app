@@ -10,46 +10,46 @@ import {useNavigation} from "@react-navigation/native";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 
 interface Props {
-    styleProp?: ViewStyle;
-    transactions: Transaction[];
+  styleProp?: ViewStyle;
+  transactions: Transaction[];
 }
 
 export function RecentTransactionList(props: Props) {
-    const {styleProp, transactions} = props;
-    const {categories} = useContext(GlobalContext);
-    const {PaletteNeutral} = useVanguardTheme();
+  const {styleProp, transactions} = props;
+  const {categories} = useContext(GlobalContext);
+  const {PaletteNeutral} = useVanguardTheme();
 
-    const style = {
-        backgroundColor: PaletteNeutral["200"],
-        ...styles.container,
-        ...styleProp,
-    }
+  const style = {
+    backgroundColor: PaletteNeutral["200"],
+    ...styles.container,
+    ...styleProp,
+  }
 
-    const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
+  const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
 
 
-    return (
-        <View style={style}>
-            {
-                transactions.map((transaction, index) => {
-                    return <React.Fragment key={transaction.id}>
-                        <RecentTransaction
-                            date={StringToDate(transaction.date).format('dddd, D MMMM YYYY')}
-                            value={transaction.value}
-                            categoryName={categories[transaction.categoryId].name}
-                            categoryID={transaction.categoryId}
-                            onPress={() => navigation.navigate("AddEditTransaction", {transaction})}
-                        />
-                        {index !== transactions.length - 1 && <Spacer height={16}/>}
-                    </React.Fragment>
-                })
-            }
-        </View>
-    )
+  return (
+    <View style={style}>
+      {
+        transactions.map((transaction, index) => {
+          return <React.Fragment key={transaction.id}>
+            <RecentTransaction
+              date={StringToDate(transaction.date).format('dddd, D MMMM YYYY')}
+              value={transaction.value}
+              categoryName={categories[transaction.categoryId].name}
+              categoryID={transaction.categoryId}
+              onPress={() => navigation.navigate("AddEditTransaction", {transaction})}
+            />
+            {index !== transactions.length - 1 && <Spacer height={16}/>}
+          </React.Fragment>
+        })
+      }
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 16,
-    },
+  container: {
+    padding: 16,
+  },
 })

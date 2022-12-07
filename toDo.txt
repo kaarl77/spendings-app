@@ -1,2 +1,1 @@
-functions for transactions and homepage images
 

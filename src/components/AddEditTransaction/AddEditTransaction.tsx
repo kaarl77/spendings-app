@@ -46,10 +46,10 @@ export function AddEditTransaction() {
     if (transaction) {
       setEditedTransaction({
           id: transaction.id,
-        value: parseFloat(value),
-        date: date,
-        note: note,
-        categoryId: categoryId,
+          value: parseFloat(value),
+          date: date,
+          note: note,
+          categoryId: categoryId,
         }
       )
     }
@@ -91,7 +91,6 @@ export function AddEditTransaction() {
           rowTextForSelection={(category) => (category as Category).name}
           defaultValue={categories[categoryId]}
           disabled={locked}
-
         />
         <TextInput
           mode={"outlined"}
@@ -115,10 +114,13 @@ export function AddEditTransaction() {
       </ScrollView>
     </Screen>
   )
-  function getButtonDisabled(){
+
+  function getButtonDisabled() {
+    if(transaction===undefined)
+      return locked;
     if (locked)
       return true
-    else if (JSON.stringify(transaction) !==JSON.stringify(editedTransaction))
+    else if (JSON.stringify(transaction) !== JSON.stringify(editedTransaction))
       return false;
     return true;
   }
