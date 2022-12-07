@@ -4,8 +4,6 @@ import {TabNavigator} from "./TabNavigator";
 import {AddEditTransaction} from "../components/AddEditTransaction/AddEditTransaction";
 import {Button} from "../vanguard/Button/Button";
 import {useVanguardTheme} from "../colors/useVanguardTheme";
-import {useNavigation} from "@react-navigation/native";
-import {TabScreensNavigationProp} from "./NavigationTypes";
 
 const Root = createStackNavigator();
 

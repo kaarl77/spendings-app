@@ -53,7 +53,7 @@ export function GlobalContextProvider(props: Props) {
       setCategories(categories)
     },
     addTransaction: transactionFields => {
-      const transaction:Transaction={
+      const transaction: Transaction = {
         id: transactions.length,
         note: transactionFields.note,
         date: transactionFields.date,

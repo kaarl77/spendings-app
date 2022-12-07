@@ -3,39 +3,39 @@ import {SafeAreaView, StyleSheet, View, ViewStyle} from "react-native";
 import {useVanguardTheme} from "../../colors/useVanguardTheme";
 
 interface Props {
-    styleProp?: ViewStyle;
-    children: React.ReactNode;
+  styleProp?: ViewStyle;
+  children: React.ReactNode;
 }
 
 export function Screen(props: Props) {
-    const {styleProp, children} = props;
-    /**
-     * Styles
-     */
-    const {PaletteNeutral} = useVanguardTheme()
+  const {styleProp, children} = props;
+  /**
+   * Styles
+   */
+  const {PaletteNeutral} = useVanguardTheme()
 
-    const contentStyle = {
-            ...styles.content,
-            ...styleProp,
-    }
-    const containerStyle = {
-        backgroundColor: PaletteNeutral["100"],
-        ...styles.container,
-    }
+  const contentStyle = {
+    ...styles.content,
+    ...styleProp,
+  }
+  const containerStyle = {
+    backgroundColor: PaletteNeutral["100"],
+    ...styles.container,
+  }
 
-    return <SafeAreaView style={containerStyle}>
-        <View style={contentStyle}>
-            {children}
-        </View>
-    </SafeAreaView>
+  return <SafeAreaView style={containerStyle}>
+    <View style={contentStyle}>
+      {children}
+    </View>
+  </SafeAreaView>
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    content: {
-        flex: 1,
-        paddingHorizontal: 24,
-    }
+  container: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 24,
+  }
 })

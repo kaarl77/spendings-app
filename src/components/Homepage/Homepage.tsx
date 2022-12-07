@@ -11,7 +11,6 @@ import {FAB} from "../../common-components/FAB/FAB";
 import {EmptyState} from "../EmptyState/EmptyState";
 import {useNavigation} from "@react-navigation/native";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
-import Toast from "react-native-toast-message";
 
 export function Homepage() {
   const {transactions, categories, setTransactions, setCategories} = useContext(GlobalContext);

@@ -10,33 +10,33 @@ import {useContext} from "react";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 
 interface Props {
-    transactions: Transaction[];
+  transactions: Transaction[];
 }
 
 export function RecentTransactions(props: Props) {
-    const {transactions} = props;
-    const {categories} = useContext(GlobalContext)
+  const {transactions} = props;
+  const {categories} = useContext(GlobalContext)
 
-    const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
+  const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
 
-    const Latest5Transactions:Transaction[] = get5LatestTransactions();
+  const Latest5Transactions: Transaction[] = get5LatestTransactions();
 
-    return (
-        <View>
-            <HeadingText
-                text={"Recent transactions"}
-                onPress={() => {
-                    navigation.navigate("Transactions")
-                }}
-            />
-            <Spacer height={8}/>
+  return (
+    <View>
+      <HeadingText
+        text={"Recent transactions"}
+        onPress={() => {
+          navigation.navigate("Transactions")
+        }}
+      />
+      <Spacer height={8}/>
 
-            <RecentTransactionList transactions={Latest5Transactions}/>
+      <RecentTransactionList transactions={Latest5Transactions}/>
 
-        </View>
-    );
+    </View>
+  );
 
-    function get5LatestTransactions() {
-        return (transactions.sort((a, b) => StringToDate(a.date).valueOf() < StringToDate(b.date).valueOf() ? 1 : -1).slice(0,5));
-    }
+  function get5LatestTransactions() {
+    return (transactions.sort((a, b) => StringToDate(a.date).valueOf() < StringToDate(b.date).valueOf() ? 1 : -1).slice(0, 5));
+  }
 }

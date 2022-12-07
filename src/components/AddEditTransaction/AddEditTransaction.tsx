@@ -13,6 +13,7 @@ import {useVanguardTheme} from "../../colors/useVanguardTheme";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 import Toast from "react-native-toast-message";
 import {Transaction} from "../../custom-types/Transaction";
+import {areObjectsEqual} from "../../utils/obj-utils";
 
 type Props = BottomTabScreenProps<TabStackParamList, "AddEditTransaction">
 type routeProp = Props['route']
@@ -25,15 +26,22 @@ export function AddEditTransaction() {
   const navigation = useNavigation<TabScreensNavigationProp<"AddEditTransaction">>();
   const [locked, setLocked] = useState(true);
 
+  const getButtonTitle = () => {
+    return locked?"Edit":"Cancel";
+  }
+
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <Button title={"Back"} onPress={() => navigation.goBack()}/>
       ),
       headerRight: () => (
-        <Button title={"Edit"} onPress={() => setLocked((locked) => !locked)}/>
+        <Button title={getButtonTitle()} onPress={() => setLocked((locked) => !locked)}/>
       )
     })
+    if(locked)
+      console.log("nnn");
+
   }, [navigation, locked]);
 
   const [value, setValue] = useState(transaction?.value.toString() ?? "");
@@ -116,13 +124,15 @@ export function AddEditTransaction() {
   )
 
   function getButtonDisabled() {
-    if(transaction===undefined)
+    if (transaction === undefined) {
       return locked;
-    if (locked)
+    }
+
+    if (locked) {
       return true
-    else if (JSON.stringify(transaction) !== JSON.stringify(editedTransaction))
-      return false;
-    return true;
+    }
+
+    return areObjectsEqual(transaction,editedTransaction);
   }
 
 

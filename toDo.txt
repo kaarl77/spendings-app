@@ -1,1 +1,2 @@
-
+edit button text on add/edit based on locked state
+add way to remove transactions with array.filter

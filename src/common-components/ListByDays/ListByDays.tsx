@@ -1,10 +1,10 @@
-import {FlatList} from "react-native";
 import {Transaction} from "../../custom-types/Transaction";
 
 interface Props {
-    transactions: Transaction[];
+  transactions: Transaction[];
 
 }
+
 //
 // export function ListByDays(props:Props){
 //     const {transactions} = props;

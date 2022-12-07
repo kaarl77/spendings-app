@@ -9,7 +9,7 @@ interface Props {
   categoryID: number;
   value: number;
   percentage: number;
-  onPress: ()=>void;
+  onPress: () => void;
 }
 
 export function TopSpending(props: Props) {
@@ -44,7 +44,7 @@ export function TopSpending(props: Props) {
           <Text> {percentage}% </Text>
         </View>
       </View>
-  </Pressable>
+    </Pressable>
   )
 }
 

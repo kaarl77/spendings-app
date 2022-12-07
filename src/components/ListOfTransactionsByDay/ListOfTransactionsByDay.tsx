@@ -15,7 +15,6 @@ export function ListOfTransactionsByDay(props: Props) {
   const {transactions} = props;
   const {categories} = useContext(GlobalContext);
   const navigation = useNavigation<TabScreensNavigationProp<"Transactions">>();
-
   return (
     <FlatList
       data={transactions}

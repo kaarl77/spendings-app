@@ -6,62 +6,62 @@ import {StringToDate} from "../../utils/date-utils";
 import {useVanguardTheme} from "../../colors/useVanguardTheme";
 
 interface Props {
-    dateString: string;
-    value: number;
+  dateString: string;
+  value: number;
 }
 
 export function DayHeader(props: Props) {
-    const {dateString, value} = props;
-    const date = StringToDate(dateString);
+  const {dateString, value} = props;
+  const date = StringToDate(dateString);
 
-    const {PaletteNeutral,PalettePrimary} = useVanguardTheme();
+  const {PaletteNeutral, PalettePrimary} = useVanguardTheme();
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.headerDate}>
-                <Text bold={true} fontSize={FontSize.extraLarge} styleProp={styles.date} lineHeight={40}>
-                    {date.date()}
-                </Text>
-                <Spacer width={8}/>
-                <View>
-                    <Text bold={true} fontSize={FontSize.small} lineHeight={16}>
-                        {getDateAsString(date)}
-                    </Text>
+  return (
+    <View style={styles.container}>
+      <View style={styles.headerDate}>
+        <Text bold={true} fontSize={FontSize.extraLarge} styleProp={styles.date} lineHeight={40}>
+          {date.date()}
+        </Text>
+        <Spacer width={8}/>
+        <View>
+          <Text bold={true} fontSize={FontSize.small} lineHeight={16}>
+            {getDateAsString(date)}
+          </Text>
 
-                    <Text fontSize={FontSize.small} color={PaletteNeutral["800"]} lineHeight={16}>{date.format("MMMM YYYY")}</Text>
-                </View>
-            </View>
-
-            <View>
-                <Text color={PalettePrimary["1000"]} lineHeight={24}>{value}</Text>
-            </View>
+          <Text fontSize={FontSize.small} color={PaletteNeutral["800"]}
+                lineHeight={16}>{date.format("MMMM YYYY")}</Text>
         </View>
-    )
+      </View>
 
-    function getDateAsString(date: Moment) {
-        if (date.isSame(new Date(), "day")) {
-            return "Today";
-        } else if ((date.add(1,"day")).isSame((new Date()), "day")) {
-            return "Yesterday";
-        } else {
-            return date.format("dddd");
-        }
+      <View>
+        <Text color={PalettePrimary["1000"]} lineHeight={24}>{value}</Text>
+      </View>
+    </View>
+  )
 
+  function getDateAsString(date: Moment) {
+    if (date.isSame(new Date(), "day")) {
+      return "Today";
+    } else if ((date.add(1, "day")).isSame((new Date()), "day")) {
+      return "Yesterday";
+    } else {
+      return date.format("dddd");
     }
+
+  }
 }
 
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: "row",
-        alignItems: "center",
-        flex: 1,
-    },
-    date: {
-    },
-    headerDate: {
-        flexDirection: "row",
-        alignItems: "center",
-        flex: 1
-    },
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+  },
+  date: {},
+  headerDate: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1
+  },
 })
