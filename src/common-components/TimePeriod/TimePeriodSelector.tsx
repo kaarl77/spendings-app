@@ -4,66 +4,66 @@ import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {useState} from "react";
 
 export enum TimePeriod {
-    week = "timePeriodWeek",
-    month = "timePeriodMonth",
+  week = "timePeriodWeek",
+  month = "timePeriodMonth",
 }
 
 interface Props {
-    timePeriod: TimePeriod;
-    onTimePeriodChange: (timePeriod: TimePeriod) => void;
+  timePeriod: TimePeriod;
+  onTimePeriodChange: (timePeriod: TimePeriod) => void;
 }
 
 export function TimePeriodSelector(props: Props) {
-    const {timePeriod, onTimePeriodChange} = props;
+  const {timePeriod, onTimePeriodChange} = props;
 
-    const [buttonWidth, setButtonWidth] = useState(0);
+  const [buttonWidth, setButtonWidth] = useState(0);
 
-    const style = {
-        ...styles.container,
-    }
+  const style = {
+    ...styles.container,
+  }
 
-    return (
-        <View
-            style={style}
-            onLayout={(event) => {
-                let {width} = event.nativeEvent.layout;
-                setButtonWidth(Math.floor((width - 16) / 2));
-            }}>
-            <View style={{flex: 1}}>
-                <Button
-                    title={"Week"}
-                    onPress={() => {
-                        onTimePeriodChange(TimePeriod.week)
-                    }}
-                    buttonType={getWeekButtonType()}
-                />
-            </View>
+  return (
+    <View
+      style={style}
+      onLayout={(event) => {
+        let {width} = event.nativeEvent.layout;
+        setButtonWidth(Math.floor((width - 16) / 2));
+      }}>
+      <View style={{flex: 1}}>
+        <Button
+          title={"Week"}
+          onPress={() => {
+            onTimePeriodChange(TimePeriod.week)
+          }}
+          buttonType={getWeekButtonType()}
+        />
+      </View>
 
-            <Spacer width={16}/>
+      <Spacer width={16}/>
 
-            <View style={{flex: 1}}>
-                <Button
-                    title={"Month"}
-                    onPress={() => {
-                        onTimePeriodChange(TimePeriod.month)
-                    }}
-                    buttonType={getMonthButtonType()}
-                />
-            </View>
-        </View>
-    )
+      <View style={{flex: 1}}>
+        <Button
+          title={"Month"}
+          onPress={() => {
+            onTimePeriodChange(TimePeriod.month)
+          }}
+          buttonType={getMonthButtonType()}
+        />
+      </View>
+    </View>
+  )
 
-    function getWeekButtonType() {
-        return timePeriod === TimePeriod.week ? ButtonType.Primary : ButtonType.Secondary;
-    }
+  function getWeekButtonType() {
+    return timePeriod === TimePeriod.week ? ButtonType.Primary : ButtonType.Secondary;
+  }
 
-    function getMonthButtonType() {
-        return timePeriod === TimePeriod.month ? ButtonType.Primary : ButtonType.Secondary;
-    }
+  function getMonthButtonType() {
+    return timePeriod === TimePeriod.month ? ButtonType.Primary : ButtonType.Secondary;
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-    }
+  container: {
+    flexDirection: 'row',
+  }
 })

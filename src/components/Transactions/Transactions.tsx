@@ -6,29 +6,33 @@ import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {DayOfTransactions} from "../../common-components/DayOfTransactions/DayOfTransactions";
 import {FAB} from "../../common-components/FAB/FAB";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
+import {useNavigation} from "@react-navigation/native";
+import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 
 export function Transactions() {
-    const {transactions, categories} = useContext(GlobalContext);
-    const sortedTransactionDatesArray = transactions.map((transaction) => transaction.date).sort((a, b) => StringToDate(a).valueOf() < StringToDate(b).valueOf() ? 1 : -1);
-    const transactionDatesSet = new Set(sortedTransactionDatesArray);
+  const {transactions, categories} = useContext(GlobalContext);
+  const sortedTransactionDatesArray = transactions.map((transaction) => transaction.date).sort((a, b) => StringToDate(a).valueOf() < StringToDate(b).valueOf() ? 1 : -1);
+  const transactionDatesSet = new Set(sortedTransactionDatesArray);
 
-    return (
-        <Screen>
-            <FlatList
-                data={Array.from(transactionDatesSet)}
-                renderItem={({item: date}) =>
-                    <View>
-                        <DayOfTransactions
-                            transactions={getFilteredTransactionsByDate(date)}/>
-                        <Spacer height={24}/>
-                    </View>
-                }
-            />
-            <FAB title={"+"}/>
-        </Screen>
-    )
+  const navigation = useNavigation<TabScreensNavigationProp<"Transactions">>();
 
-    function getFilteredTransactionsByDate(date: string) {
-        return transactions.filter((transaction) => transaction.date === date);
-    }
+  return (
+    <Screen>
+      <FlatList
+        data={Array.from(transactionDatesSet)}
+        renderItem={({item: date}) =>
+          <View>
+            <DayOfTransactions
+              transactions={getFilteredTransactionsByDate(date)}/>
+            <Spacer height={24}/>
+          </View>
+        }
+      />
+      <FAB title={"+"} onPress={() => navigation.navigate("AddEditTransaction")}/>
+    </Screen>
+  )
+
+  function getFilteredTransactionsByDate(date: string) {
+    return transactions.filter((transaction) => transaction.date === date);
+  }
 }

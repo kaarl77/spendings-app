@@ -17,10 +17,6 @@ export function Homepage() {
 
   const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
 
-  useEffect(() =>{
-    console.log("HEY")}, [transactions])
-
-
   useEffect(() => {
     getBoth()
       .then((value) => {

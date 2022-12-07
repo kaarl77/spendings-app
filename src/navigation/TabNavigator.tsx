@@ -5,7 +5,6 @@ import {Image} from "react-native";
 import React from "react";
 import {useVanguardTheme} from "../colors/useVanguardTheme";
 import {Transaction} from "../custom-types/Transaction";
-import {AddEditTransaction} from "../components/AddEditTransaction/AddEditTransaction";
 
 export type TabStackParamList = {
   Homepage: undefined;
@@ -19,9 +18,17 @@ export function TabNavigator() {
 
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({focused, color}) => {
-          if (route.name === "Homepage") {
+      screenOptions= {{
+      tabBarActiveTintColor: PalettePrimary["600"],
+      tabBarInactiveTintColor: PaletteNeutral["600"],
+      headerShown: false
+    }}
+    >
+      <Tab.Screen
+        name="Homepage"
+        component={Homepage}
+        options={() => ({
+          tabBarIcon: ({focused}) => {
             if (focused) {
               return <Image
                 style={{height: 20, width: 20}}
@@ -31,39 +38,25 @@ export function TabNavigator() {
                 style={{height: 20, width: 20}}
                 source={require('../../assets/homepage.png')}/>
             }
-          } else {
-            if (focused) {
-              return <Image
-                style={{height: 21, width: 20}}
-                source={require('../../assets/transactionsHighlighted.png')}/>
-            } else {
-              return <Image
-                style={{height: 21, width: 20}}
-                source={require('../../assets/transactions.png')}/>
-            }
           }
-        },
-        tabBarActiveTintColor: PalettePrimary["600"],
-        tabBarInactiveTintColor: PaletteNeutral["600"],
-        headerShown: false,
-
-      })}>
-      <Tab.Screen
-        name="Homepage"
-        component={Homepage}
+        })}
       />
       <Tab.Screen
         name="Transactions"
         component={Transactions}
+        options={() => ({
+          tabBarIcon: ({focused}) => {
+            if (focused) {
+              return <Image
+                style={{height: 20, width: 20}}
+                source={require('../../assets/transactionsHighlighted.png')}/>
+            } else {
+              return <Image
+                style={{height: 20, width: 20}}
+                source={require('../../assets/transactions.png')}/>
+            }
+          }
+        })}
       />
-      {/*<Tab.Screen*/}
-      {/*  name={"AddEditTransaction"}*/}
-      {/*  component={AddEditTransaction}*/}
-      {/*  options={{*/}
-      {/*    tabBarButton: (props) => null, //TODO find alternative (stacked navigators)*/}
-      {/*    headerShown: true,*/}
-      {/*  }}*/}
-      {/*/>*/}
     </Tab.Navigator>)
-
 }

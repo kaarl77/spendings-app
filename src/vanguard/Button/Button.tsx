@@ -14,10 +14,11 @@ interface Props {
     onPress?: () => void;
     buttonType?: ButtonType,
     styleProp?: ViewStyle,
+    disabled?: boolean
 }
 
 export function Button(props: Props) {
-    const {title, onPress, buttonType = ButtonType.Default, styleProp} = props;
+    const {title, onPress, buttonType = ButtonType.Default, styleProp, disabled = false} = props;
     const {PalettePrimary,PaletteNeutral} = useVanguardTheme();
 
     const primaryColor = PalettePrimary["600"];
@@ -46,6 +47,7 @@ export function Button(props: Props) {
         onPress={onPress}
         {...buttonProps[buttonType]}
         style={style}
+        disabled={disabled}
     >{title}
     </ButtonBase>
 }
