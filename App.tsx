@@ -4,9 +4,10 @@ import {GlobalContextProvider} from "./src/contexts/GlobalContext/GlobalContextP
 import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {RootNavigator} from "./src/navigation/RootNavigator";
-import Toast from 'react-native-toast-message';
+import Toast, {BaseToast, BaseToastProps, ToastType} from 'react-native-toast-message';
 
 export default function App() {
+
   return (
     <PaperProvider>
       <GlobalContextProvider>

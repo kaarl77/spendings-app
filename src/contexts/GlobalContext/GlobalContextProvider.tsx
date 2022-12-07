@@ -64,7 +64,7 @@ export function GlobalContextProvider(props: Props) {
       setTransactions((transactions) => [...transactions, transaction])
     },
     editTransaction: transaction => {
-      const transactionToBeModifiedIndex = transactions.findIndex((t) => t === transaction);
+      const transactionToBeModifiedIndex = transactions.findIndex((t) => t.id === transaction.id);
       const transactionsBeforeTarget = [...transactions].slice(0, transactionToBeModifiedIndex);
       const transactionsAfterTarget = [...transactions].slice(transactionToBeModifiedIndex + 1);
       setTransactions((transactions) => [...transactionsBeforeTarget, transaction, ...transactionsAfterTarget]);

@@ -1,6 +1,2 @@
 functions for transactions and homepage images
 
-A: EDITING
-    2. Disable SUBMIT until changes are made
-
-Make editing work
