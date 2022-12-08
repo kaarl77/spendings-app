@@ -2,11 +2,10 @@ import {Screen} from "../../common-components/Screen/Screen";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {BottomTabScreenProps} from "@react-navigation/bottom-tabs";
 import {TabStackParamList} from "../../navigation/TabNavigator";
-import {TextInput} from "react-native-paper";
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {Button, ButtonType} from "../../vanguard/Button/Button";
-import {ScrollView} from "react-native";
+import {Pressable, ScrollView, StyleSheet} from "react-native";
 import SelectDropdown from 'react-native-select-dropdown'
 import {Category} from "../../custom-types/Category";
 import {useVanguardTheme} from "../../colors/useVanguardTheme";
@@ -14,21 +13,23 @@ import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 import Toast from "react-native-toast-message";
 import {Transaction} from "../../custom-types/Transaction";
 import {areObjectsEqual} from "../../utils/obj-utils";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from "moment";
+import {DateToString} from "../../utils/date-utils";
+import {Input} from "../../common-components/Input";
+import {Spacer} from "../../vanguard/Spacer/Spacer";
 
 type Props = BottomTabScreenProps<TabStackParamList, "AddEditTransaction">
 type routeProp = Props['route']
 
 export function AddEditTransaction() {
   const {params} = useRoute<routeProp>();
-  const {categories, addTransaction, editTransaction} = useContext(GlobalContext);
+  const {categories, addTransaction, editTransaction, transactions, setTransactions} = useContext(GlobalContext);
+  const theme = useVanguardTheme();
 
   const transaction = params?.transaction;
   const navigation = useNavigation<TabScreensNavigationProp<"AddEditTransaction">>();
   const [locked, setLocked] = useState(true);
-
-  const getButtonTitle = () => {
-    return locked ? "Edit" : "Cancel";
-  }
 
   useEffect(() => {
     navigation.setOptions({
@@ -42,7 +43,6 @@ export function AddEditTransaction() {
       )
     })
     if (locked) {
-      console.log("nnn");
       setValue(initialValue);
       setNote(initialNote);
       setCategoryId(initialCategoryId);
@@ -75,7 +75,20 @@ export function AddEditTransaction() {
     }
   }, [value, note, categoryId, date])
 
-  const theme = useVanguardTheme();
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date: Date) => {
+    setDate(DateToString(moment(date)))
+    hideDatePicker();
+  };
 
   return (
     <Screen>
@@ -83,26 +96,18 @@ export function AddEditTransaction() {
         keyboardShouldPersistTaps={'handled'}
         automaticallyAdjustKeyboardInsets={true}
       >
-        <TextInput
-          mode={"outlined"}
-          label={"Note"}
-          value={locked ? initialNote : note}
-          onChangeText={(note) => setNote(note)}
-          style={{backgroundColor: theme.PaletteNeutral["200"]}}
-          disabled={locked}
-          textColor={theme.PaletteNeutral["1000"]}
+        <Spacer height={32}/>
 
-        />
-        <TextInput
-          mode={"outlined"}
-          keyboardType={'numeric'}
+        <Input
           label={"Value"}
-          value={locked ? initialValue.toString() : value.toString()}
-          onChangeText={(value) => setValue(value)}
-          style={{backgroundColor: theme.PaletteNeutral["200"]}}
+          value={value}
+          onValueChange={(value) => setValue(value)}
           disabled={locked}
-          textColor={theme.PaletteNeutral["1000"]}
+          placeholder={"123.45"}
+          keyboardType={"numeric"}
         />
+        <Spacer height={24}/>
+
         <SelectDropdown
           data={categories}
           onSelect={(category) => {
@@ -112,26 +117,62 @@ export function AddEditTransaction() {
           rowTextForSelection={(category) => (category as Category).name}
           defaultValue={locked ? categories[initialCategoryId] : categories[categoryId]}
           disabled={locked}
+          buttonStyle={styles.dropdown4BtnStyle}
         />
-        <TextInput
-          mode={"outlined"}
-          label={"Date"}
-          value={locked ? initialDate : date}
-          onChangeText={(date) => setDate(date)}
-          style={{backgroundColor: theme.PaletteNeutral["100"]}}
+        <Spacer height={24}/>
+
+        <Input
+          label={"Note"}
+          value={locked ? initialNote : note}
+          onValueChange={(note) => setNote(note)}
           disabled={locked}
+          placeholder={"meaningful details"}
         />
+        <Spacer height={24}/>
+
+        <Pressable
+          onPress={() => {
+            showDatePicker();
+          }}
+          disabled={locked}>
+          <Input
+            label={"Date"}
+            value={date}
+            onValueChange={(date) => setDate(date)}
+            disabled={locked}
+            placeholder={"01-01-1970"}
+            pointerEvents={"none"}
+          />
+        </Pressable>
+
+        <DateTimePickerModal
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+          mode={"date"}
+          isVisible={isDatePickerVisible}/>
+
+        <Spacer height={24}/>
+
         <Button
-          title={"Submit changes"}
+          title={"Save"}
           onPress={
             addOrEditTransaction
           }
-          styleProp={{
-            backgroundColor: theme.PalettePrimary["600"]
-          }}
           buttonType={ButtonType.Primary}
           disabled={getButtonDisabled()}
         />
+
+        <Spacer height={24}/>
+
+        {transaction &&
+            <Button
+                title={"Delete"}
+                onPress={removeTransaction}
+                styleProp={{backgroundColor: "red"}}
+                buttonType={ButtonType.Primary}
+            />
+        }
+
       </ScrollView>
     </Screen>
   )
@@ -147,7 +188,6 @@ export function AddEditTransaction() {
 
     return areObjectsEqual(transaction, editedTransaction);
   }
-
 
   function addOrEditTransaction() {
     if (transaction === undefined) {
@@ -166,8 +206,27 @@ export function AddEditTransaction() {
     navigation.goBack();
   }
 
-  //value={locked ? transaction?.note : note}
-
+  function removeTransaction() {
+    if (transaction) {
+      setTransactions(transactions.filter((item) => item.id !== transaction.id))
+      Toast.show({
+        type: "success",
+        text1: "Transaction removed",
+      })
+      navigation.goBack();
+    }
+  }
 }
+
+const styles = StyleSheet.create({
+  dropdown4BtnStyle: {
+    width: '100%',
+    backgroundColor: '#FFF',
+    borderRadius: 4,
+    borderWidth: 1,
+    margin: 0,
+    height: '10%',
+  },
+})
 
 

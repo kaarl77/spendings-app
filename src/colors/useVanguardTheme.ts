@@ -4,6 +4,7 @@ import {ColorType, Palette, PaletteShade, Theme} from "./Colors";
 const Colors: ColorType = {
   [Theme.light]: {
     [Palette.neutral]: {
+      [PaletteShade._000]: "#ffffff",
       [PaletteShade._100]: "#fcfcfc",
       [PaletteShade._200]: "#E8E8E8",
       [PaletteShade._300]: "#D0D0D0",
@@ -16,6 +17,7 @@ const Colors: ColorType = {
       [PaletteShade._1000]: "#2F2F2F",
     },
     [Palette.primary]: {
+      [PaletteShade._000]: "#ffffff",
       [PaletteShade._100]: "#F3F2FA",
       [PaletteShade._200]: "#ffffff",
       [PaletteShade._300]: "#ffffff",
@@ -30,6 +32,7 @@ const Colors: ColorType = {
   },
   [Theme.dark]: {
     [Palette.neutral]: {
+      [PaletteShade._000]: "#ffffff",
       [PaletteShade._100]: "#fcfcfc",
       [PaletteShade._200]: "#E8E8E8",
       [PaletteShade._300]: "#D0D0D0",
@@ -42,6 +45,7 @@ const Colors: ColorType = {
       [PaletteShade._1000]: "#2F2F2F",
     },
     [Palette.primary]: {
+      [PaletteShade._000]: "#ffffff",
       [PaletteShade._100]: "#F3F2FA",
       [PaletteShade._200]: "#ffffff",
       [PaletteShade._300]: "#ffffff",

@@ -11,7 +11,7 @@ export enum ButtonType {
 
 interface Props {
   title: string;
-  onPress?: () => void;
+  onPress: () => void;
   buttonType?: ButtonType,
   styleProp?: ViewStyle,
   disabled?: boolean
@@ -26,6 +26,7 @@ export function Button(props: Props) {
   const style = {
     ...styles.container,
     ...styleProp,
+    opacity: disabled ? 0.5 : 1,
   }
 
   const buttonProps: Record<ButtonType, Omit<React.ComponentProps<typeof ButtonBase>, 'children'>> = {
@@ -44,10 +45,11 @@ export function Button(props: Props) {
   }
 
   return <ButtonBase
-    onPress={onPress}
+    onPress={() => {
+      !disabled && onPress()
+    }}
     {...buttonProps[buttonType]}
     style={style}
-    disabled={disabled}
   >{title}
   </ButtonBase>
 }

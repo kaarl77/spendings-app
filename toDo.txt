@@ -1,2 +1,3 @@
-when pressing cancel, set edit fields to original state
-add way to remove transactions with array.filter
+
+redo the selectDropdown - make it pretty
+
