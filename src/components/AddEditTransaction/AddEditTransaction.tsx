@@ -27,7 +27,7 @@ export function AddEditTransaction() {
   const [locked, setLocked] = useState(true);
 
   const getButtonTitle = () => {
-    return locked?"Edit":"Cancel";
+    return locked ? "Edit" : "Cancel";
   }
 
   useEffect(() => {
@@ -36,11 +36,18 @@ export function AddEditTransaction() {
         <Button title={"Back"} onPress={() => navigation.goBack()}/>
       ),
       headerRight: () => (
-        <Button title={getButtonTitle()} onPress={() => setLocked((locked) => !locked)}/>
+        <Button
+          title={locked ? "Edit" : "Cancel"}
+          onPress={() => setLocked((locked) => !locked)}/>
       )
     })
-    if(locked)
+    if (locked) {
       console.log("nnn");
+      setValue(initialValue);
+      setNote(initialNote);
+      setCategoryId(initialCategoryId);
+      setDate(initialDate);
+    }
 
   }, [navigation, locked]);
 
@@ -49,6 +56,11 @@ export function AddEditTransaction() {
   const [categoryId, setCategoryId] = useState(transaction?.categoryId ?? -1);
   const [date, setDate] = useState(transaction?.date ?? "");
   const [editedTransaction, setEditedTransaction] = useState<Transaction>();
+
+  const initialValue = transaction?.value.toString() ?? "";
+  const initialNote = transaction?.note ?? "";
+  const initialCategoryId = transaction?.categoryId ?? -1;
+  const initialDate = transaction?.date ?? "";
 
   useEffect(() => {
     if (transaction) {
@@ -74,17 +86,18 @@ export function AddEditTransaction() {
         <TextInput
           mode={"outlined"}
           label={"Note"}
-          value={note}
+          value={locked ? initialNote : note}
           onChangeText={(note) => setNote(note)}
           style={{backgroundColor: theme.PaletteNeutral["200"]}}
           disabled={locked}
           textColor={theme.PaletteNeutral["1000"]}
+
         />
         <TextInput
           mode={"outlined"}
           keyboardType={'numeric'}
           label={"Value"}
-          value={value.toString()}
+          value={locked ? initialValue.toString() : value.toString()}
           onChangeText={(value) => setValue(value)}
           style={{backgroundColor: theme.PaletteNeutral["200"]}}
           disabled={locked}
@@ -97,13 +110,13 @@ export function AddEditTransaction() {
           }}
           buttonTextAfterSelection={(category) => (category as Category).name}
           rowTextForSelection={(category) => (category as Category).name}
-          defaultValue={categories[categoryId]}
+          defaultValue={locked ? categories[initialCategoryId] : categories[categoryId]}
           disabled={locked}
         />
         <TextInput
           mode={"outlined"}
           label={"Date"}
-          value={date}
+          value={locked ? initialDate : date}
           onChangeText={(date) => setDate(date)}
           style={{backgroundColor: theme.PaletteNeutral["100"]}}
           disabled={locked}
@@ -132,7 +145,7 @@ export function AddEditTransaction() {
       return true
     }
 
-    return areObjectsEqual(transaction,editedTransaction);
+    return areObjectsEqual(transaction, editedTransaction);
   }
 
 
@@ -152,6 +165,9 @@ export function AddEditTransaction() {
     }
     navigation.goBack();
   }
+
+  //value={locked ? transaction?.note : note}
+
 }
 
 
