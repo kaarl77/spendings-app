@@ -3,9 +3,11 @@ import {Category} from "../../custom-types/Category";
 import {CategoryDropdownRowChild} from "../CategoryDropdownRowChild/CategoryDropdownRowChild";
 import {StyleSheet, View} from "react-native";
 import {FontSize, Text} from "../../vanguard/Text/Text";
-import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {CategoryDropdownButtonChild} from "../CategoryDropdownButtonChild/CategoryDropdownButtonChild";
+import {Spacings} from "../../theming/spacings/Spacings";
+import React from "react";
 
 
 interface Props {
@@ -36,7 +38,7 @@ export function CategoryDropdown(props: Props) {
       >
         Category
       </Text>
-      <Spacer height={4}/>
+      <Spacer height={Spacings["--0.5x"]}/>
       <SelectDropdown
         buttonStyle={dropdownButtonStyle}
         data={data}
@@ -72,6 +74,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     width: '100%',
-    height: 40
+    height: Spacings["--5x"],
   },
 })

@@ -6,6 +6,7 @@ import React, {useContext} from "react";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {useNavigation} from "@react-navigation/native";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
+import {Spacings} from "../../theming/spacings/Spacings";
 
 interface Props {
   transactions: Transaction[];
@@ -30,7 +31,7 @@ export function TransactionList(props: Props) {
                 categoryID={categories[transaction.categoryId].id}
                 onPress={() => navigation.navigate("AddEditTransaction", {transaction})}
               />
-              {index !== transactions.length - 1 && <Spacer height={16}/>}
+              {index !== transactions.length - 1 && <Spacer height={Spacings["--2x"]}/>}
             </React.Fragment>
           )
         })

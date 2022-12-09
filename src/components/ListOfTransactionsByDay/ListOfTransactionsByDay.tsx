@@ -6,6 +6,7 @@ import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {TransactionForDay} from "../TransactionForDay/TransactionForDay";
 import {useNavigation} from "@react-navigation/native";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
+import {Spacings} from "../../theming/spacings/Spacings";
 
 interface Props {
   transactions: Transaction[];
@@ -29,7 +30,7 @@ export function ListOfTransactionsByDay(props: Props) {
               onPress={() => navigation.navigate("AddEditTransaction", {transaction: item})}
             />
             <View>
-              {index !== transactions.length - 1 && <Spacer height={16}/>}
+              {index !== transactions.length - 1 && <Spacer height={Spacings["--2x"]}/>}
             </View>
 
           </>

@@ -1,7 +1,8 @@
 import {StyleSheet, View} from "react-native";
 import {Button, ButtonType} from "../../vanguard/Button/Button";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
-import {useState} from "react";
+import React, {useState} from "react";
+import {Spacings} from "../../theming/spacings/Spacings";
 
 export enum TimePeriod {
   week = "timePeriodWeek",
@@ -39,7 +40,7 @@ export function TimePeriodSelector(props: Props) {
         />
       </View>
 
-      <Spacer width={16}/>
+      <Spacer height={Spacings["--2x"]}/>
 
       <View style={{flex: 1}}>
         <Button

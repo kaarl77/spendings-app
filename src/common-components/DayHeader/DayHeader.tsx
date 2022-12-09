@@ -3,7 +3,9 @@ import {FontSize, Text} from "../../vanguard/Text/Text";
 import {Moment} from "moment/moment";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {StringToDate} from "../../utils/date-utils";
-import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
+import {Spacings} from "../../theming/spacings/Spacings";
+import React from "react";
 
 interface Props {
   dateString: string;
@@ -22,7 +24,7 @@ export function DayHeader(props: Props) {
         <Text bold={true} fontSize={FontSize.extraLarge} styleProp={styles.date} lineHeight={40}>
           {date.date()}
         </Text>
-        <Spacer width={8}/>
+        <Spacer width={Spacings["--1x"]}/>
         <View>
           <Text bold={true} fontSize={FontSize.small} lineHeight={16}>
             {getDateAsString(date)}

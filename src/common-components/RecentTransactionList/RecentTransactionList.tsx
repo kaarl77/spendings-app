@@ -5,9 +5,10 @@ import React, {useContext} from "react";
 import {StringToDate} from "../../utils/date-utils";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
-import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
 import {useNavigation} from "@react-navigation/native";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
+import {Spacings} from "../../theming/spacings/Spacings";
 
 interface Props {
   styleProp?: ViewStyle;
@@ -40,7 +41,8 @@ export function RecentTransactionList(props: Props) {
               categoryID={transaction.categoryId}
               onPress={() => navigation.navigate("AddEditTransaction", {transaction})}
             />
-            {index !== transactions.length - 1 && <Spacer height={16}/>}
+            {index !== transactions.length - 1 && <Spacer height={Spacings["--2x"]}/>
+            }
           </React.Fragment>
         })
       }

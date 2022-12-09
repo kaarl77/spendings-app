@@ -5,8 +5,8 @@ import {TabStackParamList} from "../../navigation/TabNavigator";
 import React, {useContext, useEffect, useState} from "react";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {Button, ButtonType} from "../../vanguard/Button/Button";
-import {Pressable, ScrollView, StyleSheet} from "react-native";
-import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {Alert, Pressable, ScrollView} from "react-native";
+import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 import Toast from "react-native-toast-message";
 import {Transaction} from "../../custom-types/Transaction";
@@ -17,6 +17,7 @@ import {DateToString} from "../../utils/date-utils";
 import {Input} from "../../common-components/Input";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {CategoryDropdown} from "../CategoryDropdown/CategoryDropdown";
+import {Spacings} from "../../theming/spacings/Spacings";
 
 type Props = BottomTabScreenProps<TabStackParamList, "AddEditTransaction">
 type routeProp = Props['route']
@@ -24,7 +25,6 @@ type routeProp = Props['route']
 export function AddEditTransaction() {
   const {params} = useRoute<routeProp>();
   const {categories, addTransaction, editTransaction, transactions, setTransactions} = useContext(GlobalContext);
-  const theme = useVanguardTheme();
 
   const transaction = params?.transaction;
   const navigation = useNavigation<TabScreensNavigationProp<"AddEditTransaction">>();
@@ -95,7 +95,7 @@ export function AddEditTransaction() {
         keyboardShouldPersistTaps={'handled'}
         automaticallyAdjustKeyboardInsets={true}
       >
-        <Spacer height={32}/>
+        <Spacer height={Spacings["--4x"]}/>
 
         <Input
           label={"Value"}
@@ -105,7 +105,7 @@ export function AddEditTransaction() {
           placeholder={"123.45"}
           keyboardType={"numeric"}
         />
-        <Spacer height={24}/>
+        <Spacer height={Spacings["--3x"]}/>
 
         <CategoryDropdown
           data={categories}
@@ -113,7 +113,7 @@ export function AddEditTransaction() {
           disabled={locked}
           categoryId={categoryId}
           initialCategoryId={initialCategoryId}/>
-        <Spacer height={24}/>
+        <Spacer height={Spacings["--3x"]}/>
 
         <Input
           label={"Note"}
@@ -122,7 +122,7 @@ export function AddEditTransaction() {
           disabled={locked}
           placeholder={"meaningful details"}
         />
-        <Spacer height={24}/>
+        <Spacer height={Spacings["--3x"]}/>
 
         <Pressable
           onPress={() => {
@@ -145,7 +145,7 @@ export function AddEditTransaction() {
           mode={"date"}
           isVisible={isDatePickerVisible}/>
 
-        <Spacer height={24}/>
+        <Spacer height={Spacings["--3x"]}/>
 
         <Button
           title={"Save"}
@@ -156,17 +156,19 @@ export function AddEditTransaction() {
           disabled={getButtonDisabled()}
         />
 
-        <Spacer height={24}/>
+        <Spacer height={Spacings["--3x"]}/>
 
         {transaction &&
             <Button
                 title={"Delete"}
-                onPress={removeTransaction}
+                onPress={createTwoButtonAlert}
                 styleProp={{backgroundColor: "red"}}
                 buttonType={ButtonType.Primary}
                 disabled={!locked}
             />
         }
+
+
       </ScrollView>
     </Screen>
   )
@@ -202,6 +204,7 @@ export function AddEditTransaction() {
 
   function removeTransaction() {
     if (transaction) {
+
       setTransactions(transactions.filter((item) => item.id !== transaction.id))
       Toast.show({
         type: "success",
@@ -209,5 +212,24 @@ export function AddEditTransaction() {
       })
       navigation.goBack();
     }
+  }
+
+  function createTwoButtonAlert() {
+    Alert.alert(
+      "Are you sure?",
+      "This will delete the current transaction",
+      [
+        {
+          text: "Cancel",
+          onPress: () => {
+          },
+          style: "cancel"
+        },
+        {
+          text: "Delete",
+          onPress: removeTransaction,
+        }
+      ]
+    )
   }
 }

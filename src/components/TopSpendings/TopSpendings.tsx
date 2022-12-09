@@ -2,8 +2,9 @@ import {Text} from "../../vanguard/Text/Text";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {TransactionList} from "../../common-components/TransactionList/TransactionList";
 import {Transaction} from "../../custom-types/Transaction";
-import {useContext} from "react";
+import React, {useContext} from "react";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
+import {Spacings} from "../../theming/spacings/Spacings";
 
 const DEFAULT_NO_OF_SPENDINGS_TO_SHOW = 3
 
@@ -19,7 +20,7 @@ export function TopSpendings(props: Props) {
   return (
     <>
       <Text bold={true}>Top spendings</Text>
-      <Spacer height={16}/>
+      <Spacer height={Spacings["--2x"]}/>
 
       <TransactionList
         transactions={getFirstNTransactionsByValue(DEFAULT_NO_OF_SPENDINGS_TO_SHOW)}

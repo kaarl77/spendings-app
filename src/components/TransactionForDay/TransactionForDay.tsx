@@ -2,7 +2,9 @@ import {Pressable, StyleSheet, View} from "react-native";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {FontSize, Text} from "../../vanguard/Text/Text";
 import {Image} from "../../vanguard/Image/Image";
-import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
+import {Spacings} from "../../theming/spacings/Spacings";
+import React from "react";
 
 interface Props {
   categoryName: string;
@@ -27,7 +29,7 @@ export function TransactionForDay(props: Props) {
           index={categoryID}
           width={40}
           height={40}/>
-        <Spacer width={8}/>
+        <Spacer width={Spacings["--1x"]}/>
 
         <View style={{flex: 1, borderRadius: 4}}>
           <Text bold={true} color={PalettePrimary["900"]}>{categoryName}</Text>

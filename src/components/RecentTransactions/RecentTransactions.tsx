@@ -6,8 +6,9 @@ import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {RecentTransactionList} from "../../common-components/RecentTransactionList/RecentTransactionList";
 import {Transaction} from "../../custom-types/Transaction";
 import {StringToDate} from "../../utils/date-utils";
-import {useContext} from "react";
+import React, {useContext} from "react";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
+import {Spacings} from "../../theming/spacings/Spacings";
 
 interface Props {
   transactions: Transaction[];
@@ -29,7 +30,7 @@ export function RecentTransactions(props: Props) {
           navigation.navigate("Transactions")
         }}
       />
-      <Spacer height={8}/>
+      <Spacer height={Spacings["--1x"]}/>
 
       <RecentTransactionList transactions={Latest5Transactions}/>
 

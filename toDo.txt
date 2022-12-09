@@ -1,3 +1,0 @@
-create Spacings obj
-add confirm for delete
-disable delete on edit

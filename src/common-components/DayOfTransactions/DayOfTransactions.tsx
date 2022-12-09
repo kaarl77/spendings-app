@@ -3,7 +3,9 @@ import {StyleSheet, View} from "react-native";
 import {DayHeader} from "../DayHeader/DayHeader";
 import {ListOfTransactionsByDay} from "../../components/ListOfTransactionsByDay/ListOfTransactionsByDay";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
-import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
+import {Spacings} from "../../theming/spacings/Spacings";
+import React from "react";
 
 interface Props {
   transactions: Transaction[];
@@ -25,7 +27,7 @@ export function DayOfTransactions(props: Props) {
         dateString={transactions[0].date}
         value={getValueByDate(transactions[0].date)}
       />
-      <Spacer height={16}/>
+      <Spacer height={Spacings["--2x"]}/>
       <ListOfTransactionsByDay
         transactions={transactions}/>
     </View>

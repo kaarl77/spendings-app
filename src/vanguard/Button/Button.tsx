@@ -1,7 +1,7 @@
 import {Button as ButtonBase} from "react-native-paper";
 import {StyleSheet, ViewStyle} from "react-native";
 import React from "react";
-import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
 
 export enum ButtonType {
   Primary = "ButtonTypePrimary",

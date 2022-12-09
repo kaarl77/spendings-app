@@ -1,6 +1,6 @@
 import {Pressable, StyleSheet} from "react-native";
 import {FontSize, Text} from "../../vanguard/Text/Text";
-import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
 
 interface Props {
   onPress?: () => void;

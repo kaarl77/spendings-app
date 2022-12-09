@@ -2,12 +2,13 @@ import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {TimePeriod, TimePeriodSelector} from "../../common-components/TimePeriod/TimePeriodSelector";
 import {TotalSpent} from "../../common-components/TotalSpent/TotalSpent";
 import {Transaction} from "../../custom-types/Transaction";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {StringToDate} from "../../utils/date-utils";
 import {StyleSheet, View, ViewStyle} from "react-native";
 import moment from "moment";
 import {TopSpendings} from "../TopSpendings/TopSpendings";
-import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
+import {Spacings} from "../../theming/spacings/Spacings";
 
 
 interface Props {
@@ -42,13 +43,13 @@ export function ReportSummary(props: Props) {
       timePeriod={timePeriod}
       onTimePeriodChange={setTimePeriod}/>
 
-    <Spacer height={24}/>
+    <Spacer height={Spacings["--3x"]}/>
     <TotalSpent
       timePeriod={timePeriod}
       totalSpent={totalSpent}
     />
 
-    <Spacer height={24}/>
+    <Spacer height={Spacings["--3x"]}/>
 
     <TopSpendings
       totalSpent={totalSpent}

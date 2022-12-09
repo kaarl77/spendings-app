@@ -1,6 +1,7 @@
 import React from 'react'
-import {SafeAreaView, StyleSheet, View, ViewStyle} from "react-native";
-import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {Platform, SafeAreaView, StyleSheet, View, ViewStyle} from "react-native";
+import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
+import {Spacings} from "../../theming/spacings/Spacings";
 
 interface Props {
   styleProp?: ViewStyle;
@@ -36,6 +37,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingHorizontal: 24,
+    paddingHorizontal: Spacings["--3x"],
   }
 })

@@ -2,7 +2,9 @@ import {Pressable, StyleSheet, View} from "react-native";
 import {Text} from "../../vanguard/Text/Text";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {Image} from "../../vanguard/Image/Image";
-import {useVanguardTheme} from "../../colors/useVanguardTheme";
+import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
+import {Spacings} from "../../theming/spacings/Spacings";
+import React from "react";
 
 interface Props {
   categoryName: string;
@@ -28,7 +30,7 @@ export function TopSpending(props: Props) {
           index={categoryID}
           width={40}
           height={40}/>
-        <Spacer width={16}/>
+        <Spacer width={Spacings["--2x"]}/>
 
         <View style={{flex: 1, flexDirection: "row"}}>
           <View style={styles.textContainer}>
@@ -40,7 +42,7 @@ export function TopSpending(props: Props) {
             </Text>
           </View>
 
-          <Spacer width={8}/>
+          <Spacer width={Spacings["--1x"]}/>
           <Text> {percentage}% </Text>
         </View>
       </View>

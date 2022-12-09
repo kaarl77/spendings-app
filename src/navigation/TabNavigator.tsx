@@ -3,7 +3,7 @@ import {Transactions} from "../components/Transactions/Transactions";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Image} from "react-native";
 import React from "react";
-import {useVanguardTheme} from "../colors/useVanguardTheme";
+import {useVanguardTheme} from "../theming/colors/useVanguardTheme";
 import {Transaction} from "../custom-types/Transaction";
 
 export type TabStackParamList = {
