@@ -28,7 +28,7 @@ export function AddEditTransaction() {
 
   const transaction = params?.transaction;
   const navigation = useNavigation<TabScreensNavigationProp<"AddEditTransaction">>();
-  const [locked, setLocked] = useState(true);
+  const [locked, setLocked] = useState(!!transaction);
 
   useEffect(() => {
     navigation.setOptions({
@@ -90,10 +90,11 @@ export function AddEditTransaction() {
   };
 
   return (
-    <Screen>
+    <Screen hasSafePadding={false}>
       <ScrollView
         keyboardShouldPersistTaps={'handled'}
         automaticallyAdjustKeyboardInsets={true}
+        showsVerticalScrollIndicator={false}
       >
         <Spacer height={Spacings["--4x"]}/>
 

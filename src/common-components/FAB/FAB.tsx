@@ -1,6 +1,7 @@
 import {Pressable, StyleSheet} from "react-native";
 import {FontSize, Text} from "../../vanguard/Text/Text";
 import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
+import {Spacings} from "../../theming/spacings/Spacings";
 
 interface Props {
   onPress?: () => void;
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 500,
     position: "absolute",
-    bottom: 24,
+    bottom: Spacings["--1x"],
     right: 24,
     height: 60,
     width: 60,

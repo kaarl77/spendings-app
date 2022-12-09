@@ -33,9 +33,7 @@ export function Homepage() {
 
   return (
     <Screen styleProp={styles.container}>
-      <ScrollView>
-        <Spacer height={Spacings["--4x"]}/>
-
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Text bold={true}>Reports summary</Text>
         <Spacer height={Spacings["--1x"]}/>
 
@@ -54,7 +52,6 @@ export function Homepage() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === 'android' ? Spacings["--4x"] : 0,
   }
 })
 

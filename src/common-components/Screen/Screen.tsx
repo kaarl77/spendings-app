@@ -1,15 +1,17 @@
 import React from 'react'
-import {Platform, SafeAreaView, StyleSheet, View, ViewStyle} from "react-native";
+import {StyleSheet, View, ViewStyle} from "react-native";
 import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
 import {Spacings} from "../../theming/spacings/Spacings";
+import Constants from 'expo-constants';
 
 interface Props {
   styleProp?: ViewStyle;
   children: React.ReactNode;
+  hasSafePadding?: boolean
 }
 
 export function Screen(props: Props) {
-  const {styleProp, children} = props;
+  const {styleProp, children, hasSafePadding = true} = props;
   /**
    * Styles
    */
@@ -22,13 +24,14 @@ export function Screen(props: Props) {
   const containerStyle = {
     backgroundColor: PaletteNeutral["100"],
     ...styles.container,
+    paddingTop: hasSafePadding ? Constants.statusBarHeight : 0,
   }
 
-  return <SafeAreaView style={containerStyle}>
+  return <View style={containerStyle}>
     <View style={contentStyle}>
       {children}
     </View>
-  </SafeAreaView>
+  </View>
 }
 
 const styles = StyleSheet.create({

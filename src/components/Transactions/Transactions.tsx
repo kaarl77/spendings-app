@@ -40,6 +40,5 @@ export function Transactions() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === 'android' ? Spacings["--8x"] : 0,
   },
 })

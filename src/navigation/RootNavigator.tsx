@@ -8,7 +8,6 @@ import {useVanguardTheme} from "../theming/colors/useVanguardTheme";
 const Root = createStackNavigator();
 
 export function RootNavigator() {
-  const theme = useVanguardTheme();
   return (
     <Root.Navigator>
       <Root.Screen
@@ -23,12 +22,6 @@ export function RootNavigator() {
         options={{
           headerTitle: "Add or Edit Transaction",
           headerBackTitle: "Back",
-          headerRight: () => (
-            <Button title={"Edit"}/>
-          ),
-          headerLeft: () => (
-            <Button title={"< Back"}/>
-          )
         }}
       />
     </Root.Navigator>

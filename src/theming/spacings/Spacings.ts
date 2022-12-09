@@ -1,13 +1,13 @@
-const MULTIPLYING_FACTOR = 8;
+const CONSTANT = 8;
 
 export enum Spacings {
-  "--0.5x" = MULTIPLYING_FACTOR/2,
-  "--1x" = 1*MULTIPLYING_FACTOR,
-  "--2x" = 2*MULTIPLYING_FACTOR,
-  "--3x" = 3*MULTIPLYING_FACTOR,
-  "--4x" = 4*MULTIPLYING_FACTOR,
-  "--5x" = 5*MULTIPLYING_FACTOR,
-  "--6x" = 6*MULTIPLYING_FACTOR,
-  "--7x" = 7*MULTIPLYING_FACTOR,
-  "--8x" = 8*MULTIPLYING_FACTOR,
+  "--0.5x" = CONSTANT/2,
+  "--1x" = CONSTANT,
+  "--2x" = 2*CONSTANT,
+  "--3x" = 3*CONSTANT,
+  "--4x" = 4*CONSTANT,
+  "--5x" = 5*CONSTANT,
+  "--6x" = 6*CONSTANT,
+  "--7x" = 7*CONSTANT,
+  "--8x" = 8*CONSTANT,
 }

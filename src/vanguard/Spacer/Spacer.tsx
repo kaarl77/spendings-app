@@ -2,8 +2,8 @@ import {View} from "react-native";
 import {Spacings} from "../../theming/spacings/Spacings";
 
 interface Props {
-  width?: Spacings,
-  height?: Spacings,
+  width?: number,
+  height?: number,
   forceColor?: string,
 }
 

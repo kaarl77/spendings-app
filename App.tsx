@@ -4,19 +4,22 @@ import {GlobalContextProvider} from "./src/contexts/GlobalContext/GlobalContextP
 import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {RootNavigator} from "./src/navigation/RootNavigator";
-import Toast, {BaseToast, BaseToastProps, ToastType} from 'react-native-toast-message';
+import Toast from 'react-native-toast-message';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {Screen} from "./src/common-components/Screen/Screen";
+
 
 export default function App() {
 
   return (
-    <PaperProvider theme={DefaultTheme}>
-      <GlobalContextProvider>
-        <NavigationContainer>
-          <RootNavigator/>
-          <Toast/>
-        </NavigationContainer>
-      </GlobalContextProvider>
-    </PaperProvider>
+      <PaperProvider theme={DefaultTheme}>
+        <GlobalContextProvider>
+            <NavigationContainer>
+              <RootNavigator/>
+              <Toast/>
+            </NavigationContainer>
+        </GlobalContextProvider>
+      </PaperProvider>
   );
 }
 
