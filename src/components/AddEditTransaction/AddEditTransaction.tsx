@@ -6,8 +6,6 @@ import React, {useContext, useEffect, useState} from "react";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {Button, ButtonType} from "../../vanguard/Button/Button";
 import {Pressable, ScrollView, StyleSheet} from "react-native";
-import SelectDropdown from 'react-native-select-dropdown'
-import {Category} from "../../custom-types/Category";
 import {useVanguardTheme} from "../../colors/useVanguardTheme";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 import Toast from "react-native-toast-message";
@@ -18,6 +16,7 @@ import moment from "moment";
 import {DateToString} from "../../utils/date-utils";
 import {Input} from "../../common-components/Input";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
+import {CategoryDropdown} from "../CategoryDropdown/CategoryDropdown";
 
 type Props = BottomTabScreenProps<TabStackParamList, "AddEditTransaction">
 type routeProp = Props['route']
@@ -108,17 +107,12 @@ export function AddEditTransaction() {
         />
         <Spacer height={24}/>
 
-        <SelectDropdown
+        <CategoryDropdown
           data={categories}
-          onSelect={(category) => {
-            setCategoryId((category as Category).id)
-          }}
-          buttonTextAfterSelection={(category) => (category as Category).name}
-          rowTextForSelection={(category) => (category as Category).name}
-          defaultValue={locked ? categories[initialCategoryId] : categories[categoryId]}
+          setData={setCategoryId}
           disabled={locked}
-          buttonStyle={styles.dropdown4BtnStyle}
-        />
+          categoryId={categoryId}
+          initialCategoryId={initialCategoryId}/>
         <Spacer height={24}/>
 
         <Input
@@ -217,16 +211,3 @@ export function AddEditTransaction() {
     }
   }
 }
-
-const styles = StyleSheet.create({
-  dropdown4BtnStyle: {
-    width: '100%',
-    backgroundColor: '#FFF',
-    borderRadius: 4,
-    borderWidth: 1,
-    margin: 0,
-    height: '10%',
-  },
-})
-
-

@@ -23,9 +23,12 @@ export function Input(props: Props) {
     ...styles.textInput,
     opacity: disabled ? 0.5 : 1,
   }
+  const containerStyle = {
+    opacity: disabled ? 0.5 : 1,
+  }
 
   return (
-    <View>
+    <View style={containerStyle}>
       <Text
         fontSize={FontSize.medium}
       >

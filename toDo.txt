@@ -1,3 +1,3 @@
-
-redo the selectDropdown - make it pretty
-
+create Spacings obj
+add confirm for delete
+disable delete on edit
