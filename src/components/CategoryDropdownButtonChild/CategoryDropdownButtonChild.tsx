@@ -14,7 +14,7 @@ export function CategoryDropdownButtonChild(props: Props) {
   const {disabled, categoryId, category} = props;
   return (
     <View>
-      {(category && !disabled && categoryId >= 0) ? (
+      {(category &&  categoryId>=0) ? (
           <View style={styles.content}>
             <Image index={categoryId} width={20} height={20}/>
             <Spacer width={8}/>

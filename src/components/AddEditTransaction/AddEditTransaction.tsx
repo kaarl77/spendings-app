@@ -164,9 +164,9 @@ export function AddEditTransaction() {
                 onPress={removeTransaction}
                 styleProp={{backgroundColor: "red"}}
                 buttonType={ButtonType.Primary}
+                disabled={!locked}
             />
         }
-
       </ScrollView>
     </Screen>
   )
