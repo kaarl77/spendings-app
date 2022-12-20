@@ -5,21 +5,23 @@ import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {RootNavigator} from "./src/navigation/RootNavigator";
 import Toast from 'react-native-toast-message';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Screen} from "./src/common-components/Screen/Screen";
+import {Provider} from "react-redux";
+import {rootStore} from "./src/redux-stores/rootStore";
 
 
 export default function App() {
 
   return (
-      <PaperProvider theme={DefaultTheme}>
+    <PaperProvider theme={DefaultTheme}>
+      <Provider store={rootStore}>
         <GlobalContextProvider>
-            <NavigationContainer>
-              <RootNavigator/>
-              <Toast/>
-            </NavigationContainer>
+          <NavigationContainer>
+            <RootNavigator/>
+            <Toast/>
+          </NavigationContainer>
         </GlobalContextProvider>
-      </PaperProvider>
+      </Provider>
+    </PaperProvider>
   );
 }
 

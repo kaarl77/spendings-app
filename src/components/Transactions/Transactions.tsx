@@ -39,6 +39,5 @@ export function Transactions() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-  },
+  container: {},
 })

@@ -6,7 +6,6 @@ import React, {useContext, useEffect, useState} from "react";
 import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {Button, ButtonType} from "../../vanguard/Button/Button";
 import {Alert, Pressable, ScrollView} from "react-native";
-import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 import Toast from "react-native-toast-message";
 import {Transaction} from "../../custom-types/Transaction";
@@ -18,6 +17,9 @@ import {Input} from "../../common-components/Input";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {CategoryDropdown} from "../CategoryDropdown/CategoryDropdown";
 import {Spacings} from "../../theming/spacings/Spacings";
+import {useSelector} from "react-redux";
+import {RootState, useAppDispatch} from "../../redux-stores/rootStore";
+import {RootSlice} from "../../redux-stores/root.slice";
 
 type Props = BottomTabScreenProps<TabStackParamList, "AddEditTransaction">
 type routeProp = Props['route']
@@ -25,6 +27,10 @@ type routeProp = Props['route']
 export function AddEditTransaction() {
   const {params} = useRoute<routeProp>();
   const {categories, addTransaction, editTransaction, transactions, setTransactions} = useContext(GlobalContext);
+
+  const {transactions: reduxTransactions} = useSelector((state: RootState) => state.root);
+  const dispatch = useAppDispatch();
+  const {newTransaction} = RootSlice;
 
   const transaction = params?.transaction;
   const navigation = useNavigation<TabScreensNavigationProp<"AddEditTransaction">>();
@@ -168,8 +174,6 @@ export function AddEditTransaction() {
                 disabled={!locked}
             />
         }
-
-
       </ScrollView>
     </Screen>
   )
@@ -188,6 +192,14 @@ export function AddEditTransaction() {
 
   function addOrEditTransaction() {
     if (transaction === undefined) {
+      dispatch(newTransaction({
+        id: reduxTransactions.length,
+        note: note,
+        categoryId: categoryId,
+        date: date,
+        value: parseFloat(value)
+      }));
+
       addTransaction({note, date, categoryId, value: parseFloat(value)})
       Toast.show({
         type: "success",

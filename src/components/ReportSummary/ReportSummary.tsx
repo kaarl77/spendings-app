@@ -9,15 +9,18 @@ import moment from "moment";
 import {TopSpendings} from "../TopSpendings/TopSpendings";
 import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
 import {Spacings} from "../../theming/spacings/Spacings";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux-stores/rootStore";
 
 
 interface Props {
-  transactions: Transaction[];
   styleProp?: ViewStyle;
 }
 
 export function ReportSummary(props: Props) {
-  const {transactions, styleProp} = props;
+  const {styleProp} = props;
+
+  const {transactions} = useSelector((state: RootState)=>state.root)
 
   const [timePeriod, setTimePeriod] = useState(TimePeriod.week);
   const [filteredTransactions, setFilteredTransactions] = useState(transactions)

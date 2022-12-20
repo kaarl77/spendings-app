@@ -5,22 +5,15 @@ import {View} from "react-native";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {RecentTransactionList} from "../../common-components/RecentTransactionList/RecentTransactionList";
 import {Transaction} from "../../custom-types/Transaction";
-import {StringToDate} from "../../utils/date-utils";
-import React, {useContext} from "react";
-import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
+import React from "react";
 import {Spacings} from "../../theming/spacings/Spacings";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux-stores/rootStore";
 
-interface Props {
-  transactions: Transaction[];
-}
-
-export function RecentTransactions(props: Props) {
-  const {transactions} = props;
-  const {categories} = useContext(GlobalContext)
-
+export function RecentTransactions() {
   const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
 
-  const Latest5Transactions: Transaction[] = get5LatestTransactions();
+  const {latest5Transactions} = useSelector((state: RootState)=>state.homepage);
 
   return (
     <View>
@@ -32,12 +25,11 @@ export function RecentTransactions(props: Props) {
       />
       <Spacer height={Spacings["--1x"]}/>
 
-      <RecentTransactionList transactions={Latest5Transactions}/>
+      <RecentTransactionList transactions={latest5Transactions}/>
 
     </View>
   );
-
-  function get5LatestTransactions() {
-    return (transactions.sort((a, b) => StringToDate(a.date).valueOf() < StringToDate(b.date).valueOf() ? 1 : -1).slice(0, 5));
-  }
+  // function get5LatestTransactions() {
+  //   return (transactions.sort((a, b) => StringToDate(a.date).valueOf() < StringToDate(b.date).valueOf() ? 1 : -1).slice(0, 5));
+  // }
 }

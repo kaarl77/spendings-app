@@ -13,7 +13,7 @@ interface Props {
 export function CategoryDropdownRowChild(props: Props) {
   const {categoryId} = props;
   const {categories} = useContext(GlobalContext);
-  return(
+  return (
     <View style={styles.container}>
       <Spacer height={Spacings["--1x"]}/>
       <Image
@@ -29,6 +29,7 @@ export function CategoryDropdownRowChild(props: Props) {
     </View>
   )
 }
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",

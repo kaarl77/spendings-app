@@ -1,7 +1,7 @@
 import {Screen} from "../../common-components/Screen/Screen";
 import React, {useContext, useEffect} from "react";
 import {ReportSummary} from "../ReportSummary/ReportSummary";
-import {Platform, ScrollView, StyleSheet,} from "react-native";
+import {ScrollView,} from "react-native";
 import {Text} from "../../vanguard/Text/Text";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {RecentTransactions} from "../RecentTransactions/RecentTransactions";
@@ -12,46 +12,58 @@ import {EmptyState} from "../EmptyState/EmptyState";
 import {useNavigation} from "@react-navigation/native";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 import {Spacings} from "../../theming/spacings/Spacings";
+import {useSelector} from "react-redux";
+import {RootState, useAppDispatch} from "../../redux-stores/rootStore";
+import {RootSlice} from "../../redux-stores/root.slice";
+import {HomepageSlice} from "./Homepage.slice";
 
 export function Homepage() {
-  const {transactions, categories, setTransactions, setCategories} = useContext(GlobalContext);
+  const {
+    setTransactions: setDeprecatedTransactions,
+    setCategories: setDeprecatedCategories,
+    categories: deprecatedCategories,
+    transactions: deprecatedTransactions
+  } = useContext(GlobalContext);
 
   const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
+
+  const {transactions} = useSelector((state: RootState) => state.root);
+  const {latest5Transactions} = useSelector((state: RootState) => state.homepage);
+  const dispatch = useAppDispatch();
+  const {setTransactions, setCategories} = RootSlice;
+  const {getLatest5Transactions} = HomepageSlice;
 
   useEffect(() => {
     getBoth()
       .then((value) => {
-        setTransactions(value.transactions);
-        setCategories(value.categories);
+        dispatch(setTransactions(value.transactions));
+        dispatch(setCategories(value.categories));
+        setDeprecatedCategories(value.categories);
+        setDeprecatedTransactions(value.transactions);
+
       })
   }, [])
 
+  useEffect(()=>{
+    dispatch(getLatest5Transactions(transactions));
+  },[transactions])
 
-  if (transactions.length === 0 || categories.length === 0) {
+  if (deprecatedTransactions.length === 0 || deprecatedCategories.length === 0) {
     return <EmptyState/>
   }
 
   return (
-    <Screen styleProp={styles.container}>
+    <Screen>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text bold={true}>Reports summary</Text>
         <Spacer height={Spacings["--1x"]}/>
 
-        <ReportSummary
-          transactions={transactions}
-        />
+        <ReportSummary/>
         <Spacer height={Spacings["--3x"]}/>
 
-        <RecentTransactions
-          transactions={transactions}/>
+        <RecentTransactions/>
       </ScrollView>
       <FAB title={"+"} onPress={() => navigation.navigate("AddEditTransaction")}/>
     </Screen>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-  }
-})
-
