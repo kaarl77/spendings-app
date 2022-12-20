@@ -1,5 +1,4 @@
 import {View} from "react-native";
-import {Spacings} from "../../theming/spacings/Spacings";
 
 interface Props {
   width?: number,

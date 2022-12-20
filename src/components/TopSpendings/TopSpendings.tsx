@@ -2,20 +2,15 @@ import {Text} from "../../vanguard/Text/Text";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {TransactionList} from "../../common-components/TransactionList/TransactionList";
 import {Transaction} from "../../custom-types/Transaction";
-import React, {useContext} from "react";
-import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
+import React from "react";
 import {Spacings} from "../../theming/spacings/Spacings";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux-stores/rootStore";
 
 const DEFAULT_NO_OF_SPENDINGS_TO_SHOW = 3
 
-interface Props {
-  totalSpent: number;
-  filteredTransactions: Transaction[];
-}
-
-export function TopSpendings(props: Props) {
-  const {totalSpent, filteredTransactions} = props;
-  const {categories} = useContext(GlobalContext);
+export function TopSpendings() {
+  const {transactionsFilteredByTimePeriod, totalSpentInTimePeriod} = useSelector((state: RootState)=>state.homepage);
 
   return (
     <>
@@ -24,12 +19,12 @@ export function TopSpendings(props: Props) {
 
       <TransactionList
         transactions={getFirstNTransactionsByValue(DEFAULT_NO_OF_SPENDINGS_TO_SHOW)}
-        totalSpent={totalSpent}/>
+        totalSpent={totalSpentInTimePeriod}/>
     </>
   )
 
   function getFirstNTransactionsByValue(n: number) {
-    const copyOfFilteredTransactions: Transaction[] = [...filteredTransactions];
+    const copyOfFilteredTransactions: Transaction[] = [...transactionsFilteredByTimePeriod];
     return copyOfFilteredTransactions.sort((a, b) => a.value < b.value ? 1 : -1).slice(0, n);
   }
 }

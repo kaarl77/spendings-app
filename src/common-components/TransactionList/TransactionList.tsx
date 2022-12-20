@@ -2,11 +2,12 @@ import {Transaction} from "../../custom-types/Transaction";
 import {StyleSheet, View} from "react-native";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {TopSpending} from "../../components/TopSpending/TopSpending";
-import React, {useContext} from "react";
-import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
+import React from "react";
 import {useNavigation} from "@react-navigation/native";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 import {Spacings} from "../../theming/spacings/Spacings";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux-stores/rootStore";
 
 interface Props {
   transactions: Transaction[];
@@ -15,7 +16,7 @@ interface Props {
 
 export function TransactionList(props: Props) {
   const {transactions, totalSpent} = props;
-  const {categories} = useContext(GlobalContext);
+  const {categories} = useSelector((state: RootState)=>state.root);
   const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>()
 
   return (

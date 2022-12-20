@@ -1,24 +1,26 @@
 import {StyleSheet, View, ViewStyle} from "react-native";
-import {Transaction} from "../../custom-types/Transaction";
 import {RecentTransaction} from "../RecentTransaction/RecentTransaction";
-import React, {useContext} from "react";
+import React from "react";
 import {StringToDate} from "../../utils/date-utils";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
-import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
 import {useNavigation} from "@react-navigation/native";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 import {Spacings} from "../../theming/spacings/Spacings";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux-stores/rootStore";
 
 interface Props {
   styleProp?: ViewStyle;
-  transactions: Transaction[];
+
 }
 
 export function RecentTransactionList(props: Props) {
-  const {styleProp, transactions} = props;
-  const {categories} = useContext(GlobalContext);
+  const {styleProp} = props;
   const {PaletteNeutral} = useVanguardTheme();
+  const {categories} = useSelector((state: RootState) => state.root);
+  const {latest5Transactions} = useSelector((state: RootState) => state.homepage);
+
 
   const style = {
     backgroundColor: PaletteNeutral["200"],
@@ -32,7 +34,7 @@ export function RecentTransactionList(props: Props) {
   return (
     <View style={style}>
       {
-        transactions.map((transaction, index) => {
+        latest5Transactions.map((transaction, index) => {
           return <React.Fragment key={transaction.id}>
             <RecentTransaction
               date={StringToDate(transaction.date).format('dddd, D MMMM YYYY')}
@@ -41,7 +43,7 @@ export function RecentTransactionList(props: Props) {
               categoryID={transaction.categoryId}
               onPress={() => navigation.navigate("AddEditTransaction", {transaction})}
             />
-            {index !== transactions.length - 1 && <Spacer height={Spacings["--2x"]}/>
+            {index !== latest5Transactions.length - 1 && <Spacer height={Spacings["--2x"]}/>
             }
           </React.Fragment>
         })

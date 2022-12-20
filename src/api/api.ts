@@ -67,14 +67,14 @@ export async function getTransactions(): Promise<Transaction[]> {
     {
       id: 8,
       value: 123.45,
-      date: "23-11-2022",
+      date: "09-12-2022",
       note: "shoes",
       categoryId: 3,
     },
     {
       id: 9,
       value: 50,
-      date: "22-11-2022",
+      date: "10-12-2022",
       note: "park ticket",
       categoryId: 2,
     },

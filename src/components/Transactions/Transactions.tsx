@@ -1,4 +1,4 @@
-import {FlatList, Platform, StyleSheet, View} from "react-native";
+import {FlatList, StyleSheet, View} from "react-native";
 import {Screen} from "../../common-components/Screen/Screen";
 import React, {useContext} from "react";
 import {StringToDate} from "../../utils/date-utils";
@@ -9,9 +9,13 @@ import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider"
 import {useNavigation} from "@react-navigation/native";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 import {Spacings} from "../../theming/spacings/Spacings";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux-stores/rootStore";
 
 export function Transactions() {
-  const {transactions} = useContext(GlobalContext);
+  //const {transactions} = useContext(GlobalContext);
+  const {transactions} = useSelector((state: RootState)=>state.root);
+
   const sortedTransactionDatesArray = transactions.map((transaction) => transaction.date).sort((a, b) => StringToDate(a).valueOf() < StringToDate(b).valueOf() ? 1 : -1);
   const transactionDatesSet = new Set(sortedTransactionDatesArray);
 

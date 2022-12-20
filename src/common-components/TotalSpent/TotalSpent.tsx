@@ -1,17 +1,19 @@
 import {FontSize, Text} from "../../vanguard/Text/Text";
 import {TimePeriod} from "../TimePeriod/TimePeriodSelector";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux-stores/rootStore";
 
 interface Props {
   timePeriod: TimePeriod;
-  totalSpent: number
 }
 
 export function TotalSpent(props: Props) {
-  const {timePeriod, totalSpent} = props;
+  const {timePeriod} = props;
+  const {totalSpentInTimePeriod} = useSelector((state:RootState)=>state.homepage)
 
   return (
     <>
-      <Text fontSize={FontSize.large}>{totalSpent}</Text>
+      <Text fontSize={FontSize.large}>{totalSpentInTimePeriod}</Text>
       <Text>Total spent this {getTimePeriodToString()}</Text>
     </>
   )

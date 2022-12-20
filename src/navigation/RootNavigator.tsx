@@ -2,8 +2,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React from "react";
 import {TabNavigator} from "./TabNavigator";
 import {AddEditTransaction} from "../components/AddEditTransaction/AddEditTransaction";
-import {Button} from "../vanguard/Button/Button";
-import {useVanguardTheme} from "../theming/colors/useVanguardTheme";
 
 const Root = createStackNavigator();
 

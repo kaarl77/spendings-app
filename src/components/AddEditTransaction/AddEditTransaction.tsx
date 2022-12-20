@@ -26,9 +26,9 @@ type routeProp = Props['route']
 
 export function AddEditTransaction() {
   const {params} = useRoute<routeProp>();
-  const {categories, addTransaction, editTransaction, transactions, setTransactions} = useContext(GlobalContext);
+  const {addTransaction, editTransaction, setTransactions} = useContext(GlobalContext);
+  const {categories, transactions} = useSelector((state: RootState)=>state.root);
 
-  const {transactions: reduxTransactions} = useSelector((state: RootState) => state.root);
   const dispatch = useAppDispatch();
   const {newTransaction} = RootSlice;
 
@@ -193,7 +193,7 @@ export function AddEditTransaction() {
   function addOrEditTransaction() {
     if (transaction === undefined) {
       dispatch(newTransaction({
-        id: reduxTransactions.length,
+        id: transactions.length,
         note: note,
         categoryId: categoryId,
         date: date,

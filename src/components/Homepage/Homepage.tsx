@@ -27,8 +27,7 @@ export function Homepage() {
 
   const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
 
-  const {transactions} = useSelector((state: RootState) => state.root);
-  const {latest5Transactions} = useSelector((state: RootState) => state.homepage);
+  const {transactions, categories} = useSelector((state: RootState) => state.root);
   const dispatch = useAppDispatch();
   const {setTransactions, setCategories} = RootSlice;
   const {getLatest5Transactions} = HomepageSlice;
@@ -40,7 +39,6 @@ export function Homepage() {
         dispatch(setCategories(value.categories));
         setDeprecatedCategories(value.categories);
         setDeprecatedTransactions(value.transactions);
-
       })
   }, [])
 
@@ -48,7 +46,7 @@ export function Homepage() {
     dispatch(getLatest5Transactions(transactions));
   },[transactions])
 
-  if (deprecatedTransactions.length === 0 || deprecatedCategories.length === 0) {
+  if (transactions.length === 0 || categories.length === 0) {
     return <EmptyState/>
   }
 

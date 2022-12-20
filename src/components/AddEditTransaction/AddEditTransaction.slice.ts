@@ -1,6 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Transaction} from "../../custom-types/Transaction";
-import {Category} from "../../custom-types/Category";
+import {createSlice} from "@reduxjs/toolkit";
 
 interface AddEditTransactionSliceState {
 
