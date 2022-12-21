@@ -25,6 +25,7 @@ export function Screen(props: Props) {
     backgroundColor: PaletteNeutral["100"],
     ...styles.container,
     paddingTop: hasSafePadding ? Constants.statusBarHeight : 0,
+    //paddingBottom: hasSafePadding ? Spacings["--0.5x"] : 0,
   }
 
   return <View style={containerStyle}>
