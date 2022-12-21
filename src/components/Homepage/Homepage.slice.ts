@@ -56,6 +56,5 @@ function getTransactionsForThisWeek(transactions: Transaction[]) {
   return transactions.filter((transaction) => moment().week() === StringToDate(transaction.date).week())
 }
 
-
 export const HomepageSliceReducer = homepageSlice.reducer;
 export const HomepageSlice = homepageSlice.actions;

@@ -2,8 +2,7 @@ import {Screen} from "../../common-components/Screen/Screen";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {BottomTabScreenProps} from "@react-navigation/bottom-tabs";
 import {TabStackParamList} from "../../navigation/TabNavigator";
-import React, {useContext, useEffect, useState} from "react";
-import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
+import React, {useEffect, useState} from "react";
 import {Button, ButtonType} from "../../vanguard/Button/Button";
 import {Alert, Pressable, ScrollView} from "react-native";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
@@ -20,21 +19,35 @@ import {Spacings} from "../../theming/spacings/Spacings";
 import {useSelector} from "react-redux";
 import {RootState, useAppDispatch} from "../../redux-stores/rootStore";
 import {RootSlice} from "../../redux-stores/root.slice";
+import {AddEditTransactionSlice} from "./AddEditTransaction.slice";
 
 type Props = BottomTabScreenProps<TabStackParamList, "AddEditTransaction">
 type routeProp = Props['route']
 
 export function AddEditTransaction() {
   const {params} = useRoute<routeProp>();
-  const {addTransaction, editTransaction, setTransactions} = useContext(GlobalContext);
-  const {categories, transactions} = useSelector((state: RootState)=>state.root);
+  const transaction = params?.transaction;
 
   const dispatch = useAppDispatch();
-  const {newTransaction} = RootSlice;
+  const {categories, transactions} = useSelector((state: RootState) => state.root);
+  const {date, categoryId, value, note, id} = useSelector((state: RootState) => state.addEditTransaction);
+  const {newTransaction, editTransaction, removeTransaction} = RootSlice;
+  const {
+    setDate,
+    setNote,
+    setCategoryId,
+    setValue,
+    resetToInitialState,
+    setInitialTransaction
+  } = AddEditTransactionSlice;
 
-  const transaction = params?.transaction;
   const navigation = useNavigation<TabScreensNavigationProp<"AddEditTransaction">>();
   const [locked, setLocked] = useState(!!transaction);
+
+  useEffect(() => {
+    transaction && dispatch(setInitialTransaction(transaction))
+  }, [])
+
 
   useEffect(() => {
     navigation.setOptions({
@@ -48,24 +61,17 @@ export function AddEditTransaction() {
       )
     })
     if (locked) {
-      setValue(initialValue);
-      setNote(initialNote);
-      setCategoryId(initialCategoryId);
-      setDate(initialDate);
+      dispatch(resetToInitialState());
     }
 
+    return navigation.addListener("beforeRemove", () => {
+      dispatch(resetToInitialState());
+    });
   }, [navigation, locked]);
 
-  const [value, setValue] = useState(transaction?.value.toString() ?? "");
-  const [note, setNote] = useState(transaction?.note ?? "");
-  const [categoryId, setCategoryId] = useState(transaction?.categoryId ?? -1);
-  const [date, setDate] = useState(transaction?.date ?? "");
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [editedTransaction, setEditedTransaction] = useState<Transaction>();
 
-  const initialValue = transaction?.value.toString() ?? "";
-  const initialNote = transaction?.note ?? "";
-  const initialCategoryId = transaction?.categoryId ?? -1;
-  const initialDate = transaction?.date ?? "";
 
   useEffect(() => {
     if (transaction) {
@@ -80,8 +86,6 @@ export function AddEditTransaction() {
     }
   }, [value, note, categoryId, date])
 
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -91,7 +95,7 @@ export function AddEditTransaction() {
   };
 
   const handleConfirm = (date: Date) => {
-    setDate(DateToString(moment(date)))
+    dispatch(setDate(DateToString(moment(date))))
     hideDatePicker();
   };
 
@@ -107,7 +111,9 @@ export function AddEditTransaction() {
         <Input
           label={"Value"}
           value={value}
-          onValueChange={(value) => setValue(value)}
+          onValueChange={(value) => {
+            dispatch(setValue(value))
+          }}
           disabled={locked}
           placeholder={"123.45"}
           keyboardType={"numeric"}
@@ -116,16 +122,18 @@ export function AddEditTransaction() {
 
         <CategoryDropdown
           data={categories}
-          setData={setCategoryId}
+          setData={(id) => {
+            dispatch(setCategoryId(id))
+          }}
           disabled={locked}
           categoryId={categoryId}
-          initialCategoryId={initialCategoryId}/>
+          initialCategoryId={categoryId}/>
         <Spacer height={Spacings["--3x"]}/>
 
         <Input
           label={"Note"}
-          value={locked ? initialNote : note}
-          onValueChange={(note) => setNote(note)}
+          value={note}
+          onValueChange={(note) => dispatch(setNote(note))}
           disabled={locked}
           placeholder={"meaningful details"}
         />
@@ -139,7 +147,7 @@ export function AddEditTransaction() {
           <Input
             label={"Date"}
             value={date}
-            onValueChange={(date) => setDate(date)}
+            onValueChange={(date) => dispatch(setDate(date))}
             disabled={locked}
             placeholder={"01-01-1970"}
             pointerEvents={"none"}
@@ -199,14 +207,18 @@ export function AddEditTransaction() {
         date: date,
         value: parseFloat(value)
       }));
-
-      addTransaction({note, date, categoryId, value: parseFloat(value)})
       Toast.show({
         type: "success",
         text1: "Transaction added",
       })
     } else {
-      editedTransaction && editTransaction(editedTransaction);
+      dispatch(editTransaction({
+        id,
+        note,
+        value: parseFloat(value),
+        categoryId,
+        date
+      }))
       Toast.show({
         type: "success",
         text1: "Transaction edited",
@@ -215,10 +227,9 @@ export function AddEditTransaction() {
     navigation.goBack();
   }
 
-  function removeTransaction() {
+  function transactionRemover() {
     if (transaction) {
-
-      setTransactions(transactions.filter((item) => item.id !== transaction.id))
+      dispatch(removeTransaction(transaction));
       Toast.show({
         type: "success",
         text1: "Transaction removed",
@@ -240,7 +251,7 @@ export function AddEditTransaction() {
         },
         {
           text: "Delete",
-          onPress: removeTransaction,
+          onPress: transactionRemover,
         }
       ]
     )

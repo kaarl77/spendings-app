@@ -1,25 +1,30 @@
 import {FlatList, StyleSheet, View} from "react-native";
 import {Screen} from "../../common-components/Screen/Screen";
-import React, {useContext} from "react";
-import {StringToDate} from "../../utils/date-utils";
+import React, {useEffect} from "react";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {DayOfTransactions} from "../../common-components/DayOfTransactions/DayOfTransactions";
 import {FAB} from "../../common-components/FAB/FAB";
-import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {useNavigation} from "@react-navigation/native";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 import {Spacings} from "../../theming/spacings/Spacings";
 import {useSelector} from "react-redux";
-import {RootState} from "../../redux-stores/rootStore";
+import {RootState, useAppDispatch} from "../../redux-stores/rootStore";
+import {TransactionsSlice} from "./Transaction.slice";
 
 export function Transactions() {
-  //const {transactions} = useContext(GlobalContext);
-  const {transactions} = useSelector((state: RootState)=>state.root);
-
-  const sortedTransactionDatesArray = transactions.map((transaction) => transaction.date).sort((a, b) => StringToDate(a).valueOf() < StringToDate(b).valueOf() ? 1 : -1);
-  const transactionDatesSet = new Set(sortedTransactionDatesArray);
-
+  const {transactions} = useSelector((state: RootState) => state.root);
   const navigation = useNavigation<TabScreensNavigationProp<"Transactions">>();
+
+  const dispatch = useAppDispatch();
+  const {sortedTransactionDatesArray} = useSelector((state: RootState)=>state.transactions);
+  const {getSortedTransactionDates} = TransactionsSlice;
+
+  useEffect(()=>{
+      dispatch(getSortedTransactionDates(transactions));
+    }
+    , [])
+
+  const transactionDatesSet = new Set(sortedTransactionDatesArray);
 
   return (
     <Screen styleProp={styles.container}>

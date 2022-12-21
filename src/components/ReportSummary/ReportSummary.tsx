@@ -17,13 +17,12 @@ interface Props {
 
 export function ReportSummary(props: Props) {
   const {styleProp} = props;
-  const [timePeriod, setTimePeriod] = useState(TimePeriod.week);
-  const {PaletteNeutral} = useVanguardTheme();
 
   const {transactions} = useSelector((state: RootState) => state.root);
   const {transactionsFilteredByTimePeriod} = useSelector((state: RootState) => state.homepage);
   const {getTransactionsFilteredByTimePeriod, getTotalSpentInTimePeriod} = HomepageSlice;
   const dispatch = useAppDispatch();
+  const [timePeriod, setTimePeriod] = useState(TimePeriod.week);
 
   useEffect(() => {
     dispatch(getTransactionsFilteredByTimePeriod({timePeriod, transactions: transactions}));
@@ -33,6 +32,7 @@ export function ReportSummary(props: Props) {
     dispatch(getTotalSpentInTimePeriod());
   }, [transactionsFilteredByTimePeriod])
 
+  const {PaletteNeutral} = useVanguardTheme();
   const style = {
     backgroundColor: PaletteNeutral["200"],
     ...styles.container,

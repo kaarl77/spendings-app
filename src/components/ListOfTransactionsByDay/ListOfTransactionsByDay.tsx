@@ -1,12 +1,13 @@
 import {FlatList, View} from "react-native";
 import {Transaction} from "../../custom-types/Transaction";
-import React, {useContext} from "react";
-import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
+import React from "react";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {TransactionForDay} from "../TransactionForDay/TransactionForDay";
 import {useNavigation} from "@react-navigation/native";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 import {Spacings} from "../../theming/spacings/Spacings";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux-stores/rootStore";
 
 interface Props {
   transactions: Transaction[];
@@ -14,7 +15,7 @@ interface Props {
 
 export function ListOfTransactionsByDay(props: Props) {
   const {transactions} = props;
-  const {categories} = useContext(GlobalContext);
+  const {categories} = useSelector((state: RootState)=>state.root)
   const navigation = useNavigation<TabScreensNavigationProp<"Transactions">>();
   return (
     <FlatList
