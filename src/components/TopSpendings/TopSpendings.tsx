@@ -10,7 +10,7 @@ import {RootState} from "../../redux-stores/rootStore";
 const DEFAULT_NO_OF_SPENDINGS_TO_SHOW = 3
 
 export function TopSpendings() {
-  const {transactionsFilteredByTimePeriod, totalSpentInTimePeriod} = useSelector((state: RootState)=>state.homepage);
+  const {transactionsFilteredByTimePeriod, totalSpentInTimePeriod} = useSelector((state: RootState) => state.homepage);
 
   return (
     <>

@@ -21,12 +21,17 @@ export function DayOfTransactions(props: Props) {
     ...styles.container,
   };
 
+  //sanity check
+  if (!transactions || transactions.length === 0) {
+    return null;
+  }
+
   return (
     <View style={containerStyle}>
-      <DayHeader
+      {<DayHeader
         dateString={transactions[0].date}
         value={getValueByDate(transactions[0].date)}
-      />
+      />}
       <Spacer height={Spacings["--2x"]}/>
       <ListOfTransactionsByDay
         transactions={transactions}/>

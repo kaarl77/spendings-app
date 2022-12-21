@@ -45,6 +45,7 @@ export function AddEditTransaction() {
   const [locked, setLocked] = useState(!!transaction);
 
   useEffect(() => {
+    //transaction && setLocked(false);
     transaction && dispatch(setInitialTransaction(transaction))
   }, [])
 

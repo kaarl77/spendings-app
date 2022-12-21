@@ -1,12 +1,11 @@
 import {Screen} from "../../common-components/Screen/Screen";
-import React, {useContext, useEffect} from "react";
+import React, {useEffect} from "react";
 import {ReportSummary} from "../ReportSummary/ReportSummary";
 import {ScrollView,} from "react-native";
 import {Text} from "../../vanguard/Text/Text";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {RecentTransactions} from "../RecentTransactions/RecentTransactions";
 import {getBoth} from "../../api/api";
-import {GlobalContext} from "../../contexts/GlobalContext/GlobalContextProvider";
 import {FAB} from "../../common-components/FAB/FAB";
 import {EmptyState} from "../EmptyState/EmptyState";
 import {useNavigation} from "@react-navigation/native";
@@ -18,13 +17,6 @@ import {RootSlice} from "../../redux-stores/root.slice";
 import {HomepageSlice} from "./Homepage.slice";
 
 export function Homepage() {
-  const {
-    setTransactions: setDeprecatedTransactions,
-    setCategories: setDeprecatedCategories,
-    categories: deprecatedCategories,
-    transactions: deprecatedTransactions
-  } = useContext(GlobalContext);
-
   const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
 
   const {transactions, categories} = useSelector((state: RootState) => state.root);
@@ -37,14 +29,12 @@ export function Homepage() {
       .then((value) => {
         dispatch(setTransactions(value.transactions));
         dispatch(setCategories(value.categories));
-        setDeprecatedCategories(value.categories);
-        setDeprecatedTransactions(value.transactions);
       })
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getLatest5Transactions(transactions));
-  },[transactions])
+  }, [transactions])
 
   if (transactions.length === 0 || categories.length === 0) {
     return <EmptyState/>

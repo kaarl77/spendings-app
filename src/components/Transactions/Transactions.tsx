@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, View} from "react-native";
+import {FlatList, View} from "react-native";
 import {Screen} from "../../common-components/Screen/Screen";
 import React, {useEffect} from "react";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
@@ -16,27 +16,31 @@ export function Transactions() {
   const navigation = useNavigation<TabScreensNavigationProp<"Transactions">>();
 
   const dispatch = useAppDispatch();
-  const {sortedTransactionDatesArray} = useSelector((state: RootState)=>state.transactions);
-  const {getSortedTransactionDates} = TransactionsSlice;
+  const {
+    sortedTransactionDatesArray,
+  } = useSelector((state: RootState) => state.transactions);
+  const {getSortedTransactionDates, getFilteredTransactionsByDate: getRedux} = TransactionsSlice;
 
-  useEffect(()=>{
-      dispatch(getSortedTransactionDates(transactions));
-    }
-    , [])
+  useEffect(() => {
+    dispatch(getSortedTransactionDates(transactions));
+  }, [transactions]);
 
   const transactionDatesSet = new Set(sortedTransactionDatesArray);
 
   return (
-    <Screen styleProp={styles.container}>
-      <FlatList
-        data={Array.from(transactionDatesSet)}
-        renderItem={({item: date}) =>
-          <View>
-            <DayOfTransactions
-              transactions={getFilteredTransactionsByDate(date)}/>
-            <Spacer height={Spacings["--3x"]}/>
-          </View>
-        }
+    <Screen>
+      <FlatList showsVerticalScrollIndicator={false}
+                data={Array.from(transactionDatesSet)}
+                renderItem={({item: date}) => {
+                  //dispatch(getRedux({transactions, date: date}));
+
+                  return <View>
+                    <DayOfTransactions
+                      transactions={getFilteredTransactionsByDate(date)}/>
+                    <Spacer height={Spacings["--3x"]}/>
+                  </View>
+                }
+                }
       />
       <FAB title={"+"} onPress={() => navigation.navigate("AddEditTransaction")}/>
     </Screen>
@@ -46,7 +50,3 @@ export function Transactions() {
     return transactions.filter((transaction) => transaction.date === date);
   }
 }
-
-const styles = StyleSheet.create({
-  container: {},
-})
