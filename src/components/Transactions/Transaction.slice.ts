@@ -3,35 +3,33 @@ import {Transaction} from "../../custom-types/Transaction";
 import {StringToDate} from "../../utils/date-utils";
 
 interface TransactionsSliceState {
-  sortedTransactionDatesArray: string[],
+  uniqueDatesSorted: string[],
   filteredTransactionsByDate: Transaction[],
 }
 
 interface FilteredTransactionsPayload {
   transactions: Transaction[],
-  date: string | "",
+  date: string,
 }
 
 const initialState: TransactionsSliceState = {
-  sortedTransactionDatesArray: [],
+  uniqueDatesSorted: [],
   filteredTransactionsByDate: [],
 }
 
-const transactionSlice = createSlice({
-  name: "addEditTransaction",
+const transactionsSlice = createSlice({
+  name: "transactions",
   initialState: initialState,
   reducers: {
     getSortedTransactionDates: (state: TransactionsSliceState, {payload}: PayloadAction<Transaction[]>) => {
-      const aux = payload.map((transaction) => transaction.date).sort((a, b) => StringToDate(a).valueOf() < StringToDate(b).valueOf() ? 1 : -1);
-      state.sortedTransactionDatesArray = [...aux];
-    },
-    getFilteredTransactionsByDate: (state: TransactionsSliceState, {payload}: PayloadAction<FilteredTransactionsPayload>) => {
-      state.filteredTransactionsByDate = [...payload.transactions.filter((transaction) => transaction.date === payload.date)];
-      console.log(state.filteredTransactionsByDate)
-    },
+      const sortedDates = payload.map((transaction) => transaction.date).sort((a, b) => StringToDate(a).valueOf() < StringToDate(b).valueOf() ? 1 : -1);
+      const datesSet = new Set(sortedDates);
+      state.uniqueDatesSorted = [...Array.from(datesSet)];
+    }
   }
 })
 
-export const TransactionsReducer = transactionSlice.reducer;
-export const TransactionsSlice = transactionSlice.actions;
+export const TransactionsReducer = transactionsSlice.reducer;
+export const TransactionsSlice = transactionsSlice.actions;
+
 

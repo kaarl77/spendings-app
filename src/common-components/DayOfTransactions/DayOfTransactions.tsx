@@ -1,4 +1,3 @@
-import {Transaction} from "../../custom-types/Transaction";
 import {StyleSheet, View} from "react-native";
 import {DayHeader} from "../DayHeader/DayHeader";
 import {ListOfTransactionsByDay} from "../../components/ListOfTransactionsByDay/ListOfTransactionsByDay";
@@ -6,13 +5,16 @@ import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
 import {Spacings} from "../../theming/spacings/Spacings";
 import React from "react";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux-stores/rootStore";
 
 interface Props {
-  transactions: Transaction[];
+  i: number;
 }
 
 export function DayOfTransactions(props: Props) {
-  const {transactions} = props;
+  const {i} = props;
+  const {filteredTransactionsByDate: transactions} = useSelector((state: RootState) => state.root);
 
   const {PaletteNeutral} = useVanguardTheme();
 
@@ -29,17 +31,17 @@ export function DayOfTransactions(props: Props) {
   return (
     <View style={containerStyle}>
       {<DayHeader
-        dateString={transactions[0].date}
-        value={getValueByDate(transactions[0].date)}
+        dateString={transactions[i][0].date}
+        value={getValueByDate(transactions[i][0].date)}
       />}
       <Spacer height={Spacings["--2x"]}/>
       <ListOfTransactionsByDay
-        transactions={transactions}/>
+        transactions={transactions[i]}/>
     </View>
   )
 
   function getValueByDate(date: string) {
-    const filteredTransactionsByDate = transactions.filter((transaction) => transaction.date === date);
+    const filteredTransactionsByDate = transactions[i].filter((transaction) => transaction.date === date);
     return filteredTransactionsByDate.reduce(
       (acc, cur) => acc + cur.value,
       0

@@ -15,8 +15,12 @@ interface Props {
 
 export function ListOfTransactionsByDay(props: Props) {
   const {transactions} = props;
-  const {categories} = useSelector((state: RootState)=>state.root)
+  const {categories} = useSelector((state: RootState) => state.root);
+  const {filteredTransactionsByDate} = useSelector((state: RootState) => state.transactions);
+
+
   const navigation = useNavigation<TabScreensNavigationProp<"Transactions">>();
+
   return (
     <FlatList
       data={transactions}

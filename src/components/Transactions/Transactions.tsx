@@ -1,6 +1,6 @@
-import {FlatList, View} from "react-native";
+import {FlatList} from "react-native";
 import {Screen} from "../../common-components/Screen/Screen";
-import React, {useEffect} from "react";
+import React from "react";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {DayOfTransactions} from "../../common-components/DayOfTransactions/DayOfTransactions";
 import {FAB} from "../../common-components/FAB/FAB";
@@ -8,45 +8,34 @@ import {useNavigation} from "@react-navigation/native";
 import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
 import {Spacings} from "../../theming/spacings/Spacings";
 import {useSelector} from "react-redux";
-import {RootState, useAppDispatch} from "../../redux-stores/rootStore";
-import {TransactionsSlice} from "./Transaction.slice";
+import {RootState} from "../../redux-stores/rootStore";
 
 export function Transactions() {
-  const {transactions} = useSelector((state: RootState) => state.root);
   const navigation = useNavigation<TabScreensNavigationProp<"Transactions">>();
-
-  const dispatch = useAppDispatch();
-  const {
-    sortedTransactionDatesArray,
-  } = useSelector((state: RootState) => state.transactions);
-  const {getSortedTransactionDates, getFilteredTransactionsByDate: getRedux} = TransactionsSlice;
-
-  useEffect(() => {
-    dispatch(getSortedTransactionDates(transactions));
-  }, [transactions]);
-
-  const transactionDatesSet = new Set(sortedTransactionDatesArray);
-
+  const {uniqueDatesSorted} = useSelector((state: RootState) => state.root);
+  const {filteredTransactionsByDate} = useSelector((state: RootState) => state.root)
+  console.log("-----------------------------\nTRANSACTIONS")
+  console.log(uniqueDatesSorted);
   return (
     <Screen>
-      <FlatList showsVerticalScrollIndicator={false}
-                data={Array.from(transactionDatesSet)}
-                renderItem={({item: date}) => {
-                  //dispatch(getRedux({transactions, date: date}));
-
-                  return <View>
-                    <DayOfTransactions
-                      transactions={getFilteredTransactionsByDate(date)}/>
-                    <Spacer height={Spacings["--3x"]}/>
-                  </View>
-                }
-                }
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={uniqueDatesSorted}
+        renderItem={({item: date, index: i}) => {
+          return <>
+            <DayOfTransactions
+              i={i}
+            />
+            <Spacer height={Spacings["--3x"]}/>
+          </>
+        }
+        }
       />
       <FAB title={"+"} onPress={() => navigation.navigate("AddEditTransaction")}/>
     </Screen>
   )
 
-  function getFilteredTransactionsByDate(date: string) {
-    return transactions.filter((transaction) => transaction.date === date);
-  }
+  // function getFilteredTransactionsByDate(date: string) {
+  //   return transactions.filter((transaction) => transaction.date === date);
+  // }
 }

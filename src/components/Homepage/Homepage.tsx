@@ -19,10 +19,17 @@ import {HomepageSlice} from "./Homepage.slice";
 export function Homepage() {
   const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
 
-  const {transactions, categories} = useSelector((state: RootState) => state.root);
+  const {
+    transactions,
+    categories,
+    filteredTransactionsByDate,
+    uniqueDatesSorted
+  } = useSelector((state: RootState) => state.root);
   const dispatch = useAppDispatch();
   const {setTransactions, setCategories} = RootSlice;
   const {getLatest5Transactions} = HomepageSlice;
+  const {setFilteredTransactionsByDate, setUniqueDates} = RootSlice;
+
 
   useEffect(() => {
     getBoth()
@@ -33,7 +40,13 @@ export function Homepage() {
   }, [])
 
   useEffect(() => {
+
+  }, []);
+
+  useEffect(() => {
     dispatch(getLatest5Transactions(transactions));
+    dispatch(setUniqueDates());
+    dispatch(setFilteredTransactionsByDate());
   }, [transactions])
 
   if (transactions.length === 0 || categories.length === 0) {
