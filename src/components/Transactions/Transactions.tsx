@@ -13,15 +13,12 @@ import {RootState} from "../../redux-stores/rootStore";
 export function Transactions() {
   const navigation = useNavigation<TabScreensNavigationProp<"Transactions">>();
   const {uniqueDatesSorted} = useSelector((state: RootState) => state.root);
-  const {filteredTransactionsByDate} = useSelector((state: RootState) => state.root)
-  console.log("-----------------------------\nTRANSACTIONS")
-  console.log(uniqueDatesSorted);
   return (
     <Screen>
       <FlatList
         showsVerticalScrollIndicator={false}
         data={uniqueDatesSorted}
-        renderItem={({item: date, index: i}) => {
+        renderItem={({index: i}) => {
           return <>
             <DayOfTransactions
               i={i}
@@ -34,8 +31,4 @@ export function Transactions() {
       <FAB title={"+"} onPress={() => navigation.navigate("AddEditTransaction")}/>
     </Screen>
   )
-
-  // function getFilteredTransactionsByDate(date: string) {
-  //   return transactions.filter((transaction) => transaction.date === date);
-  // }
 }

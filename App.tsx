@@ -6,17 +6,22 @@ import {RootNavigator} from "./src/navigation/RootNavigator";
 import Toast from 'react-native-toast-message';
 import {Provider} from "react-redux";
 import {rootStore} from "./src/redux-stores/rootStore";
+import {persistStore} from "redux-persist";
+import {PersistGate} from "redux-persist/integration/react";
 
+const persistor = persistStore(rootStore);
 
 export default function App() {
 
   return (
     <PaperProvider theme={DefaultTheme}>
       <Provider store={rootStore}>
-        <NavigationContainer>
-          <RootNavigator/>
-          <Toast/>
-        </NavigationContainer>
+        <PersistGate loading={null} persistor={persistor}>
+          <NavigationContainer>
+            <RootNavigator/>
+            <Toast/>
+          </NavigationContainer>
+        </PersistGate>
       </Provider>
     </PaperProvider>
   );

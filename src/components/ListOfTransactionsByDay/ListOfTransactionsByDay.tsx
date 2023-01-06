@@ -16,8 +16,6 @@ interface Props {
 export function ListOfTransactionsByDay(props: Props) {
   const {transactions} = props;
   const {categories} = useSelector((state: RootState) => state.root);
-  const {filteredTransactionsByDate} = useSelector((state: RootState) => state.transactions);
-
 
   const navigation = useNavigation<TabScreensNavigationProp<"Transactions">>();
 
@@ -26,7 +24,7 @@ export function ListOfTransactionsByDay(props: Props) {
       data={transactions}
       renderItem={
         ({item, index}) =>
-          <>
+          <React.Fragment key={item.id}>
             <TransactionForDay
               categoryName={categories[item.categoryId].name}
               value={item.value}
@@ -38,7 +36,7 @@ export function ListOfTransactionsByDay(props: Props) {
               {index !== transactions.length - 1 && <Spacer height={Spacings["--2x"]}/>}
             </View>
 
-          </>
+          </React.Fragment>
       }/>
   )
 }

@@ -35,7 +35,7 @@ export function RecentTransactionList(props: Props) {
     <View style={style}>
       {
         latest5Transactions.map((transaction, index) => {
-          return <React.Fragment key={transaction.id}>
+          return <React.Fragment key={index}>
             <RecentTransaction
               date={StringToDate(transaction.date).format('dddd, D MMMM YYYY')}
               value={transaction.value}

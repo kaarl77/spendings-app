@@ -25,10 +25,10 @@ const rootSlice = createSlice({
       state.transactions.push(payload);
     },
     setTransactions: (state: RootStateSlice, {payload}: PayloadAction<Transaction[]>) => {
-      state.transactions = [...state.transactions, ...payload];
+      state.transactions = [...payload];
     },
     setCategories: (state: RootStateSlice, {payload}: PayloadAction<Category[]>) => {
-      state.categories = [...state.categories, ...payload];
+      state.categories = [...payload];
     },
     editTransaction: (state: RootStateSlice, {payload}: PayloadAction<Transaction>) => {
       const transactionToBeModifiedIndex = state.transactions.findIndex((t) => t.id === payload.id);
@@ -40,35 +40,21 @@ const rootSlice = createSlice({
       state.transactions = [...state.transactions.filter((item) => item.id !== payload?.id)];
     },
     setFilteredTransactionsByDate: (state: RootStateSlice) => {
-      console.log("getting al dates");
-      // for (let i = 0; i < nrOfDates; i++) {
-      //   //state.filteredTransactionsByDate[i].filter((transaction)=> transaction.date === date);
-      //   state.filteredTransactionsByDate[i] = [...state.transactions.filter((transaction)=>transaction.date === date)]
-      // }
       for (const date of state.uniqueDatesSorted) {
-        console.log(date);
-        console.log("in for")
         state.filteredTransactionsByDate[state.uniqueDatesSorted.findIndex((d) => date === d)] = [...state.transactions.filter((t) => t.date === date)];
       }
-      console.log(state.filteredTransactionsByDate);
     },
     setUniqueDates: (state: RootStateSlice) => {
-      console.log("getting unique dates")
       const transactions = state.transactions;
-      console.log(transactions)
       const sortedDates = transactions.map((transaction) => transaction.date).sort((a, b) => StringToDate(a).valueOf() < StringToDate(b).valueOf() ? 1 : -1);
       const datesSet = new Set(sortedDates);
       state.uniqueDatesSorted = [...Array.from(datesSet)];
-      console.log(state.uniqueDatesSorted);
+    },
+    resetState: (state: RootStateSlice) => {
+      state = {...initialState};
     }
   }
 })
 
 export const RootSlice = rootSlice.actions;
 export const RootSliceReducer = rootSlice.reducer;
-
-// getFilteredTransactionsByDate: (state: TransactionsSliceState, {payload}: PayloadAction<FilteredTransactionsPayload>) => {
-//   const aux = payload.transactions.filter((transaction) => transaction.date === payload.date);
-//   state.filteredTransactionsByDate = [...aux];
-//   console.log(state.filteredTransactionsByDate)
-// },

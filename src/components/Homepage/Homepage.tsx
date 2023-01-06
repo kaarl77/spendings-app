@@ -5,7 +5,6 @@ import {ScrollView,} from "react-native";
 import {Text} from "../../vanguard/Text/Text";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {RecentTransactions} from "../RecentTransactions/RecentTransactions";
-import {getBoth} from "../../api/api";
 import {FAB} from "../../common-components/FAB/FAB";
 import {EmptyState} from "../EmptyState/EmptyState";
 import {useNavigation} from "@react-navigation/native";
@@ -18,30 +17,14 @@ import {HomepageSlice} from "./Homepage.slice";
 
 export function Homepage() {
   const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
-
   const {
     transactions,
     categories,
-    filteredTransactionsByDate,
-    uniqueDatesSorted
   } = useSelector((state: RootState) => state.root);
+
   const dispatch = useAppDispatch();
-  const {setTransactions, setCategories} = RootSlice;
   const {getLatest5Transactions} = HomepageSlice;
   const {setFilteredTransactionsByDate, setUniqueDates} = RootSlice;
-
-
-  useEffect(() => {
-    getBoth()
-      .then((value) => {
-        dispatch(setTransactions(value.transactions));
-        dispatch(setCategories(value.categories));
-      })
-  }, [])
-
-  useEffect(() => {
-
-  }, []);
 
   useEffect(() => {
     dispatch(getLatest5Transactions(transactions));
