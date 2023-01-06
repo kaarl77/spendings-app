@@ -16,7 +16,6 @@ interface Props {
 
 export function TimePeriodSelector(props: Props) {
   const {timePeriod, onTimePeriodChange} = props;
-
   const [buttonWidth, setButtonWidth] = useState(0);
 
   const style = {

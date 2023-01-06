@@ -16,7 +16,6 @@ interface Props {
 
 export function RecentTransaction(props: Props) {
   const {categoryID, categoryName, date, value, onPress} = props;
-
   const {PaletteNeutral} = useVanguardTheme();
 
   const containerStyle = {
@@ -34,13 +33,18 @@ export function RecentTransaction(props: Props) {
         <Spacer width={Spacings["--1x"]}/>
 
         <View style={styles.textContainer}>
-          <Text bold={true}>{categoryName}</Text>
-          <Text fontSize={FontSize.small}>{date}</Text>
+          <Text bold={true}>
+            {categoryName}
+          </Text>
+          <Text fontSize={FontSize.small}>
+            {date}
+          </Text>
         </View>
         <Spacer width={Spacings["--1x"]}/>
 
-        <Text styleProp={styles.price}>{value}</Text>
-
+        <Text styleProp={styles.price}>
+          {value}
+        </Text>
       </View>
     </Pressable>
   )

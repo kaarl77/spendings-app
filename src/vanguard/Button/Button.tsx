@@ -20,7 +20,6 @@ interface Props {
 export function Button(props: Props) {
   const {title, onPress, buttonType = ButtonType.Default, styleProp, disabled = false} = props;
   const {PalettePrimary, PaletteNeutral} = useVanguardTheme();
-
   const primaryColor = PalettePrimary["600"];
 
   const style = {
@@ -44,14 +43,15 @@ export function Button(props: Props) {
     },
   }
 
-  return <ButtonBase
-    onPress={() => {
-      !disabled && onPress()
-    }}
-    {...buttonProps[buttonType]}
-    style={style}
-  >{title}
-  </ButtonBase>
+  return (
+    <ButtonBase
+      onPress={() => {
+        !disabled && onPress()
+      }}
+      {...buttonProps[buttonType]}
+      style={style}
+    >{title}
+    </ButtonBase>)
 }
 
 const styles = StyleSheet.create({

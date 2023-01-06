@@ -60,7 +60,6 @@ const Colors: ColorType = {
   },
 }
 
-
 export function useVanguardTheme() {
   const scheme = useColorScheme();
   if (scheme === "light") {

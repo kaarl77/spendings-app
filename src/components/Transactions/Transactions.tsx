@@ -19,12 +19,13 @@ export function Transactions() {
         showsVerticalScrollIndicator={false}
         data={uniqueDatesSorted}
         renderItem={({index: i}) => {
-          return <>
-            <DayOfTransactions
-              i={i}
-            />
-            <Spacer height={Spacings["--3x"]}/>
-          </>
+          return (
+            <>
+              <DayOfTransactions
+                i={i}
+              />
+              <Spacer height={Spacings["--3x"]}/>
+            </>)
         }
         }
       />

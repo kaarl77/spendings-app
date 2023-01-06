@@ -20,7 +20,9 @@ export function FAB(props: Props) {
     <Pressable
       style={containerStyle}
       onPress={onPress}>
-      <Text color={PalettePrimary["100"]} fontSize={FontSize.large}>{title}</Text>
+      <Text color={PalettePrimary["100"]} fontSize={FontSize.large}>
+        {title}
+      </Text>
     </Pressable>
   )
 }

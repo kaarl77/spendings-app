@@ -17,7 +17,6 @@ const initialState: AddEditTransactionSliceState = {
   categoryId: -1,
   date: "",
   initialTransaction: undefined
-
 }
 
 const addEditTransactionSlice = createSlice({
@@ -37,7 +36,6 @@ const addEditTransactionSlice = createSlice({
       state.date = payload;
     },
     setInitialTransaction: (state: AddEditTransactionSliceState, {payload}: PayloadAction<Transaction>) => {
-      //console.log("setInitialTransaction")
       state.initialTransaction = payload;
       state.note = payload.note;
       state.value = payload.value.toString(); //TODO synchronize Transaction.value types ( either String or Number everywhere )
@@ -46,8 +44,6 @@ const addEditTransactionSlice = createSlice({
       state.id = payload.id
     },
     resetToInitialState: (state: AddEditTransactionSliceState) => {
-      //console.log("reset state")
-
       if (state.initialTransaction) {
         state.date = state.initialTransaction.date;
         state.note = state.initialTransaction.note;

@@ -12,7 +12,6 @@ import {RootState} from "../../redux-stores/rootStore";
 
 interface Props {
   styleProp?: ViewStyle;
-
 }
 
 export function RecentTransactionList(props: Props) {
@@ -20,16 +19,13 @@ export function RecentTransactionList(props: Props) {
   const {PaletteNeutral} = useVanguardTheme();
   const {categories} = useSelector((state: RootState) => state.root);
   const {latest5Transactions} = useSelector((state: RootState) => state.homepage);
-
+  const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
 
   const style = {
     backgroundColor: PaletteNeutral["200"],
     ...styles.container,
     ...styleProp,
   }
-
-  const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
-
 
   return (
     <View style={style}>

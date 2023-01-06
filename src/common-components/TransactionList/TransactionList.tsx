@@ -16,7 +16,7 @@ interface Props {
 
 export function TransactionList(props: Props) {
   const {transactions, totalSpent} = props;
-  const {categories} = useSelector((state: RootState)=>state.root);
+  const {categories} = useSelector((state: RootState) => state.root);
   const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>()
 
   return (

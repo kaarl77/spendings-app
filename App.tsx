@@ -8,15 +8,14 @@ import {Provider} from "react-redux";
 import {rootStore} from "./src/redux-stores/rootStore";
 import {persistStore} from "redux-persist";
 import {PersistGate} from "redux-persist/integration/react";
+import {EmptyState} from "./src/components/EmptyState/EmptyState";
 
 const persistor = persistStore(rootStore);
-
 export default function App() {
-
   return (
     <PaperProvider theme={DefaultTheme}>
       <Provider store={rootStore}>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate loading={<EmptyState/>} persistor={persistor}>
           <NavigationContainer>
             <RootNavigator/>
             <Toast/>

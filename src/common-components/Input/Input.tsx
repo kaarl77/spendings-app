@@ -1,8 +1,8 @@
 import {KeyboardTypeOptions, StyleSheet, TextInput, View} from "react-native";
-import {FontSize, Text} from "../vanguard/Text/Text";
-import {Spacer} from "../vanguard/Spacer/Spacer";
-import {useVanguardTheme} from "../theming/colors/useVanguardTheme";
-import {Spacings} from "../theming/spacings/Spacings";
+import {FontSize, Text} from "../../vanguard/Text/Text";
+import {Spacer} from "../../vanguard/Spacer/Spacer";
+import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
+import {Spacings} from "../../theming/spacings/Spacings";
 
 interface Props {
   label: string;
@@ -30,11 +30,8 @@ export function Input(props: Props) {
 
   return (
     <View style={containerStyle}>
-      <Text
-        fontSize={FontSize.medium}
-      >
+      <Text fontSize={FontSize.medium}>
         {label}
-
       </Text>
       <Spacer height={Spacings['--0.5x']}/>
 

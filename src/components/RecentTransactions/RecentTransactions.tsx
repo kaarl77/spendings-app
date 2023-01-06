@@ -10,7 +10,6 @@ import {Spacings} from "../../theming/spacings/Spacings";
 export function RecentTransactions() {
   const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
 
-
   return (
     <View>
       <HeadingText
@@ -22,10 +21,6 @@ export function RecentTransactions() {
       <Spacer height={Spacings["--1x"]}/>
 
       <RecentTransactionList/>
-
     </View>
-  );
-  // function get5LatestTransactions() {
-  //   return (transactions.sort((a, b) => StringToDate(a.date).valueOf() < StringToDate(b.date).valueOf() ? 1 : -1).slice(0, 5));
-  // }
+  )
 }

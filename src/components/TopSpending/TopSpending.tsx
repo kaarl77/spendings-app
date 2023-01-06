@@ -43,7 +43,9 @@ export function TopSpending(props: Props) {
           </View>
 
           <Spacer width={Spacings["--1x"]}/>
-          <Text> {percentage}% </Text>
+          <Text>
+            {percentage}%
+          </Text>
         </View>
       </View>
     </Pressable>

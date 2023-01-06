@@ -15,7 +15,6 @@ interface Props {
 export function DayOfTransactions(props: Props) {
   const {i} = props;
   const {filteredTransactionsByDate: transactions} = useSelector((state: RootState) => state.root);
-
   const {PaletteNeutral} = useVanguardTheme();
 
   const containerStyle = {

@@ -21,10 +21,10 @@ const combinedReducer = combineReducers({
   addEditTransaction: AddEditTransactionReducer,
 })
 
-const persisted = persistReducer(config, combinedReducer);
+const combinedReducerPersisted = persistReducer(config, combinedReducer);
 
 export const rootStore = configureStore({
-  reducer: persisted,
+  reducer: combinedReducerPersisted,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

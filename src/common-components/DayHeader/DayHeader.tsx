@@ -15,7 +15,6 @@ interface Props {
 export function DayHeader(props: Props) {
   const {dateString, value} = props;
   const date = StringToDate(dateString);
-
   const {PaletteNeutral, PalettePrimary} = useVanguardTheme();
 
   return (
@@ -30,8 +29,9 @@ export function DayHeader(props: Props) {
             {getDateAsString(date)}
           </Text>
 
-          <Text fontSize={FontSize.small} color={PaletteNeutral["800"]}
-                lineHeight={16}>{date.format("MMMM YYYY")}</Text>
+          <Text fontSize={FontSize.small} color={PaletteNeutral["800"]} lineHeight={16}>
+            {date.format("MMMM YYYY")}
+          </Text>
         </View>
       </View>
 
@@ -49,10 +49,8 @@ export function DayHeader(props: Props) {
     } else {
       return date.format("dddd");
     }
-
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

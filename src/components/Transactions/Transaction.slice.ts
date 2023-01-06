@@ -7,11 +7,6 @@ interface TransactionsSliceState {
   filteredTransactionsByDate: Transaction[],
 }
 
-interface FilteredTransactionsPayload {
-  transactions: Transaction[],
-  date: string,
-}
-
 const initialState: TransactionsSliceState = {
   uniqueDatesSorted: [],
   filteredTransactionsByDate: [],
@@ -30,6 +25,5 @@ const transactionsSlice = createSlice({
 })
 
 export const TransactionsReducer = transactionsSlice.reducer;
-export const TransactionsSlice = transactionsSlice.actions;
 
 

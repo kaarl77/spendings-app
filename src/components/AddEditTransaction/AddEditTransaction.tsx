@@ -12,7 +12,7 @@ import {areObjectsEqual} from "../../utils/obj-utils";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
 import {DateToString} from "../../utils/date-utils";
-import {Input} from "../../common-components/Input";
+import {Input} from "../../common-components/Input/Input";
 import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {CategoryDropdown} from "../CategoryDropdown/CategoryDropdown";
 import {Spacings} from "../../theming/spacings/Spacings";
@@ -45,10 +45,8 @@ export function AddEditTransaction() {
   const [locked, setLocked] = useState(!!transaction);
 
   useEffect(() => {
-    //transaction && setLocked(false);
     transaction && dispatch(setInitialTransaction(transaction))
   }, [])
-
 
   useEffect(() => {
     navigation.setOptions({

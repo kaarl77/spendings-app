@@ -32,8 +32,12 @@ export function TransactionForDay(props: Props) {
         <Spacer width={Spacings["--1x"]}/>
 
         <View style={{flex: 1, borderRadius: 4}}>
-          <Text bold={true} color={PalettePrimary["900"]}>{categoryName}</Text>
-          <Text fontSize={FontSize.small}>{note}</Text>
+          <Text bold={true} color={PalettePrimary["900"]}>
+            {categoryName}
+          </Text>
+          <Text fontSize={FontSize.small}>
+            {note}
+          </Text>
         </View>
 
         <View style={{height: "100%"}}>

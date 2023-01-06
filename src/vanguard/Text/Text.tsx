@@ -21,7 +21,6 @@ interface Props {
 
 export function Text(props: Props) {
   const {styleProp, children, color, fontSize, bold = false, lineHeight} = props;
-
   const defaultColor = "black";
   const defaultFontSize: FontSize = FontSize.medium;
 

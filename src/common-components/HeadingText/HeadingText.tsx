@@ -11,7 +11,9 @@ export function HeadingText(props: Props) {
   const {text, onPress} = props;
   return (
     <View style={styles.container}>
-      <Text bold={true}>{text}</Text>
+      <Text bold={true}>
+        {text}
+      </Text>
       <Button title={"See all"} buttonType={ButtonType.Default} onPress={onPress}/>
     </View>
   )

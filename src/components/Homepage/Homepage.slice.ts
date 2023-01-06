@@ -22,26 +22,24 @@ const initialState: HomepageSliceState = {
   totalSpentInTimePeriod: 0,
 };
 
-
 const homepageSlice = createSlice({
   name: "homepage",
   initialState,
   reducers: {
-    getLatest5Transactions: (state:HomepageSliceState, {payload}:PayloadAction<Transaction[]>)=>{
+    getLatest5Transactions: (state: HomepageSliceState, {payload}: PayloadAction<Transaction[]>) => {
       const aux = [...payload].sort((a, b) => StringToDate(a.date).valueOf() < StringToDate(b.date).valueOf() ? 1 : -1).slice(0, 5);
       state.latest5Transactions = [...aux];
     },
-    getTransactionsFilteredByTimePeriod: (state:HomepageSliceState, {payload}:PayloadAction<TransactionsByTimePeriod>)=>{
-      if(payload.timePeriod === TimePeriod.month){
+    getTransactionsFilteredByTimePeriod: (state: HomepageSliceState, {payload}: PayloadAction<TransactionsByTimePeriod>) => {
+      if (payload.timePeriod === TimePeriod.month) {
         state.transactionsFilteredByTimePeriod = [...getTransactionsForThisMonth(payload.transactions)];
-      }
-      else
+      } else
         state.transactionsFilteredByTimePeriod = [...getTransactionsForThisWeek(payload.transactions)];
     },
-    getTotalSpentInTimePeriod: (state: HomepageSliceState)=>{
+    getTotalSpentInTimePeriod: (state: HomepageSliceState) => {
       let x = 0;
-      for(const element of state.transactionsFilteredByTimePeriod) {
-        x+= element.value;
+      for (const element of state.transactionsFilteredByTimePeriod) {
+        x += element.value;
       }
       state.totalSpentInTimePeriod = x;
     }

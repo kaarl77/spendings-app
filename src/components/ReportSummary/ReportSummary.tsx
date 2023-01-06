@@ -17,7 +17,6 @@ interface Props {
 
 export function ReportSummary(props: Props) {
   const {styleProp} = props;
-
   const {transactions} = useSelector((state: RootState) => state.root);
   const {transactionsFilteredByTimePeriod} = useSelector((state: RootState) => state.homepage);
   const {getTransactionsFilteredByTimePeriod, getTotalSpentInTimePeriod} = HomepageSlice;
@@ -53,6 +52,7 @@ export function ReportSummary(props: Props) {
     <TopSpendings/>
   </View>
 }
+
 const styles = StyleSheet.create({
   container: {
     padding: Spacings["--2x"],

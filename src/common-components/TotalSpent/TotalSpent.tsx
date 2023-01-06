@@ -9,12 +9,16 @@ interface Props {
 
 export function TotalSpent(props: Props) {
   const {timePeriod} = props;
-  const {totalSpentInTimePeriod} = useSelector((state:RootState)=>state.homepage)
+  const {totalSpentInTimePeriod} = useSelector((state: RootState) => state.homepage)
 
   return (
     <>
-      <Text fontSize={FontSize.large}>{totalSpentInTimePeriod}</Text>
-      <Text>Total spent this {getTimePeriodToString()}</Text>
+      <Text fontSize={FontSize.large}>
+        {totalSpentInTimePeriod}
+      </Text>
+      <Text>
+        Total spent this {getTimePeriodToString()}
+      </Text>
     </>
   )
 

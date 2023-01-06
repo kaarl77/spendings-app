@@ -13,7 +13,6 @@ export function RootNavigator() {
         component={TabNavigator}
         options={{headerShown: false}}
       />
-
       <Root.Screen
         name={"AddEditTransaction"}
         component={AddEditTransaction}
