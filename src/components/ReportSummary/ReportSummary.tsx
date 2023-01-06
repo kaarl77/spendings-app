@@ -1,35 +1,61 @@
-import {Spacer} from "../../vanguard/Spacer";
+import {Spacer} from "../../vanguard/Spacer/Spacer";
 import {TimePeriod, TimePeriodSelector} from "../../common-components/TimePeriod/TimePeriodSelector";
 import {TotalSpent} from "../../common-components/TotalSpent/TotalSpent";
+import React, {useEffect, useState} from "react";
+import {StyleSheet, View, ViewStyle} from "react-native";
+import {TopSpendings} from "../TopSpendings/TopSpendings";
+import {useVanguardTheme} from "../../theming/colors/useVanguardTheme";
+import {Spacings} from "../../theming/spacings/Spacings";
+import {useSelector} from "react-redux";
+import {RootState, useAppDispatch} from "../../redux-stores/rootStore";
+import {HomepageSlice} from "../Homepage/Homepage.slice";
+
 
 interface Props {
-    timePeriod: TimePeriod;
-    onPeriodChange: () => void;
-    totalSpent: number;
+  styleProp?: ViewStyle;
 }
 
 export function ReportSummary(props: Props) {
-    const {timePeriod, onPeriodChange, totalSpent} = props
-    return (
-        <>
-            {/*
-            Buttons for Week or Month selection
-            */}
-            <Spacer height={16}/>
-            <TimePeriodSelector
-                timePeriod={timePeriod}
-                onTimePeriodChange={onPeriodChange}
-            />
+  const {styleProp} = props;
+  const {transactions} = useSelector((state: RootState) => state.root);
+  const {transactionsFilteredByTimePeriod} = useSelector((state: RootState) => state.homepage);
+  const {getTransactionsFilteredByTimePeriod, getTotalSpentInTimePeriod} = HomepageSlice;
+  const dispatch = useAppDispatch();
+  const [timePeriod, setTimePeriod] = useState(TimePeriod.week);
 
-            {/*
-            Total money spent
-            */}
+  useEffect(() => {
+    dispatch(getTransactionsFilteredByTimePeriod({timePeriod, transactions: transactions}));
+  }, [timePeriod, transactions])
 
-            <Spacer height={24}/>
-            <TotalSpent
-                timePeriod={timePeriod}
-                totalSpent={totalSpent}
-            />
-        </>
-    )
+  useEffect(() => {
+    dispatch(getTotalSpentInTimePeriod());
+  }, [transactionsFilteredByTimePeriod])
+
+  const {PaletteNeutral} = useVanguardTheme();
+  const style = {
+    backgroundColor: PaletteNeutral["200"],
+    ...styles.container,
+    ...styleProp,
+  }
+
+  return <View style={style}>
+    <TimePeriodSelector
+      timePeriod={timePeriod}
+      onTimePeriodChange={setTimePeriod}/>
+
+    <Spacer height={Spacings["--3x"]}/>
+    <TotalSpent
+      timePeriod={timePeriod}
+    />
+
+    <Spacer height={Spacings["--3x"]}/>
+    <TopSpendings/>
+  </View>
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: Spacings["--2x"],
+    borderRadius: Spacings["--0.5x"],
+  },
+})
