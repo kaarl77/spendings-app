@@ -32,7 +32,7 @@ export function Homepage() {
     dispatch(setFilteredTransactionsByDate());
   }, [transactions])
 
-  if (transactions.length === 0 || categories.length === 0) {
+  if (transactions.length === 0) {
     return <EmptyState/>
   }
 

@@ -2,11 +2,11 @@ import {Text} from "../../vanguard/Text/Text";
 import {Screen} from "../../common-components/Screen/Screen";
 import React from "react";
 
-export function EmptyState() {
+export function LoadingState() {
   return (
     <Screen>
       <Text bold={true}>
-        You have no Transactions
+        Your transactions are loading.
       </Text>
     </Screen>
   )

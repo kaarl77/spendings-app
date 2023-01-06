@@ -14,7 +14,28 @@ const initialState: RootStateSlice = {
   transactions: [],
   filteredTransactionsByDate: [[]],
   uniqueDatesSorted: [],
-  categories: [],
+  categories: [
+    {
+      id: 0,
+      name: "rent/subscriptions",
+      icon: "subscription.png",
+    },
+    {
+      id: 1,
+      name: "restaurant",
+      icon: "restaurant.png",
+    },
+    {
+      id: 2,
+      name: "transport",
+      icon: "transport.png",
+    },
+    {
+      id: 3,
+      name: "personal",
+      icon: "personal.png",
+    },
+  ],
 }
 
 const rootSlice = createSlice({
