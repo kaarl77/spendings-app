@@ -1,6 +1,0 @@
-create ReportSummary component
-move components to own directories (vanguard)
-create types for Transaction & Category
-create array of transactions obj (in Homepage)
-
-EXTRA: component for transaction

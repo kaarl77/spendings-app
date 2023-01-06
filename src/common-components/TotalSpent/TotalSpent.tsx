@@ -1,24 +1,31 @@
-import {View} from "react-native";
-import {FontSize, Text} from "../../vanguard/Text";
+import {FontSize, Text} from "../../vanguard/Text/Text";
 import {TimePeriod} from "../TimePeriod/TimePeriodSelector";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux-stores/rootStore";
 
 interface Props {
-    timePeriod: TimePeriod;
-    totalSpent: number
+  timePeriod: TimePeriod;
 }
 
-export function TotalSpent(props:Props) {
-    const {timePeriod, totalSpent} = props;
+export function TotalSpent(props: Props) {
+  const {timePeriod} = props;
+  const {totalSpentInTimePeriod} = useSelector((state: RootState) => state.homepage)
 
-    return(
-        <View>
-            <Text fontSize={FontSize.large}>{totalSpent}</Text>
-            <Text>Total spent this {getTimePeriodToString(timePeriod)}</Text>
-        </View>
-    )
+  return (
+    <>
+      <Text fontSize={FontSize.large}>
+        {totalSpentInTimePeriod}
+      </Text>
+      <Text>
+        Total spent this {getTimePeriodToString()}
+      </Text>
+    </>
+  )
+
+  function getTimePeriodToString(): String {
+    return timePeriod === TimePeriod.week ? "week" : "month";
+  }
 }
 
-function getTimePeriodToString(timePeriod: TimePeriod):String {
-    return timePeriod===TimePeriod.week ? "week" : "month";
-}
+
 

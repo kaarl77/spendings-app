@@ -1,48 +1,53 @@
 import {Screen} from "../../common-components/Screen/Screen";
-import {FontSize, Text} from "../../vanguard/Text";
-import {Button, ButtonType} from "../../vanguard/Button";
-import {SafeAreaView, StyleSheet, View} from "react-native";
-import {TimePeriod, TimePeriodSelector} from "../../common-components/TimePeriod/TimePeriodSelector";
-import {TotalSpent} from "../../common-components/TotalSpent/TotalSpent";
-import {useEffect, useState} from "react";
-import {Spacer} from "../../vanguard/Spacer";
-
-
+import React, {useEffect} from "react";
+import {ReportSummary} from "../ReportSummary/ReportSummary";
+import {ScrollView,} from "react-native";
+import {Text} from "../../vanguard/Text/Text";
+import {Spacer} from "../../vanguard/Spacer/Spacer";
+import {RecentTransactions} from "../RecentTransactions/RecentTransactions";
+import {FAB} from "../../common-components/FAB/FAB";
+import {EmptyState} from "../EmptyState/EmptyState";
+import {useNavigation} from "@react-navigation/native";
+import {TabScreensNavigationProp} from "../../navigation/NavigationTypes";
+import {Spacings} from "../../theming/spacings/Spacings";
+import {useSelector} from "react-redux";
+import {RootState, useAppDispatch} from "../../redux-stores/rootStore";
+import {RootSlice} from "../../redux-stores/root.slice";
+import {HomepageSlice} from "./Homepage.slice";
 
 export function Homepage() {
-    const [timePeriod, setTimePeriod] = useState(TimePeriod.week);
-    const [totalSpent, setTotalSpent] = useState(0);
+  const navigation = useNavigation<TabScreensNavigationProp<"Homepage">>();
+  const {
+    transactions,
+    categories,
+  } = useSelector((state: RootState) => state.root);
 
-    const onPeriodChange = (timePeriod:TimePeriod) =>{
-        setTimePeriod(timePeriod);
-    }
+  const dispatch = useAppDispatch();
+  const {getLatest5Transactions} = HomepageSlice;
+  const {setFilteredTransactionsByDate, setUniqueDates} = RootSlice;
 
-    // useEffect(() => {
-    //     console.log(timePeriod);
-    // },[timePeriod]);
+  useEffect(() => {
+    dispatch(getLatest5Transactions(transactions));
+    dispatch(setUniqueDates());
+    dispatch(setFilteredTransactionsByDate());
+  }, [transactions])
 
-    return (
-        <Screen>
-            {/*
-            Buttons for Week or Month selection
-            */}
-            <Spacer height={16}/>
-            <TimePeriodSelector
-                timePeriod={timePeriod}
-                onTimePeriodChange={onPeriodChange}
-                />
+  if (transactions.length === 0 || categories.length === 0) {
+    return <EmptyState/>
+  }
 
-            {/*
-            Total money spent
-            */}
+  return (
+    <Screen>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text bold={true}>Reports summary</Text>
+        <Spacer height={Spacings["--1x"]}/>
 
-            <Spacer height={24}/>
-            <TotalSpent
-                timePeriod={timePeriod}
-                totalSpent={totalSpent}
-            />
-        </Screen>
-    )
+        <ReportSummary/>
+        <Spacer height={Spacings["--3x"]}/>
+
+        <RecentTransactions/>
+      </ScrollView>
+      <FAB title={"+"} onPress={() => navigation.navigate("AddEditTransaction")}/>
+    </Screen>
+  )
 }
-
-
