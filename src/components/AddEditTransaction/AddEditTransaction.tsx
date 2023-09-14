@@ -44,6 +44,7 @@ export function AddEditTransaction() {
   const navigation = useNavigation<TabScreensNavigationProp<"AddEditTransaction">>();
   const [locked, setLocked] = useState(!!transaction);
 
+
   useEffect(() => {
     transaction && dispatch(setInitialTransaction(transaction))
   }, [])
