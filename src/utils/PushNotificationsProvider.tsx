@@ -72,7 +72,7 @@ export function PushNotificationsProvider(props: Props) {
       console.log(lastNotificationResponse.notification.request.content.data);
       navigation.navigate("AddEditTransaction", {
         transaction: {
-          categoryId: 1,
+          categoryid: 1,
           note: "test",
           id: 1,
           value: 1,
