@@ -19,10 +19,10 @@ export default function App() {
       <Provider store={rootStore}>
         <PersistGate loading={<LoadingState />} persistor={persistor}>
           <NavigationContainer>
-            <PushNotificationsProvider>
-              <RootNavigator />
-              <Toast />
-            </PushNotificationsProvider>
+            {/*<PushNotificationsProvider>*/}
+            <RootNavigator />
+            <Toast />
+            {/*</PushNotificationsProvider>*/}
           </NavigationContainer>
         </PersistGate>
       </Provider>

@@ -6,7 +6,7 @@
  *
  * using moment lib
  */
-import moment, {Moment} from "moment";
+import moment, { Moment } from "moment";
 
 const DATE_FORMAT: string = "DD-MM-YYYY";
 
