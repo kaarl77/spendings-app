@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+  DevicePushToken,
   ExpoPushToken,
   Notification,
   NotificationTriggerInput,
@@ -34,7 +35,7 @@ interface Props {
 export function PushNotificationsProvider(props: Props) {
   const { children } = props;
 
-  const [expoPushToken, setExpoPushToken] = useState<ExpoPushToken>();
+  const [expoPushToken, setExpoPushToken] = useState<DevicePushToken>();
   const [notification, setNotification] = useState<Notification>();
   const notificationListener = useRef<Subscription>();
 
@@ -98,9 +99,7 @@ async function registerForPushNotificationsAsync() {
       alert("Failed to get push token for push notification!");
       return;
     }
-    token = await Notifications.getExpoPushTokenAsync({
-      projectId: "3d4c2bce-9e82-4b45-8af1-a61fcbeadc3e",
-    });
+    token = await Notifications.getDevicePushTokenAsync();
     console.log(token);
   } else {
     alert("Must use physical device for Push Notifications");

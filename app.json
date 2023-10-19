@@ -18,8 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.pagepro.testpublishapp",
+      "supportsTablet": false,
+      "bundleIdentifier": "com.kaarl.spendingapp",
       "buildNumber": "1.0.0"
     },
     "android": {
@@ -27,8 +27,9 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.pagepro.testpublishapp",
-      "versionCode": 1
+      "package": "com.kaarl.spendingsapp",
+      "versionCode": 1,
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"

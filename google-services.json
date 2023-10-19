@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "386837217804",
+    "firebase_url": "https://spendigs-app-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "spendigs-app",
+    "storage_bucket": "spendigs-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386837217804:android:4397eb81cc9f0659bfe429",
+        "android_client_info": {
+          "package_name": "com.kaarl.spendingsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9rKjRFIQElqwtUAOhzB_yzwimH2HuxWg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
